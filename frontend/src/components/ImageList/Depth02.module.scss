@@ -1,0 +1,28 @@
+.dep02 {
+	position: relative;
+	padding: 100px 0;
+	text-align: center;
+	background-color: #8b8b8b;
+
+	.inner {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		.title {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+			color: #fff;
+			text-transform: uppercase;
+		}
+
+		.imageWrap img {
+			width: 430px;
+			height: 430px;
+			background-color: #fff;
+			border-radius: 30px;
+			margin-right: 140px;
+		}
+	}
+}

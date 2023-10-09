@@ -1,0 +1,49 @@
+.homeSection {
+	margin: 0 auto;
+
+	.visualBox {
+		height: 644px;
+		background-color: #d3d3d3;
+		position: relative;
+		overflow: hidden;
+
+		img {
+			width: 100%;
+		}
+
+		.visualText {
+			position: absolute;
+			top: 0;
+			left: calc(50% + 40px);
+			max-width: 500px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			height: 100%;
+		}
+
+		.bigTitle {
+			font-size: 6.2rem;
+			font-weight: 500;
+		}
+
+		.subText {
+			font-size: 1.9rem;
+			font-weight: 300;
+			margin: 16px 0;
+		}
+
+		.button {
+			display: inline-block;
+			position: relative;
+			padding: 0 20px;
+			background-color: #eee;
+			width: 155px;
+			font-size: 1.6rem;
+			line-height: 3;
+			letter-spacing: 0.5rem;
+			font-weight: 500;
+			border-radius: 30px;
+		}
+	}
+}

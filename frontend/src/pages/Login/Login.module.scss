@@ -1,0 +1,24 @@
+.loginSection {
+	margin: 0 auto;
+	width: 60%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 30px;
+
+	img {
+		width: 50%;
+	}
+	.loginWrap {
+		display: flex;
+		flex-direction: column;
+		width: 50%;
+		gap: 20px;
+
+		.buttonWrap {
+			display: flex;
+			flex-direction: column;
+			gap: 5px;
+		}
+	}
+}

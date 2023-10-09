@@ -1,0 +1,54 @@
+.dep01 {
+	position: relative;
+	padding: 100px 0;
+	text-align: center;
+
+	.title {
+		margin-bottom: 110px;
+		text-transform: uppercase;
+
+		p {
+			font-size: 2rem;
+		}
+
+		h5 {
+			margin: 10px 0;
+		}
+	}
+
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+
+	li {
+		flex-basis: calc(25% - 27px);
+		margin-bottom: 20px;
+		transition: transform 0.3s ease;
+		border-radius: 20px;
+
+		.imageWrap img {
+			height: 272px;
+			border-radius: 20px;
+		}
+
+		.textWrap {
+			margin: 10px 0;
+			display: flex;
+			flex-direction: column;
+			gap: 5px;
+		}
+
+		&:hover {
+			transform: scale(1.05);
+			transition: transform 0.3s ease;
+			box-sizing: border-box;
+			box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+		}
+	}
+
+	.empty {
+		margin: 0 auto;
+	}
+}

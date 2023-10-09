@@ -1,0 +1,66 @@
+.smallButton {
+	width: 100%;
+	height: 40px;
+	background-color: #000;
+	border: 1px solid #000;
+	color: #fff;
+	transition: 0.5s;
+	border-radius: 10px;
+
+	p {
+		color: #fff;
+	}
+
+	&:hover {
+		background-color: #000;
+		border: 1px solid #000;
+
+		p {
+			color: #a5a5a5;
+		}
+	}
+}
+
+.whiteButton {
+	width: 100%;
+	height: 48px;
+	border: 1px solid #000;
+	border-radius: 10px;
+	background-color: inherit;
+	color: #000;
+	transition: 0.5s;
+
+	&:hover {
+		background-color: #000;
+		color: #fff;
+	}
+}
+
+.blackButton {
+	width: 100%;
+	height: 48px;
+	border: 1px solid #000;
+	border-radius: 10px;
+	background-color: #000;
+	color: #fff;
+	transition: 0.5s;
+
+	&:hover {
+		color: #ccc;
+	}
+}
+
+.largeButton {
+	width: 100%;
+	height: 64px;
+	background-color: #000;
+	border: 1px solid #000;
+	color: #fff;
+	transition: 0.5s;
+
+	&:hover {
+		border: 1px solid #000;
+		background-color: #fff;
+		color: #000;
+	}
+}

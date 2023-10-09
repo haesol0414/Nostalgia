@@ -1,0 +1,42 @@
+.dep04 {
+	position: relative;
+	padding: 100px 0;
+	text-align: center;
+
+	.title {
+		margin-bottom: 110px;
+		text-transform: uppercase;
+
+		p {
+			font-size: 2rem;
+		}
+	}
+
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+
+	li {
+		display: flex;
+		flex-direction: column;
+
+		gap: 5px;
+
+		.imageWrap img {
+			width: 224px;
+			height: 224px;
+			background-color: #ccc;
+			border-radius: 50%;
+		}
+
+		.textWrap {
+			margin: 10px 0;
+
+			h5 {
+				margin: 10px 0;
+			}
+		}
+	}
+}

@@ -1,0 +1,39 @@
+.detailSection {
+	margin: 5% auto;
+
+	.main {
+		display: flex;
+		justify-content: center;
+		gap: 50px;
+
+		.imageWrap img {
+			width: 500px;
+			height: 500px;
+		}
+
+		.titleWrap {
+			display: flex;
+			margin: 80px 0;
+			flex-direction: column;
+			width: 30%;
+			gap: 20px;
+
+			.title {
+				border-bottom: 3px solid #000;
+				padding-bottom: 10px;
+			}
+
+			.concentration {
+				font-size: 1.5rem;
+				color: #a4a4a4;
+				margin-bottom: 30px;
+			}
+
+			.price {
+				border-bottom: 1px solid #a4a4a4;
+				padding-bottom: 10px;
+				margin-bottom: 10px;
+			}
+		}
+	}
+}

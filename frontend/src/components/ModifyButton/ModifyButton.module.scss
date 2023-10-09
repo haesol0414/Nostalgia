@@ -1,0 +1,14 @@
+.modifyButton {
+  border: none;
+  background: none;
+  outline: none;
+
+  .pencilIcon {
+    width: 40px;
+    height: 40px;
+    transition: 0.5s;
+  }
+  .pencilIcon:hover {
+    color: #a4a4a4;
+  }
+}
