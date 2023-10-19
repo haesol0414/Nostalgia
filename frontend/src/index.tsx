@@ -15,6 +15,7 @@ import Admin from './pages/Admin/Admin';
 import ProductDetails from './pages/ProductDetails/ProductDetails';
 import UserDetails from './pages/UserDetails/UserDetails';
 import Account from './pages/Account/Account';
+import UserOrders from './pages/UserOrders/UserOrders';
 
 const router = createBrowserRouter([
 	{
@@ -43,6 +44,11 @@ const router = createBrowserRouter([
 				index: true,
 				path: '/account/personal-details',
 				element: <UserDetails />,
+			},
+			{
+				index: true,
+				path: '/account/orders',
+				element: <UserOrders />,
 			},
 		],
 	},

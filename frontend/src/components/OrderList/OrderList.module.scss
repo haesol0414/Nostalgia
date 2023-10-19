@@ -1,0 +1,28 @@
+.orderList {
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 2px solid #ececec;
+	padding: 10px 10px 15px 10px;
+	margin: 20px 0;
+
+	.orderNumber {
+		display: flex;
+		gap: 10px;
+		color: #a4a4a4;
+
+		p {
+			color: #000;
+		}
+	}
+
+	a {
+		border-bottom: 1px solid #fff;
+		padding-bottom: 2px;
+		transition: 0.5s;
+	}
+
+	a:hover {
+		border-bottom: 1px solid #000;
+		transition: 0.5s;
+	}
+}

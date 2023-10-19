@@ -19,9 +19,9 @@ export default function Header() {
 	return (
 		<section className={styles.headerSection}>
 			<div className={styles.inner}>
-				<h1>
-					<a href="/">Nostalgia</a>
-				</h1>
+				<a href="/">
+					<h1>Nostalgia</h1>
+				</a>
 				<ul className={styles.nav}>
 					<li>
 						<div

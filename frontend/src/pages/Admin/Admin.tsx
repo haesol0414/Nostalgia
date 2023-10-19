@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 // import AddButton from '../../components/AddButton/AddButton';
 // import ModifyButton from '../../components/ModifyButton/ModifyButton';
 // import DeleteButton from '../../components/DeleteButton/DeleteButton';
@@ -8,7 +8,7 @@ import BlackButton from '../../components/Button/BlackButton';
 import RadioButton from '../../components/RadioButton/RadioButton';
 import BorderInput from '../../components/Input/BorderInput';
 import { brand, gender, concentration } from '../../assets/enum';
-import AddButton from '../../components/AddButton/AddButton';
+// import AddButton from '../../components/AddButton/AddButton';
 
 interface NewProduct {
 	title: string;
@@ -31,11 +31,10 @@ export default function Admin() {
 		mainImage: '',
 		detailImage: '',
 		currentAmount: 0,
-		salesAmount: 0,
 	});
 
 	const handleConfirmBtn = () => {
-		alert(newProduct.title);
+		alert(newProduct);
 	};
 
 	return (
@@ -150,7 +149,7 @@ export default function Admin() {
 							onChange={e =>
 								setNewProudct({
 									...newProduct,
-									currentAmount: e.target.value,
+									currentAmount: Number(e.target.value),
 								})
 							}
 						/>

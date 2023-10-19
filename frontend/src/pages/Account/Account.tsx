@@ -11,7 +11,10 @@ export default function Account() {
 			<div>
 				<h6>주문</h6>
 				<ul>
-					<AccountList title="주문 내역" linkTo="#"></AccountList>
+					<AccountList
+						title="주문 내역"
+						linkTo="/account/orders"
+					></AccountList>
 				</ul>
 			</div>
 

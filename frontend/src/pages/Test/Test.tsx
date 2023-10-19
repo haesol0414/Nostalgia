@@ -2,11 +2,16 @@
 import React from 'react';
 import { styled } from 'styled-components';
 import AccountList from '../../components/AccountList/AccountList';
+import OrderList from '../../components/OrderList/OrderList';
 
 export default function Test() {
 	return (
 		<TestSection>
-			<AccountList title="나의 정보" linkTo="/"></AccountList>
+			<OrderList
+				orderDate="20210808"
+				orderNumber="1234567"
+				detailLink="/"
+			></OrderList>
 		</TestSection>
 	);
 }

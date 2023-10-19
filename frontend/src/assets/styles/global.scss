@@ -26,7 +26,10 @@ h5 {
 	font-size: 2.4rem;
 }
 h6 {
-	font-size: 2rem;
+	font-size: 1.8rem;
+}
+span {
+	font-size: 1.6rem;
 }
 p {
 	font-size: 1.6rem;
@@ -40,6 +43,7 @@ li {
 a {
 	text-decoration: none;
 	color: inherit;
+	font-size: 1.6rem;
 }
 
 button {
@@ -52,6 +56,7 @@ button {
 
 input {
 	text-align: left;
+	padding: 10px;
 }
 
 .brand {
