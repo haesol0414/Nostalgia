@@ -36,7 +36,6 @@ const ProductSchema = new Schema({
 	},
 	discription: {
 		type: String,
-		default: '',
 	},
 	currentAmount: {
 		type: Number,
@@ -46,16 +45,16 @@ const ProductSchema = new Schema({
 		type: Number,
 		default: 0,
 	},
-	mainImageUrl: {
+	mainImage: {
 		type: [String],
 	},
-	detailImageUrl: {
+	detailImage: {
 		type: String,
 	},
-	hashtag: {
-		type: [Schema.Types.ObjectId],
-		ref: 'Hashtag',
-	},
+	// hashtag: {
+	// 	type: [Schema.Types.ObjectId],
+	// 	ref: 'Hashtag',
+	// },
 });
 
 const Product = mongoose.model('Product', ProductSchema, 'Product');

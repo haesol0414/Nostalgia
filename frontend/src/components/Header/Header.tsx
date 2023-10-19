@@ -64,7 +64,7 @@ export default function Header() {
 						<a href="/admin">Admin</a>
 					</li>
 					<li>
-						<a href="/mypage">My</a>
+						<a href="/account">My</a>
 					</li>
 					<li>
 						<a href="/">Community</a>

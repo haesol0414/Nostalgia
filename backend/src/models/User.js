@@ -26,10 +26,6 @@ const UserSchema = new Schema(
 			type: String,
 			default: '',
 		},
-		coupons: {
-			type: [Schema.Types.ObjectId],
-			ref: 'Coupon',
-		},
 		role: {
 			type: String,
 			enum: ['admin', 'customer'],

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Input from '../../components/Input/Input';
-import styles from './MyPage.module.scss';
+import styles from './UserDetails.module.scss';
 import BlackButton from '../../components/Button/BlackButton';
 import WhiteButton from '../../components/Button/WhiteButton';
 // import { useCookies } from 'react-cookie';
@@ -16,7 +16,7 @@ interface userAddress {
 // 	user: User;
 // }
 
-export default function MyPage() {
+export default function UserDetails() {
 	const [newPassword, setNewPassword] = useState<string>('');
 	const [newPasswordConfirm, setNewPasswordConfirm] = useState<string>('');
 	const [address, setAddress] = useState<string>('');

@@ -2,7 +2,7 @@ const { mongoose, Schema } = require('mongoose');
 
 const OrderSchema = new Schema(
 	{
-		email: {
+		userEmail: {
 			type: String,
 			required: true,
 		},
@@ -12,17 +12,17 @@ const OrderSchema = new Schema(
 		},
 		phone: {
 			type: String,
-			default: '',
+			required: true,
 		},
-		address: {
-			type: [Schema.Types.ObjectId],
-			ref: 'Coupon',
-		},
-		detailAddress: {
-			type: String,
-			enum: ['admin', 'customer'],
-			default: 'customer',
-		},
+		// address: {
+		// 	type: [Schema.Types.ObjectId],
+		// 	ref: 'Coupon',
+		// },
+		// detailAddress: {
+		// 	type: String,
+		// 	enum: ['admin', 'customer'],
+		// 	default: 'customer',
+		// },
 		shippingRequest: {
 			type: String,
 		},
@@ -38,9 +38,9 @@ const OrderSchema = new Schema(
 				},
 			},
 		],
-		discountCost: {
-			type: Number,
-		},
+		// discountCost: {
+		// 	type: Number,
+		// },
 		shippingFee: {
 			type: Number,
 			default: 0,
@@ -48,13 +48,14 @@ const OrderSchema = new Schema(
 		totalPrice: {
 			type: Number,
 		},
-		payMethod: {
-			type: String,
-			enum: ['무통장 입금', '신용 카드', '휴대폰 결제'],
-		},
+		// payMethod: {
+		// 	type: String,
+		// 	enum: ['무통장 입금', '신용 카드', '휴대폰 결제'],
+		// },
 		orderStatus: {
 			type: String,
 			enum: ['상품 준비 중', '배송 중', '배송 완료', '주문 취소'],
+			default: '상품 준비 중',
 		},
 	},
 	{

@@ -1,119 +1,54 @@
-.tableWrap {
+.adminSection {
 	display: flex;
 	flex-direction: column;
 	border-radius: 10px;
 
-	.buttonIcon {
-		display: flex;
-		align-self: flex-end;
-		gap: 20px;
-	}
-
-	table {
-		border: 5px solid #959595;
-		border-collapse: collapse;
-		box-shadow: 5px 5px 4px 0px rgba(0, 0, 0, 0.2);
-	}
-
-	thead {
-		border: 1px solid #959595;
-
-		th {
-			border: 1px solid #959595;
-			padding: 10px 5px;
-			background-color: #959595;
-			color: #fff;
-
-			p {
-				font-weight: bold;
-			}
-		}
-	}
-
-	tbody {
-		td {
-			border: 1px solid #959595;
-			text-align: center;
-			padding: 0 10px;
-		}
-
-		.link {
-			color: #608bd5;
-
-			&:hover {
-				color: #0d5ce5;
-			}
-		}
-	}
-}
-
-.addList {
-	width: 800px;
-	display: flex;
-	flex-direction: column;
-	margin: 0 auto;
-	text-align: center;
-
-	h2 {
-		margin-bottom: 120px;
-	}
-
-	.addWarp {
+	.adminWrap {
+		width: 70%;
+		margin: 0 auto;
 		display: flex;
 		flex-direction: column;
-		gap: 32px;
+		gap: 16px;
+		text-align: center;
+
+		.textInput > p,
+		.check > p {
+			width: 20%;
+			text-align: center;
+		}
 
 		.imgInput {
 			display: flex;
 			align-items: center;
-			text-align: center;
-
-			b {
-				width: 15%;
-			}
-
-			input {
-				position: relative;
-			}
-
-			input[type='file']::file-selector-button {
-				display: none;
-			}
 		}
 
 		.check {
 			display: flex;
-			text-align: center;
+			align-items: center;
 
-			b {
-				width: 15%;
-			}
-
-			.checkbox {
-				display: flex;
+			.radio {
 				width: 100%;
+				display: flex;
+				font-size: 1.6rem;
 			}
 		}
 
-		.input {
+		.textInput {
 			display: flex;
 			align-items: center;
-			text-align: center;
+		}
 
-			b {
-				width: 15%;
-			}
-
-			.checkbox {
-				display: flex;
-				width: 100%;
-			}
+		.closeBtn {
+			cursor: pointer;
+			font-size: 32px;
+			align-self: flex-end;
+			background-color: inherit;
 		}
 	}
-
-	> button {
-		width: 60%;
-		margin: 0 auto;
-		margin-top: 52px;
-	}
 }
+
+// .buttonIcon {
+// 	display: flex;
+// 	align-self: flex-end;
+// 	gap: 20px;
+// }

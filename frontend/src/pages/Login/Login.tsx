@@ -4,64 +4,41 @@ import WhiteButton from '../../components/Button/WhiteButton';
 import BlackButton from '../../components/Button/BlackButton';
 import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.scss';
-import axiosRequest from '../../apis';
-import { useCookies } from 'react-cookie';
-import { userState } from '../../recoli/recoilAtoms';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { User } from '../../assets/interface';
+// import { useCookies } from 'react-cookie';
+// import { userState } from '../../recoli/recoilAtoms';
+// import { useRecoilState, useRecoilValue } from 'recoil';
+// import { User } from '../../assets/interface';
+import { userLogin } from '../../utils/apiRequests';
 
-interface Response {
-	data: ResponseData;
-}
-
-interface ResponseData {
-	Authorization: string;
-	searchedUser: User;
+interface Credentials {
+	email: string;
+	password: string;
 }
 
 export default function Login() {
-	const [email, setEmail] = useState<string>('');
-	const [password, setPassword] = useState<string>('');
-	const [cookies, setCookie] = useCookies(['authToken']);
-	const [user, setUser] = useRecoilState(userState);
-	const global = useRecoilValue(userState);
-
-	useEffect(() => {
-		console.log('유저:', user); // 업데이트된 user 값을 출력
-		console.log('전역 유저:', global);
-	}, [user]);
-
 	const navigate = useNavigate();
+	const [credentials, setCredentials] = useState<Credentials>({
+		email: '',
+		password: '',
+	});
+
 	const handleRigisterBtn = () => {
 		navigate('/signup');
 	};
 
-	const handleLoginBtn = async () => {
-		try {
-			console.log('api 호출 전 : ', email, password);
+	// const handleLoginBtn = async () => {
+	// 	try {
+	// 		const userData = await userLogin<UserData>({
+	// 			email: credentials.email,
+	// 			password: credentials.password,
+	// 		});
 
-			const response: Response = await axiosRequest.requestAxios(
-				'post',
-				'/login',
-				{
-					email,
-					password,
-				},
-			);
-
-			if (response) {
-				alert('성공적으로 로그인되었습니다..');
-				console.log(response);
-
-				const token = response.data.Authorization;
-				setCookie('authToken', token, { maxAge: 7 * 24 * 60 * 60 });
-				const loggedInUser = response.data.searchedUser;
-				setUser(loggedInUser);
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	};
+	// 		alert('로그인 성공: ', userData);
+	// 		navigate('/');
+	// 	} catch (error) {
+	// 		console.error('로그인 실패: ', error);
+	// 	}
+	// };
 
 	return (
 		<section className={styles.loginSection}>
@@ -70,22 +47,29 @@ export default function Login() {
 				<Input
 					type="text"
 					placeholder="이메일"
-					value={email}
-					onChange={e => setEmail(e.target.value)}
+					value={credentials.email}
+					onChange={e =>
+						setCredentials({
+							...credentials,
+							email: e.target.value,
+						})
+					}
 					required={true}
 				></Input>
 				<Input
 					type="password"
 					placeholder="비밀번호"
-					value={password}
-					onChange={e => setPassword(e.target.value)}
+					value={credentials.password}
+					onChange={e =>
+						setCredentials({
+							...credentials,
+							password: e.target.value,
+						})
+					}
 					required={true}
 				></Input>
 				<div className={styles.buttonWrap}>
-					<BlackButton
-						text="로그인"
-						onClick={handleLoginBtn}
-					></BlackButton>
+					<BlackButton text="로그인" onClick={() => {}}></BlackButton>
 					<WhiteButton
 						text="회원가입"
 						onClick={handleRigisterBtn}

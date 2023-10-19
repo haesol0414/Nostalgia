@@ -1,180 +1,166 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-
-// import AdminModal from "../AdminModal/AdminModal";
-// import AdminEditModal from "../AdminModal/AdminEditModal";
-import AdminModal from '../../components/AdminModal/AdminModal';
-import AddButton from '../../components/AddButton/AddButton';
-import ModifyButton from '../../components/ModifyButton/ModifyButton';
-import DeleteButton from '../../components/DeleteButton/DeleteButton';
-import CheckBox from '../../components/CheckBox/CheckBox';
+// import AddButton from '../../components/AddButton/AddButton';
+// import ModifyButton from '../../components/ModifyButton/ModifyButton';
+// import DeleteButton from '../../components/DeleteButton/DeleteButton';
+// import CheckBox from '../../components/CheckBox/CheckBox';
 import styles from './Admin.module.scss';
+import BlackButton from '../../components/Button/BlackButton';
+import RadioButton from '../../components/RadioButton/RadioButton';
+import BorderInput from '../../components/Input/BorderInput';
+import { brand, gender, concentration } from '../../assets/enum';
+import AddButton from '../../components/AddButton/AddButton';
+
+interface NewProduct {
+	title: string;
+	gender: string;
+	brand: string;
+	concentration: string;
+	description: string;
+	mainImage: string;
+	detailImage: string;
+	currentAmount: number;
+}
 
 export default function Admin() {
-	//AdminModal
-	const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-	// const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+	const [newProduct, setNewProudct] = useState<NewProduct>({
+		title: '',
+		gender: '',
+		brand: '',
+		concentration: '',
+		description: '',
+		mainImage: '',
+		detailImage: '',
+		currentAmount: 0,
+		salesAmount: 0,
+	});
 
-	//모달수정시 담을 데이터
-	// const [modalData, setModalData] = useState();
-
-	//선택아이디
-	const [selectedIds, setSelectedIds] = useState<number[]>([]);
-
-	// 체크박스
-	const handleCheckboxChange = (id: number) => {
-		const updatedSelectedIds = selectedIds.includes(id)
-			? selectedIds.filter(selectedId => selectedId !== id)
-			: [...selectedIds, id];
-		setSelectedIds(updatedSelectedIds);
+	const handleConfirmBtn = () => {
+		alert(newProduct.title);
 	};
-
-	//추가모달
-	const handleOpenAddModal = () => {
-		setIsAddModalOpen(true);
-	};
-
-	const handleCloseAddModal = () => {
-		setIsAddModalOpen(false);
-	};
-
-	// 수정모달 닫기
-	// const handleCloseEditModal = () => {
-	// 	setIsEditModalOpen(false);
-	// };
-
-	// 숙소 수정 선택
-	// const handleEditSelect = (id: number) => {
-	// 	if (data.length > 0) {
-	// 		if (selectedIds.length === 1) {
-	// 			const selectedItem = data.find(
-	// 				item => item.id === selectedIds[0],
-	// 			);
-	// 			if (selectedItem) {
-	// 				setModalData(selectedItem);
-	// 				const updatedSelectedIds = selectedIds.includes(id)
-	// 					? selectedIds.filter(selectedId => selectedId !== id)
-	// 					: [...selectedIds, id];
-	// 				setSelectedIds(updatedSelectedIds);
-	// 				setIsEditModalOpen(true);
-	// 			}
-	// 		}
-	// 	}
-	// };
 
 	return (
 		<>
-			<div className={styles.tableWrap}>
-				<div className={styles.buttonIcon}>
-					<AddButton onClick={handleOpenAddModal}></AddButton>
-					<ModifyButton onClick={() => {}}></ModifyButton>
-					<DeleteButton onClick={() => {}}></DeleteButton>
+			<section className={styles.adminSection}>
+				<div className={styles.adminWrap}>
+					<h5>상품 추가</h5>
+					<div className={styles.textInput}>
+						<p>상품명</p>
+						<BorderInput
+							type="text"
+							value={newProduct.title}
+							onChange={e =>
+								setNewProudct({
+									...newProduct,
+									title: e.target.value,
+								})
+							}
+						/>
+					</div>
+					{/* <div className={styles.priceBySize}>
+						<div className={styles.textInput}>
+							<p>사이즈 / 가격 </p>
+							<BorderInput type="number" onChange={() => {}} />
+							<BorderInput type="number" onChange={() => {}} />
+							<AddButton onClick={() => {}}></AddButton>
+						</div>
+					</div> */}
+					<div className={styles.check}>
+						<p>성별</p>
+						<div className={styles.radio}>
+							{gender.map(el => (
+								<RadioButton
+									key={el}
+									label={el}
+									checked={false}
+									onChange={() => {}}
+								/>
+							))}
+						</div>
+					</div>
+					<div className={styles.check}>
+						<p>브랜드</p>
+						<div className={styles.radio}>
+							{brand.map(el => (
+								<RadioButton
+									key={el}
+									label={el}
+									checked={false}
+									onChange={() => {}}
+								/>
+							))}
+						</div>
+					</div>
+					<div className={styles.check}>
+						<p>농도</p>
+						<div className={styles.radio}>
+							{concentration.map(el => (
+								<RadioButton
+									key={el}
+									label={el}
+									checked={false}
+									onChange={() => {}}
+								/>
+							))}
+						</div>
+					</div>
+					<div className={styles.textInput}>
+						<p>메인 이미지</p>
+						<BorderInput
+							type="text"
+							value={newProduct.mainImage}
+							onChange={e =>
+								setNewProudct({
+									...newProduct,
+									mainImage: e.target.value,
+								})
+							}
+						/>
+					</div>
+					<div className={styles.textInput}>
+						<p>상세 이미지</p>
+						<BorderInput
+							type="text"
+							value={newProduct.detailImage}
+							onChange={e =>
+								setNewProudct({
+									...newProduct,
+									detailImage: e.target.value,
+								})
+							}
+						/>
+					</div>
+					<div className={styles.textInput}>
+						<p>상세 설명</p>
+						<BorderInput
+							type="text"
+							value={newProduct.description}
+							onChange={e =>
+								setNewProudct({
+									...newProduct,
+									description: e.target.value,
+								})
+							}
+						/>
+					</div>
+					<div className={styles.textInput}>
+						<p>재고</p>
+						<BorderInput
+							type="text"
+							value={newProduct.currentAmount}
+							onChange={e =>
+								setNewProudct({
+									...newProduct,
+									currentAmount: e.target.value,
+								})
+							}
+						/>
+					</div>
+					<BlackButton
+						text="확인"
+						onClick={handleConfirmBtn}
+					></BlackButton>
 				</div>
-				<table className={styles.table}>
-					<thead>
-						<tr>
-							<th>
-								<p>선택</p>
-							</th>
-							<th>
-								<p>상품명</p>
-							</th>
-							<th>
-								<p>가격</p>
-							</th>
-							<th>
-								<p>성별</p>
-							</th>
-							<th>
-								<p>브랜드</p>
-							</th>
-							<th>
-								<p>농도</p>
-							</th>
-							<th>
-								<p>메인 이미지</p>
-							</th>
-							<th>
-								<p>상세 설명</p>
-							</th>
-							<th>
-								<p>재고</p>
-							</th>
-							<th>
-								<p>판매량</p>
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						{/* {data.length > 0 &&
-							data.map(item => {
-								return (
-									<tr key={item.id}>
-										<td>
-											<CheckBox
-												checked={selectedIds.includes(
-													item.id,
-												)}
-												onChange={() =>
-													handleCheckboxChange(
-														item.id,
-													)
-												}
-											></CheckBox>
-										</td>
-										<td>{item.placeName}</td>
-										<td>{item.price}</td>
-										<td>{item.description}</td>
-										<td>{item.category}</td>
-										<td>{item.region}</td>
-
-										<td>
-											<img
-												src={item.bannerImage}
-												alt={item.placeName}
-												style={{
-													maxWidth: '100px',
-													maxHeight: '100px',
-												}}
-											/>
-										</td>
-										<td>
-											<img
-												src={item.mainImage}
-												alt={item.placeName}
-												style={{
-													maxWidth: '100px',
-													maxHeight: '100px',
-												}}
-											/>
-										</td>
-										<td>
-											<img
-												src={item.detailImage}
-												alt={item.placeName}
-												style={{
-													maxWidth: '100px',
-													maxHeight: '100px',
-												}}
-											/>
-										</td>
-										<td className={styles.link}>
-											<Link to={item.bookingURL}>
-												{`${item.placeName} 링크`}
-											</Link>
-										</td>
-									</tr>
-								);
-							})} */}
-					</tbody>
-				</table>
-			</div>
-			<AdminModal isOpen={isAddModalOpen} onClose={handleCloseAddModal} />
-			{/* <AdminEditModal
-				isOpen={isEditModalOpen}
-				onClose={handleCloseEditModal}
-				modalData={modalData}
-			/> */}
+			</section>
 		</>
 	);
 }

@@ -1,4 +1,5 @@
 import axios from 'axios';
+// 나중에 지울 폴더
 
 const allowMethod: string[] = ['get', 'post', 'put', 'patch', 'delete'];
 

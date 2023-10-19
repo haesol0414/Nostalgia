@@ -13,7 +13,8 @@ import Test from './pages/Test/Test';
 import ByGender from './pages/Products/ByGender';
 import Admin from './pages/Admin/Admin';
 import ProductDetails from './pages/ProductDetails/ProductDetails';
-import MyPage from './pages/MyPage/MyPage';
+import UserDetails from './pages/UserDetails/UserDetails';
+import Account from './pages/Account/Account';
 
 const router = createBrowserRouter([
 	{
@@ -37,7 +38,12 @@ const router = createBrowserRouter([
 				path: '/products/:productId',
 				element: <ProductDetails />,
 			},
-			{ index: true, path: '/mypage', element: <MyPage /> },
+			{ index: true, path: '/account', element: <Account /> },
+			{
+				index: true,
+				path: '/account/personal-details',
+				element: <UserDetails />,
+			},
 		],
 	},
 ]);
