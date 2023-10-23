@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React from 'react';
 import { styled } from 'styled-components';
-import AccountList from '../../components/AccountList/AccountList';
+// import AccountList from '../../components/AccountList/AccountList';
 import OrderList from '../../components/OrderList/OrderList';
 
 export default function Test() {

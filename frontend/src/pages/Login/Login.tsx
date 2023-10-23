@@ -1,44 +1,49 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Input from '../../components/Input/Input';
 import WhiteButton from '../../components/Button/WhiteButton';
 import BlackButton from '../../components/Button/BlackButton';
 import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.scss';
-// import { useCookies } from 'react-cookie';
-// import { userState } from '../../recoli/recoilAtoms';
-// import { useRecoilState, useRecoilValue } from 'recoil';
-// import { User } from '../../assets/interface';
 import { userLogin } from '../../utils/apiRequests';
+import { useCookies } from 'react-cookie';
 
 interface Credentials {
 	email: string;
 	password: string;
 }
 
+interface LoginResponse {
+	message: string;
+	token: string;
+}
+
 export default function Login() {
+	const [cookies, setCookie] = useCookies(['token']);
+
 	const navigate = useNavigate();
 	const [credentials, setCredentials] = useState<Credentials>({
 		email: '',
 		password: '',
 	});
 
+	const handleLoginBtn = async () => {
+		try {
+			const response = await userLogin<LoginResponse>({ credentials });
+
+			if (response.data.token) {
+				setCookie('token', response.data.token, { path: '/' });
+
+				alert('로그인 성공');
+				navigate('/');
+			}
+		} catch (error) {
+			console.error('로그인 실패: ', error);
+		}
+	};
+
 	const handleRigisterBtn = () => {
 		navigate('/signup');
 	};
-
-	// const handleLoginBtn = async () => {
-	// 	try {
-	// 		const userData = await userLogin<UserData>({
-	// 			email: credentials.email,
-	// 			password: credentials.password,
-	// 		});
-
-	// 		alert('로그인 성공: ', userData);
-	// 		navigate('/');
-	// 	} catch (error) {
-	// 		console.error('로그인 실패: ', error);
-	// 	}
-	// };
 
 	return (
 		<section className={styles.loginSection}>
@@ -69,7 +74,10 @@ export default function Login() {
 					required={true}
 				></Input>
 				<div className={styles.buttonWrap}>
-					<BlackButton text="로그인" onClick={() => {}}></BlackButton>
+					<BlackButton
+						text="로그인"
+						onClick={handleLoginBtn}
+					></BlackButton>
 					<WhiteButton
 						text="회원가입"
 						onClick={handleRigisterBtn}

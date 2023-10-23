@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import styles from './Header.module.scss';
+import { isTokenAvailable } from '../../utils/authUtils';
 import { useCookies } from 'react-cookie';
-import { hasToken } from '../../utils/hasToken';
 
 export default function Header() {
 	const [showGenderCategories, setShowGenderCategories] = useState(false);
-	const isLoggedIn = hasToken();
-	const [, , removeCookie] = useCookies(['authToken']);
+	const isLoggedIn = isTokenAvailable();
+	const [, , removeCookie] = useCookies(['token']);
 
 	const toggleGenderCategories = () => {
 		setShowGenderCategories(!showGenderCategories);
 	};
 
-	const logoutUser = () => {
-		removeCookie('authToken');
+	const handleLogout = () => {
+		removeCookie('token');
+		alert('로그아웃');
 	};
 
 	return (
@@ -42,9 +43,9 @@ export default function Header() {
 							</div>
 						)}
 					</li>
-					<li>
+					{/* <li>
 						<div className={styles.category}>Brand</div>
-					</li>
+					</li> */}
 				</ul>
 
 				<div className={styles.icons}>
@@ -52,7 +53,7 @@ export default function Header() {
 						{isLoggedIn ? (
 							<button
 								className={styles.logout}
-								onClick={logoutUser}
+								onClick={handleLogout}
 							>
 								Logout
 							</button>

@@ -3,55 +3,50 @@ import Input from '../../components/Input/Input';
 import styles from './SignUp.module.scss';
 import BlackButton from '../../components/Button/BlackButton';
 import WhiteButton from '../../components/Button/WhiteButton';
-import axiosRequest from '../../apis';
-import { NewUser } from '../../assets/interface';
+import { NewUser } from '../../model/user';
+import {
+	ApiResponse,
+	userEmailCheck,
+	userSignUp,
+} from '../../utils/apiRequests';
 
 export default function SignUp() {
-	const [email, setEmail] = useState<string>('');
-	const [name, setName] = useState<string>('');
-	const [password, setPassword] = useState<string>('');
-	const [doublePassword, setDoublePassword] = useState<string>('');
-	const [passwordError, setPasswordError] = useState<string>('');
-	const [emailError, setEmailError] = useState<string>('');
-	const [doubleCheckError, setDoubleCheckError] = useState<string>('');
+	const [newUser, setNewUser] = useState<NewUser>({
+		email: '',
+		name: '',
+		password: '',
+	});
+	const [passwordConfirm, setPasswordConfirm] = useState<string>('');
 
+	// 가입하기 버튼
 	const handleRigisterBtn = async () => {
 		try {
-			if (password === doublePassword) {
-				const newUser: NewUser = {
-					email,
-					name,
-					password,
-				};
-				console.log('api 호출 전 : ', newUser);
+			if (newUser.password === passwordConfirm) {
+				const response = await userSignUp<ApiResponse>({ newUser });
 
-				const response = await axiosRequest.requestAxios<NewUser>(
-					'post',
-					'/users/signup',
-					newUser,
-				);
-
-				alert('성공적으로 가입되었습니다.');
-				console.log(response);
+				if (response.status === 201) {
+					console.log(response);
+					alert('성공적으로 가입되었습니다.');
+				}
 			} else {
-				setDoubleCheckError('* 비밀번호가 일치하지 않습니다.');
+				alert('비밀번호가 일치하지 않습니다.');
+				// 나중에 인풋 밑에 경고 문구 띄우는걸로 바꾸기 (+ 이메일, 비밀번호 형식 체크)
 			}
 		} catch (error) {
-			console.log(error);
+			console.log('가입 실패 : ', error);
 		}
 	};
 
+	// 이메일 중복체크 버튼
 	const handleEmailCheckBtn = async () => {
 		try {
-			const response = await axiosRequest.requestAxios(
-				'get',
-				`/users/signup/${email}`,
-			);
+			const response = await userEmailCheck(newUser.email);
 
-			alert('사용 가능한 이메일입니다.');
-			console.log(response);
+			if (response.status === 200) {
+				alert('사용 가능한 이메일입니다.');
+			}
 		} catch (error) {
-			console.log('에러', error);
+			console.log(error);
 		}
 	};
 
@@ -61,16 +56,9 @@ export default function SignUp() {
 				<Input
 					type="text"
 					placeholder="이메일"
-					value={email}
+					value={newUser.email}
 					onChange={e => {
-						setEmail(e.target.value);
-
-						const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-						if (!emailRegex.test(email)) {
-							setEmailError('* 이메일 형식이 올바르지 않습니다.');
-						} else {
-							setEmailError('');
-						}
+						setNewUser({ ...newUser, email: e.target.value });
 					}}
 					required={true}
 				></Input>
@@ -79,47 +67,31 @@ export default function SignUp() {
 					onClick={handleEmailCheckBtn}
 				></WhiteButton>
 			</div>
-			{emailError && <p className={styles.error}>{emailError}</p>}
-
 			<Input
 				type="text"
 				placeholder="이름"
-				value={name}
-				onChange={e => setName(e.target.value)}
+				value={newUser.name}
+				onChange={e => {
+					setNewUser({ ...newUser, name: e.target.value });
+				}}
 				required={true}
 			></Input>
 			<Input
 				type="password"
 				placeholder="비밀번호"
-				value={password}
+				value={newUser.password}
 				onChange={e => {
-					setPassword(e.target.value);
-
-					const pwRegex =
-						/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-
-					if (!pwRegex.test(password)) {
-						setPasswordError(
-							'* 비밀번호 형식이 올바르지 않습니다.',
-						);
-					} else {
-						setPasswordError('');
-					}
+					setNewUser({ ...newUser, password: e.target.value });
 				}}
 				required={true}
 			></Input>
-			{passwordError && <p className={styles.error}>{passwordError}</p>}
 			<Input
 				type="password"
 				placeholder="비밀번호 확인"
-				value={doublePassword}
-				onChange={e => setDoublePassword(e.target.value)}
+				value={passwordConfirm}
+				onChange={e => setPasswordConfirm(e.target.value)}
 				required={true}
 			></Input>
-
-			{doubleCheckError && (
-				<p className={styles.error}>{doubleCheckError}</p>
-			)}
 			<BlackButton
 				text="가입하기"
 				onClick={handleRigisterBtn}

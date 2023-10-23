@@ -1,5 +1,5 @@
-// import { getItem } from '@/utils/storage';
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import { getToken } from './authUtils';
 
 interface HeaderOptions {
 	'content-type': string;
@@ -32,19 +32,24 @@ const axiosApi = (url: string, options?: AxiosRequestConfig): AxiosInstance => {
 	return instance;
 };
 
-// token 추가 인스턴스
-// const axiosAuthApi = (url: string, options?: AxiosRequestConfig): AxiosInstance => {
-//   const token = getItem('token');
-//   const accessToken = token ? { Authorization: `Bearer ${token}` } : {};
-//   const instance = axios.create({
-//     baseURL: url,
-//     headers: getHeader(accessToken),
-//     ...options,
-//   });
-//   return instance;
-// };
+const axiosAuthApi = (
+	url: string,
+	token: string, // 외부에서 토큰을 전달 받도록 수정
+	options?: AxiosRequestConfig,
+): AxiosInstance => {
+	const accessToken: { Authorization?: string } = token
+		? { Authorization: `Bearer ${token}` }
+		: {};
 
-// master key 추가 인스턴스
+	const instance = axios.create({
+		baseURL: url,
+		headers: getHeader(accessToken),
+		...options,
+	});
+	return instance;
+};
+
+// master key 추가 인스턴스 (관리자용)
 // const axiosAdminApi = (url: string, options?: AxiosRequestConfig): AxiosInstance => {
 //   const instance = axios.create({
 //     baseURL: url,
@@ -55,5 +60,8 @@ const axiosApi = (url: string, options?: AxiosRequestConfig): AxiosInstance => {
 // };
 
 export const defaultInstance = axiosApi(process.env.REACT_APP_BASE_URL || '');
-// export const authInstance = axiosAuthApi(process.env.REACT_APP_BASE_URL || '');
+export const authInstance = axiosAuthApi(
+	process.env.REACT_APP_BASE_URL || '',
+	getToken(),
+);
 // export const adminInstance = axiosAdminApi(process.env.REACT_APP_BASE_URL || '');

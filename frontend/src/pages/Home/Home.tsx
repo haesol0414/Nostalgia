@@ -6,16 +6,8 @@ import Depth02 from '../../components/ImageList/Depth02';
 import Depth03 from '../../components/ImageList/Depth03';
 import Depth04 from '../../components/ImageList/Depth04';
 import { womanPerfumes } from '../../assets/datas/datas';
-import { useRecoilValue } from 'recoil';
-import { userState } from '../../recoli/recoilAtoms';
 
 export default function Home() {
-	const global = useRecoilValue(userState);
-
-	useEffect(() => {
-		console.log('전역 유저:', global);
-	}, [global]);
-
 	return (
 		<section className={styles.homeSection}>
 			<div className={styles.visualBox}>
