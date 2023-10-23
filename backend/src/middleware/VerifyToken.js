@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const { unauthorizedError } = require('./ErrorHandler');
 
 const VerifyToken = async (req, res, next) => {
-	const token = await req.header('Authorization');
+	const token = await req.header('Authorization').replace('Bearer ', '');
 
 	try {
 		if (!token) {
@@ -21,10 +21,10 @@ const VerifyToken = async (req, res, next) => {
 
 			next();
 		} catch (err) {
-			res.status(403).json({ msg: '정상적인 토큰이 아닙니다.' });
+			res.status(403).json({ message: '정상적인 토큰이 아닙니다.' });
 		}
 	} catch (err) {
-		res.status(400).json({ msg: '로그인한 유저만 사용 가능합니다.' });
+		res.status(400).json({ message: '로그인한 유저만 사용 가능합니다.' });
 	}
 };
 

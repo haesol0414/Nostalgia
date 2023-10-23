@@ -1,3 +1,4 @@
+const { badRequestError } = require('../middleware/ErrorHandler');
 const User = require('../models/User');
 
 const UserService = {
@@ -11,21 +12,32 @@ const UserService = {
 
 	// 회원 정보 조회
 	getUserInformation: async email => {
-		return await User.findOne({ email }, { password: 0 });
+		return await User.findOne({ email: email }, { password: 0 });
 	},
 
 	// 연락처, 주소, 상세 주소 변경
-	updateUser: async (userId, { updatedInfo }) => {
-		await User.updateOne({ _id: userId }, { updatedInfo });
+	updateUser: async (email, phone, city, detail) => {
+		await User.updateOne(
+			{ email: email },
+			{
+				phone: phone,
+				'address.city': city,
+				'address.detail': detail,
+			}
+		);
 	},
 
 	// 비밀번호 변경
-	updatePassword: async (userId, password) => {
-		await User.updateOne({ _id: userId }, { password: password });
+	updatePassword: async (email, newPassword) => {
+		await User.updateOne(
+			{ email: email },
+			{ password: newPassword.password }
+		);
 	},
 
-	withdrawn: async userId => {
-		await User.updateOne({ userId }, { isDeleted: true });
+	// 회원 탈퇴
+	withdrawn: async email => {
+		await User.deleteOne({ email: email });
 	},
 };
 

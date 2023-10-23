@@ -19,21 +19,19 @@ const UserSchema = new Schema(
 			default: '',
 		},
 		address: {
-			type: String,
-			default: '',
-		},
-		detailAddress: {
-			type: String,
-			default: '',
+			city: {
+				type: String,
+				default: '',
+			},
+			detail: {
+				type: String,
+				default: '',
+			},
 		},
 		role: {
 			type: String,
 			enum: ['admin', 'customer'],
 			default: 'customer',
-		},
-		isDeleted: {
-			type: Boolean,
-			default: false,
 		},
 	},
 	{

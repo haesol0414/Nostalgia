@@ -7,9 +7,16 @@ const {
 
 const UserController = {
 	userSignup: async (req, res, next) => {
-		const { email, name, password } = req.body;
+		const { newUser } = req.body;
 
 		try {
+			const { email, name, password } = newUser;
+
+			const isUser = await User.findOne({ email: email });
+			if (isUser) {
+				throw new badRequestError('이미 가입된 이메일입니다.');
+			}
+
 			await UserService.userSignup({ email, name, password });
 
 			return res.status(201).json({
@@ -39,7 +46,7 @@ const UserController = {
 	},
 
 	getUserInformation: async (req, res, next) => {
-		const { email } = req.params;
+		const email = req.currentUserEmail;
 
 		try {
 			const user = await UserService.getUserInformation(email);
@@ -53,29 +60,14 @@ const UserController = {
 		}
 	},
 
-	updatePassword: async (req, res, next) => {
-		const { userId, password } = req.body;
-
-		try {
-			if (!userId || !password) {
-				throw new badRequestError('누락된 값이 있습니다.');
-			}
-
-			await UserService.updatePassword(userId, password);
-
-			return res.status(200).json({
-				message: '비밀번호 변경 성공',
-			});
-		} catch (err) {
-			next(err);
-		}
-	},
-
 	updateUser: async (req, res, next) => {
-		const { userId, updatedInfo } = req.body;
+		const email = req.currentUserEmail;
+		const { newUserInformation } = req.body;
 
 		try {
-			await UserService.updateUser(email);
+			const { phone, city, detail } = newUserInformation;
+
+			await UserService.updateUser(email, phone, city, detail);
 
 			return res.status(200).json({
 				message: '회원 정보 수정 성공',
@@ -85,11 +77,30 @@ const UserController = {
 		}
 	},
 
-	withdrawn: async (req, res, next) => {
-		const { userId } = req.body;
+	updatePassword: async (req, res, next) => {
+		const email = req.currentUserEmail;
+		const { newPassword } = req.body;
 
 		try {
-			await UserService.withdrawn(userId);
+			if (!email || !newPassword) {
+				throw new badRequestError('누락된 값이 있습니다.');
+			}
+
+			await UserService.updatePassword(email, newPassword);
+
+			return res.status(200).json({
+				message: '비밀번호 변경 성공',
+			});
+		} catch (err) {
+			next(err);
+		}
+	},
+
+	withdrawn: async (req, res, next) => {
+		const email = req.currentUserEmail;
+
+		try {
+			await UserService.withdrawn(email);
 
 			return res.status(200).json({
 				message: '회원 탈퇴 성공',
