@@ -54,7 +54,6 @@ export default function UserDetails() {
 
 		getUserInformation();
 	}, []);
-	console.log('api 탈출', user);
 
 	// 정보 수정 (연락처, 주소, 상세주소)
 	const handleAddressUpdateBtn = async () => {

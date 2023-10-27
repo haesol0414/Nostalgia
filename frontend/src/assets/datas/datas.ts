@@ -1,3 +1,5 @@
+// 테스트용 더미데이터 모음
+
 export const womanPerfumes = [
 	{
 		_id: 'id1',

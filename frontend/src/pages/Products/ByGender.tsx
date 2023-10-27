@@ -4,6 +4,8 @@ import Depth01 from '../../components/ImageList/Depth01';
 import { womanPerfumes, manPerfumes } from '../../assets/datas/datas';
 import { useParams } from 'react-router-dom';
 
+// 수정필요
+
 interface Product {
 	_id: string;
 	title: string;
@@ -17,15 +19,14 @@ interface Products extends Array<Product> {}
 
 export default function ByGender() {
 	const params = useParams();
-	const categoryName = params.categoryName;
-	console.log(categoryName);
+	const gender = params.gender;
 	let category: string;
 	let products: Products = [];
 
-	if (categoryName === 'woman') {
+	if (gender === 'woman') {
 		category = 'woman';
 		products = womanPerfumes;
-	} else if (categoryName === 'man') {
+	} else if (gender === 'man') {
 		category = 'man';
 		products = manPerfumes;
 	} else {

@@ -112,6 +112,32 @@ export const changePassword = <T>(
 	return requestPost<T>('/users/password', authInstance, data);
 };
 
+// 회원 탈퇴
 export const withdrawal = <T>(): Promise<{ status: number; data: T }> => {
 	return requestDelete<T>('/users', authInstance);
+};
+
+/* [ PRODUCT 관련 api ] */
+
+// 관리자
+export const getAllProducts = <T>(): Promise<{ status: number; data: T }> => {
+	return requestGet<T>('/products', authInstance);
+};
+
+export const addNewProduct = <T>(
+	data: object,
+): Promise<{ status: number; data: T }> => {
+	return requestPost<T>('/products', authInstance, data);
+};
+
+export const patchProductDetail = <T>(
+	data: object,
+): Promise<{ status: number; data: T }> => {
+	return requestPatch<T>('/admin/products', authInstance, data);
+};
+
+export const deleteProduct = <T>(
+	data: string,
+): Promise<{ status: number; data: T }> => {
+	return requestDelete<T>('/admin/products', authInstance, data);
 };

@@ -3,15 +3,29 @@ export interface Product {
 	title: string;
 	gender: string;
 	brand: string;
-	priceBySize: [
-		{
-			price: number;
-			size: number;
-		},
-	];
+	priceBySize: {
+		size: number;
+		price: number;
+	}[];
 	concentration: string;
 	description: string;
-	mainImage: [string];
-	detailImage?: string;
-	curruentAmount?: number;
+	mainImage: string[];
+	detailImage: string;
+	currentAmount: number;
+	salesAmount?: number;
+}
+
+export interface NewProduct {
+	title: string;
+	gender: string;
+	brand: string;
+	priceBySize: {
+		size: number;
+		price: number;
+	}[];
+	concentration: string;
+	description: string;
+	mainImage: string[];
+	detailImage: string;
+	currentAmount: number;
 }

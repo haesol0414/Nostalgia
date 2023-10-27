@@ -1,164 +1,123 @@
-import React, { useState } from 'react';
-// import AddButton from '../../components/AddButton/AddButton';
-// import ModifyButton from '../../components/ModifyButton/ModifyButton';
-// import DeleteButton from '../../components/DeleteButton/DeleteButton';
-// import CheckBox from '../../components/CheckBox/CheckBox';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Admin.module.scss';
-import BlackButton from '../../components/Button/BlackButton';
-import RadioButton from '../../components/RadioButton/RadioButton';
-import BorderInput from '../../components/Input/BorderInput';
-import { brand, gender, concentration } from '../../assets/enum';
-// import AddButton from '../../components/AddButton/AddButton';
+import { Product } from '../../model/product';
+import { getAllProducts } from '../../utils/apiRequests';
+import ModifyButton from '../../components/ModifyButton/ModifyButton';
+import AddButton from '../../components/AddButton/AddButton';
+import DeleteButton from '../../components/DeleteButton/DeleteButton';
 
-interface NewProduct {
-	title: string;
-	gender: string;
-	brand: string;
-	concentration: string;
-	description: string;
-	mainImage: string;
-	detailImage: string;
-	currentAmount: number;
+interface AllProductsResponse {
+	message: string;
+	totalProducts: Product[];
 }
 
 export default function Admin() {
-	const [newProduct, setNewProudct] = useState<NewProduct>({
-		title: '',
-		gender: '',
-		brand: '',
-		concentration: '',
-		description: '',
-		mainImage: '',
-		detailImage: '',
-		currentAmount: 0,
-	});
+	const navigate = useNavigate();
+	const [product, setProduct] = useState<Product[]>([
+		{
+			_id: '',
+			title: '',
+			brand: '',
+			gender: '',
+			priceBySize: [{ size: 0, price: 0 }],
+			concentration: '',
+			description: '',
+			currentAmount: 0,
+			salesAmount: 0,
+			mainImage: [''],
+			detailImage: '',
+		},
+	]);
 
-	const handleConfirmBtn = () => {
-		alert(newProduct);
+	const handleAddButton = () => {
+		navigate('/admin/add-product');
 	};
+
+	// 정보 불러오기
+	useEffect(() => {
+		const getTotalProducts = async () => {
+			try {
+				const response = await getAllProducts<AllProductsResponse>();
+				console.log('상품 전체 : ', response);
+
+				setProduct(response.data.totalProducts);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+
+		getTotalProducts();
+	}, []);
 
 	return (
 		<>
 			<section className={styles.adminSection}>
-				<div className={styles.adminWrap}>
-					<h5>상품 추가</h5>
-					<div className={styles.textInput}>
-						<p>상품명</p>
-						<BorderInput
-							type="text"
-							value={newProduct.title}
-							onChange={e =>
-								setNewProudct({
-									...newProduct,
-									title: e.target.value,
-								})
-							}
-						/>
-					</div>
-					{/* <div className={styles.priceBySize}>
-						<div className={styles.textInput}>
-							<p>사이즈 / 가격 </p>
-							<BorderInput type="number" onChange={() => {}} />
-							<BorderInput type="number" onChange={() => {}} />
-							<AddButton onClick={() => {}}></AddButton>
-						</div>
-					</div> */}
-					<div className={styles.check}>
-						<p>성별</p>
-						<div className={styles.radio}>
-							{gender.map(el => (
-								<RadioButton
-									key={el}
-									label={el}
-									checked={false}
-									onChange={() => {}}
-								/>
-							))}
-						</div>
-					</div>
-					<div className={styles.check}>
-						<p>브랜드</p>
-						<div className={styles.radio}>
-							{brand.map(el => (
-								<RadioButton
-									key={el}
-									label={el}
-									checked={false}
-									onChange={() => {}}
-								/>
-							))}
-						</div>
-					</div>
-					<div className={styles.check}>
-						<p>농도</p>
-						<div className={styles.radio}>
-							{concentration.map(el => (
-								<RadioButton
-									key={el}
-									label={el}
-									checked={false}
-									onChange={() => {}}
-								/>
-							))}
-						</div>
-					</div>
-					<div className={styles.textInput}>
-						<p>메인 이미지</p>
-						<BorderInput
-							type="text"
-							value={newProduct.mainImage}
-							onChange={e =>
-								setNewProudct({
-									...newProduct,
-									mainImage: e.target.value,
-								})
-							}
-						/>
-					</div>
-					<div className={styles.textInput}>
-						<p>상세 이미지</p>
-						<BorderInput
-							type="text"
-							value={newProduct.detailImage}
-							onChange={e =>
-								setNewProudct({
-									...newProduct,
-									detailImage: e.target.value,
-								})
-							}
-						/>
-					</div>
-					<div className={styles.textInput}>
-						<p>상세 설명</p>
-						<BorderInput
-							type="text"
-							value={newProduct.description}
-							onChange={e =>
-								setNewProudct({
-									...newProduct,
-									description: e.target.value,
-								})
-							}
-						/>
-					</div>
-					<div className={styles.textInput}>
-						<p>재고</p>
-						<BorderInput
-							type="text"
-							value={newProduct.currentAmount}
-							onChange={e =>
-								setNewProudct({
-									...newProduct,
-									currentAmount: Number(e.target.value),
-								})
-							}
-						/>
-					</div>
-					<BlackButton
-						text="확인"
-						onClick={handleConfirmBtn}
-					></BlackButton>
+				<div className={styles.buttonIcon}>
+					<AddButton onClick={handleAddButton}></AddButton>
+					<ModifyButton onClick={() => {}}></ModifyButton>
+					<DeleteButton onClick={() => {}}></DeleteButton>
 				</div>
+				<table className={styles.table}>
+					<thead>
+						<tr>
+							{/* <th>
+								<p>선택</p>
+							</th> */}
+							<th>
+								<p>상품명</p>
+							</th>
+							<th>
+								<p>가격</p>
+							</th>
+							<th>
+								<p>성별</p>
+							</th>
+							<th>
+								<p>브랜드</p>
+							</th>
+							<th>
+								<p>농도</p>
+							</th>
+							<th>
+								<p>메인 이미지</p>
+							</th>
+							<th>
+								<p>재고</p>
+							</th>
+							<th>
+								<p>판매량</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						{product.length > 0 &&
+							product.map(item => {
+								return (
+									<tr key={item._id}>
+										{/* 체크박스 컴포넌트 필요 */}
+										<td>{item.title}</td>
+										<td>{item.priceBySize[0].price}</td>
+										<td>{item.gender}</td>
+										<td>{item.brand}</td>
+										<td>{item.concentration}</td>
+										<td>
+											<img
+												src={item.mainImage[0]}
+												alt={item.title}
+												style={{
+													maxWidth: '100px',
+													maxHeight: '100px',
+												}}
+											/>
+										</td>
+										<td>{item.currentAmount}</td>
+										<td>{item.salesAmount}</td>
+									</tr>
+								);
+							})}
+					</tbody>
+				</table>
 			</section>
 		</>
 	);

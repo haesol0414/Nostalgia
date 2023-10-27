@@ -34,9 +34,9 @@ export default function Header() {
 						{showGenderCategories && (
 							<div className={styles.backdrop}>
 								<div className={styles.subCategories}>
-									<a href="/categories/gender/man">Man</a>
-									<a href="/categories/gender/woman">Woman</a>
-									<a href="/categories/gender/genderless">
+									<a href="/products/gender/man">Man</a>
+									<a href="/products/gender/woman">Woman</a>
+									<a href="/products/gender/genderless">
 										Genderless
 									</a>
 								</div>

@@ -16,6 +16,7 @@ import ProductDetails from './pages/ProductDetails/ProductDetails';
 import UserDetails from './pages/UserDetails/UserDetails';
 import Account from './pages/Account/Account';
 import UserOrders from './pages/UserOrders/UserOrders';
+import AddProduct from './pages/Admin/AddProduct';
 
 const router = createBrowserRouter([
 	{
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
 			{ index: true, path: '/signup', element: <SignUp /> },
 			{
 				index: true,
-				path: '/categories/gender/:categoryName',
+				path: '/products/gender/:gender',
 				element: <ByGender />,
 			},
 
@@ -49,6 +50,11 @@ const router = createBrowserRouter([
 				index: true,
 				path: '/account/orders',
 				element: <UserOrders />,
+			},
+			{
+				index: true,
+				path: '/admin/add-product',
+				element: <AddProduct />,
 			},
 		],
 	},
