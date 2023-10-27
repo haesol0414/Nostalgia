@@ -82,13 +82,13 @@ const UserController = {
 		const { newPassword } = req.body;
 
 		try {
-			if (!email || !newPassword) {
+			if (!newPassword) {
 				throw new badRequestError('누락된 값이 있습니다.');
 			}
 
 			await UserService.updatePassword(email, newPassword);
 
-			return res.status(200).json({
+			return res.status(201).json({
 				message: '비밀번호 변경 성공',
 			});
 		} catch (err) {

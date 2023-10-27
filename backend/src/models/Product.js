@@ -27,21 +27,19 @@ const ProductSchema = new Schema({
 			},
 		},
 	],
-	discount: {
-		type: Number,
-	},
 	concentration: {
 		type: String,
 		enum: ['오 드 코롱', '오 드 뚜왈렛', '오 드 빠르펭', '퍼퓸'],
 	},
 	discription: {
 		type: String,
+		default: '',
 	},
 	currentAmount: {
 		type: Number,
-		default: 100,
+		default: 0,
 	},
-	salseAmount: {
+	salesAmount: {
 		type: Number,
 		default: 0,
 	},
@@ -50,11 +48,8 @@ const ProductSchema = new Schema({
 	},
 	detailImage: {
 		type: String,
+		default: '',
 	},
-	// hashtag: {
-	// 	type: [Schema.Types.ObjectId],
-	// 	ref: 'Hashtag',
-	// },
 });
 
 const Product = mongoose.model('Product', ProductSchema, 'Product');

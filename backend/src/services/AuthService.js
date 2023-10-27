@@ -9,10 +9,6 @@ const AuthService = {
 			throw new badRequestError('존재하지 않는 아이디입니다.');
 		}
 
-		if (searchedUser.isDeleted) {
-			throw new badRequestError('탈퇴한 아이디입니다.');
-		}
-
 		if (searchedUser.password !== password) {
 			throw new conflictError('비밀번호가 일치하지 않습니다.');
 		}

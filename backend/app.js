@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
-// const ProductRouter = require('./src/routers/ProductRouter');
+const ProductRouter = require('./src/routers/ProductRouter');
 const UserRouter = require('./src/routers/UserRouter');
 const AuthRouter = require('./src/routers/AuthRouter');
 // const OrderRouter = require('./src/routers/OrderRouter');
@@ -26,7 +26,7 @@ db.on('disconnected', () => console.warn('disconnect'));
 db.on('error', err => console.error(err));
 db.on('reconnectedFailed', () => console.error('reconnect failed'));
 
-// app.use('/api', ProductRouter);
+app.use('/api', ProductRouter);
 app.use('/api', UserRouter);
 app.use('/api', AuthRouter);
 // app.use('/api', OrderRouter);
