@@ -29,7 +29,7 @@ export default function Header() {
 							className={styles.category}
 							onClick={toggleGenderCategories}
 						>
-							Gender
+							CATEGORY
 						</div>
 						{showGenderCategories && (
 							<div className={styles.backdrop}>
@@ -68,10 +68,10 @@ export default function Header() {
 						<a href="/account">My</a>
 					</li>
 					<li>
-						<a href="/">Community</a>
+						<a href="/board">Board</a>
 					</li>
 					<li>
-						<a href="/">Cart</a>
+						<a href="/cart">Cart</a>
 					</li>
 				</div>
 			</div>

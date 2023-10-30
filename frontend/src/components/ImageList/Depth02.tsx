@@ -1,19 +1,39 @@
 import React from 'react';
 import styles from './Depth02.module.scss';
-import { womanBest } from '../../assets/datas/datas';
+import { Link } from 'react-router-dom';
 
-export default function Depth02() {
+interface Props {
+	product: Product;
+}
+
+interface Product {
+	_id: string;
+	title: string;
+	brand: string;
+	price: number;
+	mainImage: string;
+}
+
+// WOMAN BEST -> MAN BEST -> GENDERLESS BEST 순으로 슬라이더 효과주면 좋을 것 같음
+export default function Depth02({ product }: Props) {
 	return (
 		<section className={styles.dep02}>
 			<div className={styles.inner}>
-				<div className={styles.imageWrap}>
-					<img src={womanBest.mainImage} alt="Woman_Best" />
-				</div>
-				<div className={styles.title}>
-					<h2>여성 향수 BEST</h2>
-					<p>
-						{womanBest.brand} {womanBest.title}
-					</p>
+				<Link to={`/products/${product._id}`}>
+					<div className={styles.imageWrap}>
+						<img src={product.mainImage} alt="Woman_Best" />
+					</div>
+				</Link>
+				<div className={styles.textWrap}>
+					<h1>WOMAN BEST</h1>
+					{product ? (
+						<>
+							<p className={styles.brand}>{product.brand}</p>
+							<h3>{product.title}</h3>
+						</>
+					) : (
+						<></>
+					)}
 				</div>
 			</div>
 		</section>

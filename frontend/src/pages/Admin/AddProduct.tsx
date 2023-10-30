@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import styles from './AddProduct.module.scss';
 import BlackButton from '../../components/Button/BlackButton';
 import BorderInput from '../../components/Input/BorderInput';
-import { brand, gender, concentration } from '../../assets/enum';
+import { brand, gender, concentration } from '../../assets/datas/enum';
 import SmallButton from '../../components/Button/SmallButton';
 import TextArea from '../../components/TextArea/TextArea';
 import { NewProduct } from '../../model/product';
-import { ApiResponse, addNewProduct } from '../../utils/apiRequests';
+import { MessageResponse, addNewProduct } from '../../utils/apiRequests';
 
 export default function AddProduct() {
 	const [product, setProduct] = useState<NewProduct>({
@@ -51,7 +51,7 @@ export default function AddProduct() {
 
 	const handleSubmitButton = async () => {
 		try {
-			const response = await addNewProduct<ApiResponse>({
+			const response = await addNewProduct<MessageResponse>({
 				product,
 			});
 			console.log(response);
@@ -66,7 +66,6 @@ export default function AddProduct() {
 			<section className={styles.adminSection}>
 				<div className={styles.addProductFrom}>
 					<h5>상품 추가</h5>
-
 					<label>
 						Title:
 						<BorderInput

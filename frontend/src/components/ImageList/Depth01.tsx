@@ -20,8 +20,8 @@ export default function Depth01({ mainTitle, subTitle, productList }: Props) {
 	return (
 		<section className={styles.dep01}>
 			<div className={styles.title}>
-				<h2>{mainTitle}</h2>
-				<p>{subTitle}</p>
+				<h2 className={styles.mainTitle}>{mainTitle}</h2>
+				<p className={styles.subTitle}>{subTitle}</p>
 			</div>
 			<ul>
 				{productList?.length ? (
@@ -35,9 +35,15 @@ export default function Depth01({ mainTitle, subTitle, productList }: Props) {
 									/>
 								</div>
 								<div className={styles.textWrap}>
-									<p className="brand">{product.brand}</p>
-									<h5>{product.title}</h5>
-									<p>{product.price.toLocaleString()}원</p>
+									<p className={styles.brand}>
+										{product.brand}
+									</p>
+									<h5 className={styles.title}>
+										{product.title}
+									</h5>
+									<p className={styles.price}>
+										{product.price.toLocaleString()}원
+									</p>
 								</div>
 							</Link>
 						</li>

@@ -4,7 +4,8 @@ import { styled } from 'styled-components';
 // import AccountList from '../../components/AccountList/AccountList';
 import OrderList from '../../components/OrderList/OrderList';
 
-export default function Test() {
+// 컴포넌트 테스트용
+export default function Sol() {
 	return (
 		<TestSection>
 			<OrderList

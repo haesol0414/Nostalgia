@@ -1,7 +1,7 @@
 import { AxiosInstance, AxiosResponse } from 'axios';
 import { authInstance, defaultInstance } from './apiInstances';
 
-export interface ApiResponse {
+export interface MessageResponse {
 	message: string;
 }
 

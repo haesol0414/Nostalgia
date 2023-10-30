@@ -4,7 +4,7 @@ import AccountList from '../../components/AccountList/AccountList';
 
 export default function Account() {
 	return (
-		<section className={styles.AccountSection}>
+		<section className={styles.accountSection}>
 			<div className={styles.mainBanner}>
 				<p>나의 계정</p>
 			</div>

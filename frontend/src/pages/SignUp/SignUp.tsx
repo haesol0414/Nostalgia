@@ -5,7 +5,7 @@ import BlackButton from '../../components/Button/BlackButton';
 import WhiteButton from '../../components/Button/WhiteButton';
 import { NewUser } from '../../model/user';
 import {
-	ApiResponse,
+	MessageResponse,
 	userEmailCheck,
 	userSignUp,
 } from '../../utils/apiRequests';
@@ -22,7 +22,7 @@ export default function SignUp() {
 	const handleRigisterBtn = async () => {
 		try {
 			if (newUser.password === passwordConfirm) {
-				const response = await userSignUp<ApiResponse>({ newUser });
+				const response = await userSignUp<MessageResponse>({ newUser });
 
 				if (response.status === 201) {
 					console.log(response);

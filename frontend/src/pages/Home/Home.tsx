@@ -5,7 +5,7 @@ import Depth01 from '../../components/ImageList/Depth01';
 import Depth02 from '../../components/ImageList/Depth02';
 import Depth03 from '../../components/ImageList/Depth03';
 import Depth04 from '../../components/ImageList/Depth04';
-import { womanPerfumes } from '../../assets/datas/datas';
+import { womanPerfumes, womanBest } from '../../assets/datas/datas';
 
 export default function Home() {
 	return (
@@ -22,9 +22,9 @@ export default function Home() {
 						Consequatur maiores vitae laudantium assumenda beatae
 						labore inventore repellat recusandae quibusdam.
 					</p>
-					<a href="#" className={styles.button}>
-						<span>BUTTON</span>
-					</a>
+					<button className={styles.button}>
+						<a href="#">BUTTON ‣</a>
+					</button>
 				</div>
 			</div>
 			<Depth01
@@ -32,8 +32,12 @@ export default function Home() {
 				subTitle="베스트 상품 모음"
 				productList={womanPerfumes}
 			></Depth01>
-			<Depth02></Depth02>
-			<Depth03></Depth03>
+			<Depth02 product={womanBest}></Depth02>
+			<Depth03
+				mainTitle="New Product"
+				subTitle="신규 상품 모음"
+				productList={womanPerfumes}
+			></Depth03>
 			<Depth04
 				mainTitle="For You"
 				subTitle="나를 위한 추천"

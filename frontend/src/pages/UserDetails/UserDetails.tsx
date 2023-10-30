@@ -4,7 +4,7 @@ import styles from './UserDetails.module.scss';
 import BlackButton from '../../components/Button/BlackButton';
 import WhiteButton from '../../components/Button/WhiteButton';
 import {
-	ApiResponse,
+	MessageResponse,
 	changePassword,
 	getUserDetails,
 	patchUserAddress,
@@ -58,7 +58,7 @@ export default function UserDetails() {
 	// 정보 수정 (연락처, 주소, 상세주소)
 	const handleAddressUpdateBtn = async () => {
 		try {
-			const response = await patchUserAddress<ApiResponse>({
+			const response = await patchUserAddress<MessageResponse>({
 				newUserInformation,
 			});
 
@@ -71,7 +71,7 @@ export default function UserDetails() {
 	// 비밀번호 변경
 	const handlePasswordUpdateBtn = async () => {
 		try {
-			const response = await changePassword<ApiResponse>({
+			const response = await changePassword<MessageResponse>({
 				newPassword,
 			});
 
@@ -85,7 +85,7 @@ export default function UserDetails() {
 	const handleWithdrawalBtn = async () => {
 		try {
 			if (confirm('정말 탈퇴하시겠습니까?')) {
-				const response = await withdrawal<ApiResponse>();
+				const response = await withdrawal<MessageResponse>();
 
 				console.log(response);
 				if (response.status === 200) {

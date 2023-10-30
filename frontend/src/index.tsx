@@ -9,7 +9,7 @@ import Error from './pages/Error/Error';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import SignUp from './pages/SignUp/SignUp';
-import Test from './pages/Test/Test';
+import Sol from './pages/Test/Sol';
 import ByGender from './pages/Products/ByGender';
 import Admin from './pages/Admin/Admin';
 import ProductDetails from './pages/ProductDetails/ProductDetails';
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
 		children: [
 			{ index: true, path: '/', element: <Home /> },
 			{ index: true, path: '/login', element: <Login /> },
-			{ index: true, path: '/test', element: <Test /> },
+			{ index: true, path: '/test', element: <Sol /> },
 			{ index: true, path: '/signup', element: <SignUp /> },
 			{
 				index: true,
