@@ -1,10 +1,13 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
+const {
+	badRequestError,
+	conflictError,
+} = require('../middleware/ErrorHandler');
 
 const AuthService = {
 	userLogin: async (email, password) => {
 		const searchedUser = await User.findOne({ email });
-
 		if (searchedUser === null) {
 			throw new badRequestError('존재하지 않는 아이디입니다.');
 		}
