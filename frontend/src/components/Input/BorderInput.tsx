@@ -3,10 +3,12 @@ import styles from './BorderInput.module.scss';
 
 interface BorderInputProps {
 	type?: string;
+	id?: string;
 	placeholder?: string;
 	value: string | number;
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	required?: boolean;
+	autoComplete?: string;
 }
 
 export default function BorderInput({
@@ -15,6 +17,7 @@ export default function BorderInput({
 	value,
 	onChange,
 	required,
+	autoComplete
 }: BorderInputProps) {
 	return (
 		<div className={styles.inputBox}>
@@ -24,6 +27,7 @@ export default function BorderInput({
 				value={value}
 				onChange={onChange}
 				required={required}
+				autoComplete={autoComplete}
 			/>
 		</div>
 	);

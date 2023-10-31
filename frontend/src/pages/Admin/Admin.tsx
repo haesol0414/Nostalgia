@@ -6,14 +6,16 @@ import { getAllProducts } from '../../utils/apiRequests';
 import ModifyButton from '../../components/ModifyButton/ModifyButton';
 import AddButton from '../../components/AddButton/AddButton';
 import DeleteButton from '../../components/DeleteButton/DeleteButton';
+import { isTokenAvailable } from '../../utils/authUtils';
 
-interface AllProductsResponse {
+interface TotalProductsResponse {
 	message: string;
 	totalProducts: Product[];
 }
 
 export default function Admin() {
 	const navigate = useNavigate();
+	const isLoggedIn = isTokenAvailable();
 	const [product, setProduct] = useState<Product[]>([
 		{
 			_id: '',
@@ -34,66 +36,66 @@ export default function Admin() {
 		navigate('/admin/add-product');
 	};
 
-	// 정보 불러오기
 	useEffect(() => {
-		const getTotalProducts = async () => {
-			try {
-				const response = await getAllProducts<AllProductsResponse>();
-				console.log('상품 전체 : ', response);
-
-				setProduct(response.data.totalProducts);
-			} catch (error) {
-				console.log(error);
-			}
-		};
-
-		getTotalProducts();
-	}, []);
+		if (!isLoggedIn) {
+			alert('로그인이 필요한 페이지입니다.');
+			navigate('/login');
+		} else {
+			const getTotalProducts = async () => {
+				try {
+					const response =
+						await getAllProducts<TotalProductsResponse>();
+					console.log('상품 전체: ', response);
+					setProduct(response.data.totalProducts);
+				} catch (error) {
+					console.log(error);
+				}
+			};
+			getTotalProducts();
+		}
+	}, [isLoggedIn]);
 
 	return (
 		<>
-			<section className={styles.adminSection}>
-				<div className={styles.buttonIcon}>
-					<AddButton onClick={handleAddButton}></AddButton>
-					<ModifyButton onClick={() => {}}></ModifyButton>
-					<DeleteButton onClick={() => {}}></DeleteButton>
-				</div>
-				<table className={styles.table}>
-					<thead>
-						<tr>
-							{/* <th>
-								<p>선택</p>
-							</th> */}
-							<th>
-								<p>상품명</p>
-							</th>
-							<th>
-								<p>가격</p>
-							</th>
-							<th>
-								<p>성별</p>
-							</th>
-							<th>
-								<p>브랜드</p>
-							</th>
-							<th>
-								<p>농도</p>
-							</th>
-							<th>
-								<p>메인 이미지</p>
-							</th>
-							<th>
-								<p>재고</p>
-							</th>
-							<th>
-								<p>판매량</p>
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						{product.length > 0 &&
-							product.map(item => {
-								return (
+			{isLoggedIn ? (
+				<section className={styles.adminSection}>
+					<div className={styles.buttonIcon}>
+						<AddButton onClick={handleAddButton}></AddButton>
+						<ModifyButton onClick={() => {}}></ModifyButton>
+						<DeleteButton onClick={() => {}}></DeleteButton>
+					</div>
+					<table className={styles.table}>
+						<thead>
+							<tr>
+								<th>
+									<p>상품명</p>
+								</th>
+								<th>
+									<p>가격</p>
+								</th>
+								<th>
+									<p>성별</p>
+								</th>
+								<th>
+									<p>브랜드</p>
+								</th>
+								<th>
+									<p>농도</p>
+								</th>
+								<th>
+									<p>메인 이미지</p>
+								</th>
+								<th>
+									<p>재고</p>
+								</th>
+								<th>
+									<p>판매량</p>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							{product.length > 0 &&
+								product.map(item => (
 									<tr key={item._id}>
 										{/* 체크박스 컴포넌트 필요 */}
 										<td>{item.title}</td>
@@ -114,11 +116,11 @@ export default function Admin() {
 										<td>{item.currentAmount}</td>
 										<td>{item.salesAmount}</td>
 									</tr>
-								);
-							})}
-					</tbody>
-				</table>
-			</section>
+								))}
+						</tbody>
+					</table>
+				</section>
+			) : null}
 		</>
 	);
 }

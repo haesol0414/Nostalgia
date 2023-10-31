@@ -1,16 +1,20 @@
 import React from 'react';
 import styles from './Button.module.scss';
 
-
 interface ButtonProps {
 	text: string;
-	onClick: () => void;
+	type?: 'button' | 'submit' | 'reset';
+	onClick?: () => void;
 }
 
-export default function SmallButton({ text, onClick }: ButtonProps) {
+export default function SmallButton({ text, type, onClick }: ButtonProps) {
 	return (
 		<>
-			<button className={styles.smallButton} onClick={onClick}>
+			<button
+				type={type}
+				className={styles.smallButton}
+				onClick={onClick}
+			>
 				<p>{text}</p>
 			</button>
 		</>

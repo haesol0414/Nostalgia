@@ -1,15 +1,15 @@
 import React from 'react';
 import styles from './Button.module.scss';
 
-
 interface ButtonProps {
 	text: string;
-	onClick: () => void;
+	type?: 'button' | 'submit' | 'reset';
+	onClick?: () => void;
 }
 
-export default function BlackButton({ text, onClick }: ButtonProps) {
+export default function BlackButton({ text, type, onClick }: ButtonProps) {
 	return (
-		<button className={styles.blackButton} onClick={onClick}>
+		<button type={type} className={styles.blackButton} onClick={onClick}>
 			<p>{text}</p>
 		</button>
 	);

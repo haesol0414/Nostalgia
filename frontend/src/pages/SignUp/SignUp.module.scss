@@ -1,9 +1,12 @@
 .signUpSection {
 	margin: 0 auto;
 	width: 60%;
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
+
+	.signUpForm {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
 
 	.email {
 		display: flex;
@@ -17,8 +20,15 @@
 			width: 25%;
 		}
 	}
-}
 
-.error {
-	color: red;
+	.prevention {
+		color: #a4a4a4;
+		font-size: 1.5rem;
+		margin: 5px 0 10px 0;
+	}
+
+	.errorText {
+		color: red;
+		font-size: 1.4rem;
+	}
 }

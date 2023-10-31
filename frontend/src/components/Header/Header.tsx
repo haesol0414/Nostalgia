@@ -29,7 +29,7 @@ export default function Header() {
 							className={styles.category}
 							onClick={toggleGenderCategories}
 						>
-							CATEGORY
+							Perfumes
 						</div>
 						{showGenderCategories && (
 							<div className={styles.backdrop}>

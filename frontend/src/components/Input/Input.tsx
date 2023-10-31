@@ -3,10 +3,12 @@ import styles from './Input.module.scss';
 
 interface InputProps {
 	type?: string;
+	id?: string;
 	placeholder?: string;
 	value?: string;
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	required?: boolean;
+	autoComplete?: string;
 }
 
 export default function Input({
@@ -15,6 +17,7 @@ export default function Input({
 	value,
 	onChange,
 	required,
+	autoComplete,
 }: InputProps) {
 	return (
 		<div className={styles.inputBox}>
@@ -24,6 +27,7 @@ export default function Input({
 				value={value}
 				onChange={onChange}
 				required={required}
+				autoComplete={autoComplete}
 			/>
 		</div>
 	);

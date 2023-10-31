@@ -32,6 +32,8 @@ export default function UserDetails() {
 		password: '',
 		passwordConfirm: '',
 	});
+
+	// 초기값 기존 정보로 재설정 필요
 	const [newUserInformation, setNewUserInformation] =
 		useState<AddressWithPhone>({
 			phone: '',
@@ -63,6 +65,9 @@ export default function UserDetails() {
 			});
 
 			console.log(response);
+			if (response.status === 200) {
+				alert('성공적으로 변경되었습니다.');
+			}
 		} catch (error) {
 			console.log(error);
 		}

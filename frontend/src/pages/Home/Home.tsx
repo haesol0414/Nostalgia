@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from './Home.module.scss';
 import Depth01 from '../../components/ImageList/Depth01';
 import Depth02 from '../../components/ImageList/Depth02';

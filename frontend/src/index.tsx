@@ -17,6 +17,8 @@ import UserDetails from './pages/UserDetails/UserDetails';
 import Account from './pages/Account/Account';
 import UserOrders from './pages/UserOrders/UserOrders';
 import AddProduct from './pages/Admin/AddProduct';
+import Board from './pages/Board/Board';
+import Cart from './pages/Cart/Cart';
 
 const router = createBrowserRouter([
 	{
@@ -27,7 +29,7 @@ const router = createBrowserRouter([
 			{ index: true, path: '/', element: <Home /> },
 			{ index: true, path: '/login', element: <Login /> },
 			{ index: true, path: '/test', element: <Sol /> },
-			{ index: true, path: '/signup', element: <SignUp /> },
+			{ index: true, path: '/sign-up', element: <SignUp /> },
 			{
 				index: true,
 				path: '/products/gender/:gender',
@@ -56,6 +58,16 @@ const router = createBrowserRouter([
 				path: '/admin/add-product',
 				element: <AddProduct />,
 			},
+			{
+				index: true,
+				path: '/board',
+				element: <Board />,
+			},
+			{
+				index: true,
+				path: '/cart',
+				element: <Cart />,
+			},
 		],
 	},
 ]);
@@ -63,11 +75,9 @@ const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement,
 );
 root.render(
-	<React.StrictMode>
-		<CookiesProvider>
-			<RouterProvider router={router} />
-		</CookiesProvider>
-	</React.StrictMode>,
+	<CookiesProvider>
+		<RouterProvider router={router} />
+	</CookiesProvider>,
 );
 
 reportWebVitals();

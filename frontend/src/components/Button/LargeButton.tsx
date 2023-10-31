@@ -3,12 +3,18 @@ import styles from './Button.module.scss';
 
 interface ButtonProps {
 	text: string;
+	type?: 'button' | 'submit' | 'reset';
+	onClick?: () => void;
 }
 
-export default function LargeButton({ text }: ButtonProps) {
+export default function LargeButton({ text, type, onClick }: ButtonProps) {
 	return (
 		<>
-			<button className={styles.largeButton}>
+			<button
+				type={type}
+				className={styles.largeButton}
+				onClick={onClick}
+			>
 				<h5>{text}</h5>
 			</button>
 		</>
