@@ -145,6 +145,11 @@ export const deleteProduct = <T>(
 	return requestDelete<T>('/admin/products', authInstance, data);
 };
 
+// 홈 화면 상품 조회
+export const getMainProducts = <T>(): Promise<{ status: number; data: T }> => {
+	return requestGet<T>('/main-products', defaultInstance);
+};
+
 // 성별 카테고리별 상품 조회
 export const getAllProductsByCategory = <T>(
 	category: string,
@@ -155,7 +160,9 @@ export const getAllProductsByCategory = <T>(
 	);
 };
 
-// 홈 화면 상품 조회
-export const getMainProducts = <T>(): Promise<{ status: number; data: T }> => {
-	return requestGet<T>('/main-products', defaultInstance);
+// 상품 상세 조회
+export const getProductsDetails = <T>(
+	productId: string,
+): Promise<{ status: number; data: T }> => {
+	return requestGet<T>(`/products/${productId}`, defaultInstance);
 };

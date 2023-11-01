@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import styles from './DropdownOption.module.scss';
 
 interface DropdownOptionProps {
-	sizes: string[];
+	sizes: number[];
 	prices: number[];
-	onChange: (selectedSize: string, price: number | null) => void;
+	onChange: (selectedSize: number, price: number) => void;
 }
 
 const DropdownOption: React.FC<DropdownOptionProps> = ({
@@ -12,11 +12,11 @@ const DropdownOption: React.FC<DropdownOptionProps> = ({
 	prices,
 	onChange,
 }) => {
-	const [selectedSize, setSelectedSize] = useState<string>('');
-	const [totalPrice, setTotalPrice] = useState<number | null>(null);
+	const [selectedSize, setSelectedSize] = useState<number>(sizes[0]);
+	const [totalPrice, setTotalPrice] = useState<number>(prices[0]);
 	const [isOpen, setIsOpen] = useState(false);
 
-	const handleSizeChange = (size: string) => {
+	const handleSizeChange = (size: number) => {
 		setSelectedSize(size);
 		const selectedIndex = sizes.indexOf(size);
 
@@ -25,8 +25,8 @@ const DropdownOption: React.FC<DropdownOptionProps> = ({
 			setTotalPrice(newPrice);
 			onChange(size, newPrice);
 		} else {
-			setTotalPrice(null);
-			onChange(size, null);
+			setTotalPrice(prices[0]);
+			onChange(size, sizes[0]);
 		}
 		setIsOpen(false);
 	};
@@ -39,7 +39,7 @@ const DropdownOption: React.FC<DropdownOptionProps> = ({
 		<div className={styles.dropdownOption}>
 			<div className={styles.dropdownHeader} onClick={toggleDropdown}>
 				<span className={styles.selectedSize}>
-					{selectedSize || sizes[0]}
+					{selectedSize || sizes[0]}ml
 				</span>
 				<i className={styles.arrowDownIcon}></i>
 			</div>
@@ -47,7 +47,7 @@ const DropdownOption: React.FC<DropdownOptionProps> = ({
 				<ul className={styles.dropdownList}>
 					{sizes.map(size => (
 						<li key={size} onClick={() => handleSizeChange(size)}>
-							{size}
+							{size}ml
 						</li>
 					))}
 				</ul>
