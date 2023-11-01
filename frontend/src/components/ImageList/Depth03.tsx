@@ -1,19 +1,12 @@
 import React from 'react';
 import styles from './Depth03.module.scss';
 import { Link } from 'react-router-dom';
+import { Product } from '../../model/product';
 
 interface Props {
 	mainTitle: string;
 	subTitle: string;
 	productList?: Product[];
-}
-
-interface Product {
-	_id: string;
-	title: string;
-	brand: string;
-	price: number;
-	mainImage: string;
 }
 
 export default function Depth03({ mainTitle, subTitle, productList }: Props) {
@@ -38,7 +31,7 @@ export default function Depth03({ mainTitle, subTitle, productList }: Props) {
 									</p>
 									<div className={styles.imageWrap}>
 										<img
-											src={product.mainImage}
+											src={product.mainImage[0]}
 											alt={product.title}
 										/>
 									</div>

@@ -99,7 +99,9 @@ export default function Admin() {
 									<tr key={item._id}>
 										{/* 체크박스 컴포넌트 필요 */}
 										<td>{item.title}</td>
-										<td>{item.priceBySize[0].price}</td>
+										<td>
+											{item.priceBySize[0].price.toLocaleString()}
+										</td>
 										<td>{item.gender}</td>
 										<td>{item.brand}</td>
 										<td>{item.concentration}</td>

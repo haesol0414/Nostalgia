@@ -12,7 +12,7 @@ import SignUp from './pages/SignUp/SignUp';
 import Sol from './pages/Test/Sol';
 import ByGender from './pages/Products/ByGender';
 import Admin from './pages/Admin/Admin';
-import ProductDetails from './pages/ProductDetails/ProductDetails';
+import ProductDetails from './pages/Products/ProductDetails';
 import UserDetails from './pages/UserDetails/UserDetails';
 import Account from './pages/Account/Account';
 import UserOrders from './pages/UserOrders/UserOrders';

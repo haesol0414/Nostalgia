@@ -49,11 +49,18 @@ export default function UserDetails() {
 
 				console.log('회원 정보 : ', response);
 				setUser(response.data.user);
+
+				if (response.data.user.phone || response.data.user.address) {
+					setNewUserInformation({
+						phone: response.data.user.phone || '',
+						city: response.data.user.address.city || '',
+						detail: response.data.user.address.detail || '',
+					});
+				}
 			} catch (error) {
 				console.log(error);
 			}
 		};
-
 		getUserInformation();
 	}, []);
 
@@ -124,7 +131,7 @@ export default function UserDetails() {
 					<div className={styles.textInput}>
 						<p>연락처</p>
 						<Input
-							placeholder={user.phone ? user.phone : '연락처'}
+							placeholder="연락처"
 							value={newUserInformation.phone}
 							onChange={e =>
 								setNewUserInformation({
@@ -137,9 +144,7 @@ export default function UserDetails() {
 					<div className={styles.textInput}>
 						<p>주소</p>
 						<Input
-							placeholder={
-								user.address.city ? user.address.city : '주소'
-							}
+							placeholder="주소"
 							value={newUserInformation.city}
 							onChange={e =>
 								setNewUserInformation({
@@ -152,11 +157,7 @@ export default function UserDetails() {
 					<div className={styles.textInput}>
 						<p>상세주소</p>
 						<Input
-							placeholder={
-								user.address.detail
-									? user.address.detail
-									: '상세 주소'
-							}
+							placeholder="상세 주소"
 							value={newUserInformation.detail}
 							onChange={e =>
 								setNewUserInformation({

@@ -1,37 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './ByGender.module.scss';
 import Depth01 from '../../components/ImageList/Depth01';
-import { womanPerfumes, manPerfumes } from '../../assets/datas/datas';
 import { useParams } from 'react-router-dom';
+import { getAllProductsByCategory } from '../../utils/apiRequests';
+import { Product } from '../../model/product';
 
-// 수정필요
-
-interface Product {
-	_id: string;
-	title: string;
-	brand: string;
-	price: number;
-	mainImage: string;
+interface ProductsByGenderResponse {
+	message: string;
+	productsByGender: Product[];
 }
-
-// Products 배열 인터페이스
-interface Products extends Array<Product> {}
 
 export default function ByGender() {
 	const params = useParams();
 	const gender = params.gender;
 	let category: string;
-	let products: Products = [];
+	const [products, setProducts] = useState<Product[]>();
 
 	if (gender === 'woman') {
 		category = 'woman';
-		products = womanPerfumes;
 	} else if (gender === 'man') {
 		category = 'man';
-		products = manPerfumes;
 	} else {
 		category = 'genderless';
 	}
+
+	// 카테고리별 상품 불러오기
+	useEffect(() => {
+		const getProductsByGender = async () => {
+			try {
+				const response =
+					await getAllProductsByCategory<ProductsByGenderResponse>(
+						category,
+					);
+
+				console.log('성별 카테고리별 상품 : ', response);
+
+				if (response.data) {
+					setProducts(response.data.productsByGender);
+				}
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		getProductsByGender();
+	}, []);
 
 	return (
 		<section className={styles.genderSection}>

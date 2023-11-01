@@ -119,25 +119,43 @@ export const withdrawal = <T>(): Promise<{ status: number; data: T }> => {
 
 /* [ PRODUCT 관련 api ] */
 
-// 관리자
+// 상품 전체 조회
 export const getAllProducts = <T>(): Promise<{ status: number; data: T }> => {
 	return requestGet<T>('/products', authInstance);
 };
 
+// 상품 등록
 export const addNewProduct = <T>(
 	data: object,
 ): Promise<{ status: number; data: T }> => {
 	return requestPost<T>('/products', authInstance, data);
 };
 
+// 상품 수정
 export const patchProductDetail = <T>(
 	data: object,
 ): Promise<{ status: number; data: T }> => {
 	return requestPatch<T>('/admin/products', authInstance, data);
 };
 
+// 상품 삭제
 export const deleteProduct = <T>(
 	data: string,
 ): Promise<{ status: number; data: T }> => {
 	return requestDelete<T>('/admin/products', authInstance, data);
+};
+
+// 성별 카테고리별 상품 조회
+export const getAllProductsByCategory = <T>(
+	category: string,
+): Promise<{ status: number; data: T }> => {
+	return requestGet<T>(
+		`/products/gender/?gender=${category}`,
+		defaultInstance,
+	);
+};
+
+// 홈 화면 상품 조회
+export const getMainProducts = <T>(): Promise<{ status: number; data: T }> => {
+	return requestGet<T>('/main-products', defaultInstance);
 };

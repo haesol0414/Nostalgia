@@ -11,8 +11,7 @@ const price = [120000, 240000];
 export default function ProductDetails() {
 	const params = useParams();
 	const productId = params.productId;
-	console.log(productId);
-
+	// const product
 	const [totalPrice, setTotalPrice] = useState<number | null>(null);
 	const [selectedSize, setSelectedSize] = useState<string>('');
 

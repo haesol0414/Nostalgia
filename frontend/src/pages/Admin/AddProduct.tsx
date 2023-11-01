@@ -7,8 +7,10 @@ import SmallButton from '../../components/Button/SmallButton';
 import TextArea from '../../components/TextArea/TextArea';
 import { NewProduct } from '../../model/product';
 import { MessageResponse, addNewProduct } from '../../utils/apiRequests';
+import { useNavigate } from 'react-router-dom';
 
 export default function AddProduct() {
+	const navigate = useNavigate();
 	const [product, setProduct] = useState<NewProduct>({
 		title: '',
 		brand: '',
@@ -54,8 +56,9 @@ export default function AddProduct() {
 			const response = await addNewProduct<MessageResponse>({
 				product,
 			});
-			console.log(response);
+
 			alert('상품 등록 완료');
+			navigate('/admin');
 		} catch (error) {
 			console.log(error);
 		}

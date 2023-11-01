@@ -1,19 +1,12 @@
 import React from 'react';
 import styles from './Depth01.module.scss';
 import { Link } from 'react-router-dom';
+import { Product } from '../../model/product';
 
 interface Props {
 	mainTitle: string;
 	subTitle: string;
 	productList?: Product[];
-}
-
-interface Product {
-	_id: string;
-	title: string;
-	brand: string;
-	price: number;
-	mainImage: string;
 }
 
 export default function Depth01({ mainTitle, subTitle, productList }: Props) {
@@ -30,7 +23,7 @@ export default function Depth01({ mainTitle, subTitle, productList }: Props) {
 							<Link to={`/products/${product._id}`}>
 								<div className={styles.imageWrap}>
 									<img
-										src={product.mainImage}
+										src={product.mainImage[0]}
 										alt={product.title}
 									/>
 								</div>
@@ -42,7 +35,7 @@ export default function Depth01({ mainTitle, subTitle, productList }: Props) {
 										{product.title}
 									</h5>
 									<p className={styles.price}>
-										{product.price.toLocaleString()}원
+										{product.priceBySize[0].price.toLocaleString()}원
 									</p>
 								</div>
 							</Link>
