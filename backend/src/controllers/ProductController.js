@@ -110,7 +110,7 @@ const ProductController = {
 
 	// (성별) 카테고리별 상품 조회
 	getProductsByGender: async (req, res, next) => {
-		const { gender } = req.params;
+		const { gender } = req.query;
 
 		try {
 			const productsByGender = await ProductService.getProductsByGender(
@@ -128,7 +128,7 @@ const ProductController = {
 
 	// 브랜드별 상품 조회
 	getProductsByBrand: async (req, res, next) => {
-		const { brand } = req.params;
+		const { brand } = req.query;
 
 		try {
 			const productsByBrand = await ProductService.getProductsByBrand(
@@ -166,14 +166,21 @@ const ProductController = {
 		}
 	},
 
-	// 인기 상품 상위 4개 조회
-	getBestProducts: async (req, res, next) => {
+	// 홈 화면 상품 조회 (인기 상품 4개, 카테고리별 인기 상품 한개씩, 신규상품 4개)
+	getMainProducts: async (req, res, next) => {
 		try {
-			const bestProducts = await ProductService.getBestProducts();
+			const [newProducts, bestProducts, bestProductsBygender] =
+				await Promise.all([
+					ProductService.getNewestProducts(),
+					ProductService.getBestProducts(),
+					ProductService.getBestProductsByGender(),
+				]);
 
 			res.status(200).json({
-				message: '인기 상품 4개 조회 성공',
+				message: '홈 화면 제품 데이터 조회 성공',
+				newProducts,
 				bestProducts,
+				bestProductsBygender,
 			});
 		} catch (err) {
 			next(err);

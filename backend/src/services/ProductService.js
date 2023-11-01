@@ -47,9 +47,29 @@ const ProductService = {
 		await Product.deleteOne({ _id: _id });
 	},
 
-	// 인기 상품 4개까지 조회
+	// 인기 상품 4개 조회
 	getBestProducts: async () => {
 		return await Product.find({}).sort({ salesAmount: -1 }).limit(4);
+	},
+
+	// 신규 상품 4개 조회
+	getNewestProducts: async () => {
+		return await Product.find({}).sort({ _id: -1 }).limit(4);
+	},
+
+	// 성별 카테고리별 베스트 제품 조회
+	getBestProductsByGender: async () => {
+		const womanBest = await Product.findOne({ gender: 'woman' })
+			.sort({ salesAmount: -1 })
+			.limit(1);
+		const manBest = await Product.findOne({ gender: 'man' })
+			.sort({ salesAmount: -1 })
+			.limit(1);
+		const genderlessBest = await Product.findOne({ gender: 'genderless' })
+			.sort({ salesAmount: -1 })
+			.limit(1);
+
+		return { womanBest, manBest, genderlessBest };
 	},
 
 	// 성별 카테고리별 제품 조회

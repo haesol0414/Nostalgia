@@ -25,22 +25,15 @@ ProductRouter.delete(
 );
 
 // (성별) 카테고리별 상품 조회
-ProductRouter.get(
-	'/products/gender/:gender',
-	ProductController.getProductsByGender
-);
+ProductRouter.get('/products/gender', ProductController.getProductsByGender);
 
 // 브랜드별 상품 조회
-ProductRouter.get(
-	'/products/brand/:brand',
-	ProductController.getProductsByBrand
-);
-// = 쿼리로 바꿔야함
+ProductRouter.get('/products/brand', ProductController.getProductsByBrand);
 
 // 상품 상세 조회
 ProductRouter.get('/products/:productId', ProductController.getProductById);
 
-// 인기 상품 4개 조회
-ProductRouter.get('/products/best-products', ProductController.getBestProducts);
+// 홈 화면 제품 조회
+ProductRouter.get('/main-products', ProductController.getMainProducts);
 
 module.exports = ProductRouter;
