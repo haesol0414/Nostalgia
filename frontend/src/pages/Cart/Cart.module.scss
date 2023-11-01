@@ -1,3 +1,77 @@
 .cartSection {
-	margin: 0 auto;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	.cartWrap {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		gap: 30px;
+		width: 50%;
+
+		h2 {
+			padding-bottom: 20px;
+			margin-top: 40px;
+			margin-bottom: 20px;
+			text-align: center;
+		}
+
+		.cartProduct {
+			display: flex;
+			flex-direction: column;
+			padding-bottom: 24px;
+			border-bottom: 1px solid #ececec;
+			margin-bottom: 20px;
+
+			.middle {
+				display: flex;
+				justify-content: flex-start;
+
+				img {
+					width: 10rem;
+					height: 10rem;
+				}
+
+				.textInfo {
+					display: flex;
+					flex-direction: column;
+					text-align: left;
+					align-items: flex-start;
+					position: relative;
+					gap: 6px;
+
+					.concentration {
+						color: #a4a4a4;
+					}
+
+					.size {
+						font-size: 1.8rem;
+					}
+
+					.deleteButton {
+						margin-top: 10px;
+						font-size: 1.6rem;
+						border-bottom: 1px solid;
+					}
+				}
+			}
+
+			.bottom {
+				display: flex;
+				justify-content: space-between;
+			}
+
+			.price {
+				margin-left: auto;
+			}
+		}
+
+		.buttons {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
+	}
 }

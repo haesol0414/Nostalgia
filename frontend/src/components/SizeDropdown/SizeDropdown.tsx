@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import styles from './DropdownOption.module.scss';
+import styles from './SizeDropdown.module.scss';
 
-interface DropdownOptionProps {
+interface SizeDropdownProps {
 	sizes: number[];
 	prices: number[];
 	onChange: (selectedSize: number, price: number) => void;
 }
 
-const DropdownOption: React.FC<DropdownOptionProps> = ({
+const SizeDropdown: React.FC<SizeDropdownProps> = ({
 	sizes,
 	prices,
 	onChange,
@@ -56,4 +56,4 @@ const DropdownOption: React.FC<DropdownOptionProps> = ({
 	);
 };
 
-export default DropdownOption;
+export default SizeDropdown;

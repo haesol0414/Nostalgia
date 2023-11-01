@@ -54,7 +54,7 @@ export const manPerfumes = [
 	},
 ];
 
-export const womanBest = {
+export const testProduct = {
 	_id: 'id1',
 	title: 'N°5',
 	brand: 'chanel',

@@ -39,7 +39,9 @@ export default function Depth03({ mainTitle, subTitle, productList }: Props) {
 							</li>
 						))
 					) : (
-						<></>
+						<>
+							<h5>상품이 없습니다.</h5>
+						</>
 					)}
 				</ul>
 			</div>

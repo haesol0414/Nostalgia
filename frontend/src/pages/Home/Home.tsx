@@ -5,7 +5,7 @@ import Depth01 from '../../components/ImageList/Depth01';
 import Depth02 from '../../components/ImageList/Depth02';
 import Depth03 from '../../components/ImageList/Depth03';
 import Depth04 from '../../components/ImageList/Depth04';
-import { womanPerfumes, womanBest } from '../../assets/datas/datas';
+import { womanPerfumes } from '../../assets/datas/datas';
 import { getMainProducts } from '../../utils/apiRequests';
 import { Product } from '../../model/product';
 

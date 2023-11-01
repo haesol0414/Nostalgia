@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './ProductDetails.module.scss';
 import BlackButton from '../../components/Button/BlackButton';
-import DropdownOption from '../../components/DropdownOption/DropdownOption';
+import SizeDropdown from '../../components/SizeDropdown/SizeDropdown';
 import { Product } from '../../model/product';
 import { getProductsDetails } from '../../utils/apiRequests';
 
@@ -91,7 +91,7 @@ export default function ProductDetails() {
 							선택 가능한 사이즈:
 							{product.priceBySize.length}
 						</p>
-						<DropdownOption
+						<SizeDropdown
 							sizes={sizes}
 							prices={prices}
 							onChange={handlePriceChange}
