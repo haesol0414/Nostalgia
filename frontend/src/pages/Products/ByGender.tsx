@@ -49,7 +49,13 @@ export default function ByGender() {
 		<section className={styles.genderSection}>
 			<Depth01
 				mainTitle={category}
-				subTitle="향수 모음"
+				subTitle={
+					category === 'woman'
+						? '여성 향수'
+						: category === 'man'
+						? '남성 향수'
+						: '젠더리스 향수'
+				}
 				productList={products}
 			></Depth01>
 		</section>

@@ -1,0 +1,46 @@
+.orderSection {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	.orderWrap {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		gap: 30px;
+		width: 50%;
+
+		h2 {
+			margin-top: 10px;
+			text-align: center;
+		}
+
+		.address {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
+			& > div {
+				width: 100%;
+			}
+			button {
+				width: 20%;
+			}
+		}
+
+		.textInput {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
+			& > div {
+				width: 90%;
+			}
+
+			p {
+				color: #a4a4a4;
+				font-size: 1.4rem;
+			}
+		}
+	}
+}
