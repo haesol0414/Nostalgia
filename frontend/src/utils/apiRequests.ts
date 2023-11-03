@@ -140,7 +140,7 @@ export const patchProductDetail = <T>(
 
 // 상품 삭제
 export const deleteProduct = <T>(
-	data: string,
+	data: object,
 ): Promise<{ status: number; data: T }> => {
 	return requestDelete<T>('/admin/products', authInstance, data);
 };

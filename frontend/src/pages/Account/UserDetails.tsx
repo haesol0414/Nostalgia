@@ -117,20 +117,22 @@ export default function UserDetails() {
 			<section className={styles.myPageSection}>
 				<div className={styles.myPageWrap}>
 					<h2>마이페이지</h2>
-					<div className={styles.block}>
-						<div className={styles.textInput}>
-							<p>이메일</p>
-							<Input value={user.email} onChange={() => {}} />
-						</div>
-
-						<div className={styles.textInput}>
-							<p>이름</p>
-							<Input value={user.name} onChange={() => {}} />
-						</div>
-					</div>
 					<div className={styles.textInput}>
-						<p>연락처</p>
+						<div className={styles.block}>
+							<Input
+								text="이메일"
+								value={user.email}
+								onChange={() => {}}
+							/>
+
+							<Input
+								text="이름"
+								value={user.name}
+								onChange={() => {}}
+							/>
+						</div>
 						<Input
+							text="연락처"
 							placeholder="연락처"
 							value={newUserInformation.phone}
 							onChange={e =>
@@ -140,10 +142,8 @@ export default function UserDetails() {
 								})
 							}
 						/>
-					</div>
-					<div className={styles.textInput}>
-						<p>주소</p>
 						<Input
+							text="주소"
 							placeholder="주소"
 							value={newUserInformation.city}
 							onChange={e =>
@@ -153,10 +153,8 @@ export default function UserDetails() {
 								})
 							}
 						/>
-					</div>
-					<div className={styles.textInput}>
-						<p>상세주소</p>
 						<Input
+							text="상세 주소"
 							placeholder="상세 주소"
 							value={newUserInformation.detail}
 							onChange={e =>
@@ -166,15 +164,15 @@ export default function UserDetails() {
 								})
 							}
 						/>
+						<BlackButton
+							text="내 정보 변경"
+							onClick={handleAddressUpdateBtn}
+						></BlackButton>
 					</div>
-					<BlackButton
-						text="내 정보 변경"
-						onClick={handleAddressUpdateBtn}
-					></BlackButton>
-					<h5>비밀번호 설정</h5>
+					<h5>비밀번호 변경</h5>
 					<div className={styles.textInput}>
-						<p>새 비밀번호</p>
 						<Input
+							text="새 비밀번호"
 							placeholder="새 비밀번호"
 							value={newPassword.password}
 							onChange={e =>
@@ -184,10 +182,8 @@ export default function UserDetails() {
 								})
 							}
 						/>
-					</div>
-					<div className={styles.textInput}>
-						<p>새 비밀번호 확인</p>
 						<Input
+							text="새 비밀번호 확인"
 							placeholder="새 비밀번호 확인"
 							value={newPassword.passwordConfirm}
 							onChange={e =>
@@ -197,16 +193,15 @@ export default function UserDetails() {
 								})
 							}
 						/>
+						<span>
+							* 비밀번호는 8자 이상으로 영문 소문자, 숫자, 특수
+							문자를 모두 포함해야 합니다.
+						</span>
+						<BlackButton
+							text="비밀번호 변경"
+							onClick={handlePasswordUpdateBtn}
+						></BlackButton>
 					</div>
-					<p>
-						* 비밀번호는 8자 이상으로 영문 소문자, 숫자, 특수 문자를
-						모두 포함해야 합니다.
-					</p>
-					<BlackButton
-						text="비밀번호 변경"
-						onClick={handlePasswordUpdateBtn}
-					></BlackButton>
-
 					{/* 
 				<h5>맞춤 정보</h5>
 				<p>성별</p>
@@ -217,10 +212,10 @@ export default function UserDetails() {
 				></BlackButton> */}
 
 					<h5>회원 탈퇴</h5>
-					<p>
+					<span>
 						회원 탈퇴시 온라인 및 오프라인 회원 정보 및 구매 정보 등
 						모든 정보가 삭제 됩니다.
-					</p>
+					</span>
 					<WhiteButton
 						text="회원 탈퇴"
 						onClick={handleWithdrawalBtn}

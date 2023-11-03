@@ -5,6 +5,7 @@ import BlackButton from '../../components/Button/BlackButton';
 import SizeDropdown from '../../components/SizeDropdown/SizeDropdown';
 import { CartProduct, Product } from '../../model/product';
 import { getProductsDetails } from '../../utils/apiRequests';
+import QuantitySelector from '../../components/QuantitySelector/QuantitySelector';
 
 interface ProductDetailResponse {
 	message: string;
@@ -16,12 +17,14 @@ export default function ProductDetails() {
 	const params = useParams();
 	const productId = params.productId;
 	const [product, setProduct] = useState<Product>();
-	const [selectedPrice, setSelectedPrice] = useState<number>(0);
+	const [totalPrice, setTotalPrice] = useState<number>(0);
 	const [selectedSize, setSelectedSize] = useState<number>(0);
 	const [cart, setCart] = useState<CartProduct[]>([]);
 	const sizes: number[] = [];
 	const prices: number[] = [];
+	const [orderAmount, setOrderAmount] = useState<number>(1);
 
+	// 상품 상세 불러오기
 	useEffect(() => {
 		const storedCart = localStorage.getItem('cart');
 		if (storedCart) {
@@ -40,7 +43,7 @@ export default function ProductDetails() {
 
 					if (response.data) {
 						setProduct(response.data.productInfo);
-						setSelectedPrice(
+						setTotalPrice(
 							response.data.productInfo.priceBySize[0].price,
 						);
 						setSelectedSize(
@@ -55,32 +58,63 @@ export default function ProductDetails() {
 		getProductInformation();
 	}, [productId]);
 
+	// 초기 사이즈 및 수량 설정
 	if (product) {
 		product.priceBySize.forEach(item => {
 			sizes.push(item.size);
 			prices.push(item.price);
-			console.log(sizes);
 		});
 	}
 
-	const handlePriceChange = (selectedSize: number, newPrice: number) => {
-		setSelectedPrice(newPrice);
+	const handlePriceChange = (selectedSize: number, totalPrice: number) => {
+		setTotalPrice(totalPrice);
 		setSelectedSize(selectedSize);
+		setOrderAmount(1);
 	};
 
+	// 수량 조절
+	const handleAmountIncrease = () => {
+		setOrderAmount(orderAmount + 1);
+		updatetotalPrice(orderAmount + 1);
+	};
+
+	const handleAmountDecrease = () => {
+		if (orderAmount > 1) {
+			setOrderAmount(orderAmount - 1);
+			updatetotalPrice(orderAmount - 1);
+		}
+	};
+
+	// 최종 가격 업데이트
+	const updatetotalPrice = (orderAmount: number) => {
+		if (product) {
+			const selectedSizePrice = product.priceBySize.find(
+				item => item.size === selectedSize,
+			);
+
+			if (selectedSizePrice) {
+				setTotalPrice(selectedSizePrice.price * orderAmount);
+			}
+		}
+	};
+
+	// 장바구니 담기
 	const addToCart = () => {
 		if (product) {
-			// orderAmount 조정하는 부분 필요
+			const selectedSizeIndex: number = product.priceBySize.findIndex(
+				item => item.size === selectedSize,
+			);
+
 			const newCartProduct: CartProduct = {
 				_id: product._id,
 				title: product.title,
 				brand: product.brand,
 				selectedSize: selectedSize,
-				selectedPrice: selectedPrice,
+				cost: product.priceBySize[selectedSizeIndex].price,
 				concentration: product.concentration,
 				mainImage: product.mainImage[0],
-				orderAmount: 1,
-				totalPrice: selectedPrice,
+				orderAmount: orderAmount,
+				totalPrice: totalPrice,
 			};
 
 			const updatedCart = [...cart, newCartProduct];
@@ -100,12 +134,12 @@ export default function ProductDetails() {
 						<img src={product.mainImage[0]} alt={product.title} />
 					</div>
 
-					<div className={styles.titleWrap}>
+					<div className={styles.productInfo}>
 						<h5 className={styles.title}>{product.title} </h5>
 						<p className={styles.concentration}>오 드 빠르펭</p>
 						<h6 className={styles.price}>
-							{selectedPrice !== null
-								? `${selectedPrice.toLocaleString()}원`
+							{totalPrice !== null
+								? `${totalPrice.toLocaleString()}원`
 								: `${product.priceBySize[0].price.toLocaleString()}원`}
 						</h6>
 
@@ -118,6 +152,14 @@ export default function ProductDetails() {
 							prices={prices}
 							onChange={handlePriceChange}
 						/>
+
+						<div className={styles.quantitySelector}>
+							<QuantitySelector
+								quantity={orderAmount}
+								onIncrease={handleAmountIncrease}
+								onDecrease={handleAmountDecrease}
+							></QuantitySelector>
+						</div>
 						<BlackButton
 							text="장바구니에 추가하기"
 							onClick={addToCart}

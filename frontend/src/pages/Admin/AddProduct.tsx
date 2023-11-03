@@ -20,7 +20,6 @@ export default function AddProduct() {
 		description: '',
 		currentAmount: 0,
 		mainImage: [''],
-		detailImage: '',
 	});
 
 	const handleSizeChange = (
@@ -155,6 +154,23 @@ export default function AddProduct() {
 									}
 								/>
 							</label>
+							{index !== 0 && (
+								<button
+									className={styles.closeButton}
+									onClick={() => {
+										const updatedPriceBySize = [
+											...product.priceBySize,
+										];
+										updatedPriceBySize.splice(index, 1);
+										setProduct({
+											...product,
+											priceBySize: updatedPriceBySize,
+										});
+									}}
+								>
+									삭제
+								</button>
+							)}
 						</div>
 					))}
 
@@ -234,6 +250,23 @@ export default function AddProduct() {
 									}
 								/>
 							</label>
+							{index !== 0 && (
+								<button
+									className={styles.closeButton}
+									onClick={() => {
+										const updatedMainImages = [
+											...product.mainImage,
+										];
+										updatedMainImages.splice(index, 1);
+										setProduct({
+											...product,
+											mainImage: updatedMainImages,
+										});
+									}}
+								>
+									삭제
+								</button>
+							)}
 						</div>
 					))}
 					<div className={styles.addButton}>
@@ -242,18 +275,6 @@ export default function AddProduct() {
 							onClick={addMainImageInput}
 						/>
 					</div>
-					<label>
-						DetailImage:
-						<TextArea
-							value={product.detailImage}
-							onChange={e =>
-								setProduct({
-									...product,
-									detailImage: e.target.value,
-								})
-							}
-						/>
-					</label>
 
 					<BlackButton
 						text="상품 추가"

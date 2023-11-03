@@ -1,12 +1,10 @@
-.radioButton {
-  display: block;
-  margin-right: 5px;
-  padding: 5px;
-  cursor: pointer;
+.checkBoxContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
-  >input {
-    width: 16px;
-    height: 16px;
-    margin-right: 10px;
-  }
+	.checkBoxInput {
+		width: 20px;
+		height: 20px;
+	}
 }

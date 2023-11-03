@@ -1,0 +1,31 @@
+/* QuantitySelector.css */
+
+.quantitySelector {
+	display: flex;
+	align-items: center;
+
+	.quantityButton {
+		background-color: #a4a4a4;
+		color: #fff;
+		border: none;
+		border-radius: 50%;
+		font-size: 1.2rem;
+		width: 32px;
+		height: 32px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		cursor: pointer;
+		transition: background-color 0.3s;
+	}
+
+	.quantityButton:hover {
+		background-color: #000;
+		color: #fff;
+	}
+
+	.quantity {
+		font-size: 1.3rem;
+		margin: 0 10px;
+	}
+}

@@ -1,24 +1,30 @@
 import React from 'react';
-import styles from "./CheckBox.module.scss";
+import styles from './CheckBox.module.scss';
+import { CartProduct } from '../../model/product';
 
 interface CheckBoxProps {
-    checked: boolean;
-    onChange: (checked: boolean) => void;
+	product: CartProduct;
+	isChecked: boolean;
+	onToggle: (product: CartProduct, isChecked: boolean) => void;
 }
 
-export default function CheckBox({ checked, onChange }: CheckBoxProps) {
-    const handleChange = () => {
-        onChange(!checked);
-    };
-    return (
-        <label className={styles.checkBoxContainer}>
-            <input
-                type="checkbox"
-                className={styles.checkBoxInput}
-                checked={checked}
-                onChange={handleChange}
-            />
-            <span className={styles.checkBoxCheckmark}></span>
-        </label>
-    );
+export default function CheckBox({
+	product,
+	isChecked,
+	onToggle,
+}: CheckBoxProps) {
+	const handleCheckBoxChange = () => {
+		onToggle(product, !isChecked);
+	};
+
+	return (
+		<label className={styles.checkBoxContainer}>
+			<input
+				className={styles.checkBoxInput}
+				type="checkbox"
+				checked={isChecked}
+				onChange={handleCheckBoxChange}
+			/>
+		</label>
+	);
 }

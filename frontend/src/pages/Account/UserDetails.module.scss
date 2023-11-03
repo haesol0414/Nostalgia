@@ -8,40 +8,38 @@
 		position: relative;
 		display: flex;
 		flex-direction: column;
-		gap: 30px;
 		width: 50%;
 
 		h2,
 		h5 {
 			padding-bottom: 20px;
 			border-bottom: 3px solid #000;
-			margin-top: 40px;
-			margin-bottom: 20px;
+			margin: 40px 0;
 		}
 
-		.block {
+		.textInput {
 			display: flex;
 			flex-direction: column;
 			gap: 30px;
 
-			p {
-				color: #a4a4a4;
-			}
+			.block {
+				display: flex;
+				flex-direction: column;
+				gap: 30px;
 
-			input {
-				pointer-events: none;
-				color: #a4a4a4;
+				p {
+					color: #a4a4a4;
+				}
+
+				input {
+					pointer-events: none;
+					color: #a4a4a4;
+				}
 			}
 		}
 
-		.textInput {
-			p {
-				margin-bottom: 10px;
-			}
-
-			input {
-				flex: 1;
-			}
+		button {
+			margin: 10px 0 20px 0;
 		}
 	}
 }

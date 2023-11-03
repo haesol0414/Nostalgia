@@ -9,7 +9,6 @@ export interface NewProduct {
 	concentration: string;
 	description: string;
 	mainImage: string[];
-	detailImage: string;
 	currentAmount: number;
 }
 
@@ -23,7 +22,7 @@ export interface CartProduct {
 	title: string;
 	brand: string;
 	selectedSize: number;
-	selectedPrice: number;
+	cost: number;
 	concentration: string;
 	mainImage: string;
 	orderAmount: number;

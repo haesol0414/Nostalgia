@@ -2,11 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Admin.module.scss';
 import { Product } from '../../model/product';
-import { getAllProducts } from '../../utils/apiRequests';
+import {
+	MessageResponse,
+	deleteProduct,
+	getAllProducts,
+} from '../../utils/apiRequests';
 import ModifyButton from '../../components/ModifyButton/ModifyButton';
 import AddButton from '../../components/AddButton/AddButton';
 import DeleteButton from '../../components/DeleteButton/DeleteButton';
 import { isTokenAvailable } from '../../utils/authUtils';
+import RadioButton from '../../components/RadioButton/RadioButton';
 
 interface TotalProductsResponse {
 	message: string;
@@ -16,25 +21,8 @@ interface TotalProductsResponse {
 export default function Admin() {
 	const navigate = useNavigate();
 	const isLoggedIn = isTokenAvailable();
-	const [product, setProduct] = useState<Product[]>([
-		{
-			_id: '',
-			title: '',
-			brand: '',
-			gender: '',
-			priceBySize: [{ size: 0, price: 0 }],
-			concentration: '',
-			description: '',
-			currentAmount: 0,
-			salesAmount: 0,
-			mainImage: [''],
-			detailImage: '',
-		},
-	]);
-
-	const handleAddButton = () => {
-		navigate('/admin/add-product');
-	};
+	const [product, setProduct] = useState<Product[]>([]);
+	const [selectedProductId, setSelectedProductId] = useState<string>('');
 
 	useEffect(() => {
 		if (!isLoggedIn) {
@@ -55,18 +43,55 @@ export default function Admin() {
 		}
 	}, [isLoggedIn]);
 
+	const handleAddButton = () => {
+		navigate('/admin/add-product');
+	};
+
+	const handleRadioChange = (productId: string) => {
+		setSelectedProductId(productId);
+	};
+
+	const handleModifyButton = () => {
+		console.log('checked: ', selectedProductId);
+	};
+
+	const handleDeleteButton = async () => {
+		try {
+			console.log('checked: ', selectedProductId);
+
+			if (selectedProductId) {
+				const response = await deleteProduct<MessageResponse>({
+					selectedProductId: selectedProductId,
+				});
+
+				if (response.status === 200) {
+					alert('상품 삭제 완료');
+				}
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<>
 			{isLoggedIn ? (
 				<section className={styles.adminSection}>
 					<div className={styles.buttonIcon}>
 						<AddButton onClick={handleAddButton}></AddButton>
-						<ModifyButton onClick={() => {}}></ModifyButton>
-						<DeleteButton onClick={() => {}}></DeleteButton>
+						<ModifyButton
+							onClick={handleModifyButton}
+						></ModifyButton>
+						<DeleteButton
+							onClick={handleDeleteButton}
+						></DeleteButton>
 					</div>
 					<table className={styles.table}>
 						<thead>
 							<tr>
+								<th>
+									<p>선택</p>
+								</th>
 								<th>
 									<p>상품명</p>
 								</th>
@@ -97,7 +122,18 @@ export default function Admin() {
 							{product.length > 0 &&
 								product.map(item => (
 									<tr key={item._id}>
-										{/* 체크박스 컴포넌트 필요 */}
+										<td>
+											<RadioButton
+												key={item._id}
+												product={item}
+												selectedProductId={
+													selectedProductId
+												}
+												onRadioChange={
+													handleRadioChange
+												}
+											/>
+										</td>
 										<td>{item.title}</td>
 										<td>
 											{item.priceBySize[0].price.toLocaleString()}

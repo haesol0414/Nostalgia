@@ -7,6 +7,7 @@ import Input from '../../components/Input/Input';
 import { getUserDetails } from '../../utils/apiRequests';
 import { User } from '../../model/user';
 import WhiteButton from '../../components/Button/WhiteButton';
+import { isTokenAvailable } from '../../utils/authUtils';
 
 interface UserDetailResponse {
 	message: string;
@@ -14,10 +15,10 @@ interface UserDetailResponse {
 }
 
 export default function Order() {
-	// const navigate = useNavigate();
+	const navigate = useNavigate();
 	const [user, setUser] = useState<User>();
 
-	// 정보 불러오기
+	// 유저 정보 불러오기
 	useEffect(() => {
 		const getUserInformation = async () => {
 			try {
@@ -34,41 +35,45 @@ export default function Order() {
 		getUserInformation();
 	}, []);
 
+	// 장바구니 상품 불러오기
+
 	return user ? (
 		<>
 			<section className={styles.orderSection}>
 				<div className={styles.orderWrap}>
-					<h2>주문</h2>
-					<div className={styles.textInput}>
-						<p>이름</p>
-						<Input value={user.name} onChange={() => {}} />
-					</div>
+					<h2>주문하기</h2>
 
-					<div className={styles.textInput}>
-						<p>연락처</p>
-						<Input value={user.phone} onChange={() => {}} />
-					</div>
+					<div className={styles.orderProducts}></div>
+
+					<Input text="이름" value={user.name} onChange={() => {}} />
+					<Input
+						text="연락처"
+						value={user.phone}
+						onChange={() => {}}
+					/>
 
 					<div className={styles.address}>
-						<div className={styles.textInput}>
-							<p>주소</p>
-							<Input
-								value={user.address.city}
-								onChange={() => {}}
-							/>
-						</div>
+						<Input
+							text="주소"
+							value={user.address.city}
+							onChange={() => {}}
+						/>
 						<WhiteButton
 							text="주소 검색"
 							onClick={() => {}}
 						></WhiteButton>
 					</div>
-					<div className={styles.textInput}>
-						<p>상세 주소</p>
-						<Input
-							value={user.address.detail}
-							onChange={() => {}}
-						/>
-					</div>
+
+					<Input
+						text="우편번호"
+						value={user.address.detail}
+						onChange={() => {}}
+					/>
+					<Input
+						text="상세 주소"
+						value={user.address.detail}
+						onChange={() => {}}
+					/>
 					<div className={styles.buttons}>
 						<BlackButton text="결제하기" onClick={() => {}} />
 					</div>

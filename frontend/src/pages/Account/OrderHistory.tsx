@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './UserOrders.module.scss';
+import styles from './OrderHistory.module.scss';
 import OrderList from '../../components/OrderList/OrderList';
 
 interface OrderList {
@@ -8,7 +8,7 @@ interface OrderList {
 	detailLink: string;
 }
 
-export default function UserOrders() {
+export default function OrderHistory() {
 	return (
 		<section className={styles.userOrderSection}>
 			<div className={styles.userOrderWrap}>

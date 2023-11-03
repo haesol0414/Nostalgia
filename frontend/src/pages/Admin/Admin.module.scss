@@ -39,6 +39,10 @@
 			padding: 0 10px;
 			text-transform: capitalize;
 			font-size: 1.8rem;
+
+			input[type='checkbox'] {
+				display: flex;
+			}
 		}
 
 		.link {

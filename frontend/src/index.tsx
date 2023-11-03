@@ -13,9 +13,9 @@ import Sol from './pages/Test/Sol';
 import ByGender from './pages/Products/ByGender';
 import Admin from './pages/Admin/Admin';
 import ProductDetails from './pages/Products/ProductDetails';
-import UserDetails from './pages/UserDetails/UserDetails';
+import UserDetails from './pages/Account/UserDetails';
 import Account from './pages/Account/Account';
-import UserOrders from './pages/UserOrders/UserOrders';
+import OrderHistory from './pages/Account/OrderHistory';
 import AddProduct from './pages/Admin/AddProduct';
 import Board from './pages/Board/Board';
 import Cart from './pages/Cart/Cart';
@@ -52,7 +52,7 @@ const router = createBrowserRouter([
 			{
 				index: true,
 				path: '/account/orders',
-				element: <UserOrders />,
+				element: <OrderHistory />,
 			},
 			{
 				index: true,
@@ -71,7 +71,7 @@ const router = createBrowserRouter([
 			},
 			{
 				index: true,
-				path: '/order',
+				path: '/orders',
 				element: <Order />,
 			},
 		],

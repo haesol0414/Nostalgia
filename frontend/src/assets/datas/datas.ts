@@ -1,4 +1,4 @@
-// 테스트용 더미데이터 모음
+// 퍼블리싱 테스트용 더미데이터 모음
 
 export const womanPerfumes = [
 	{

@@ -1,4 +1,10 @@
-.checkBoxInput {
-  width: 16px;
-  height: 16px;
+.checkBoxContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	.checkBoxInput {
+		width: 20px;
+		height: 20px;
+	}
 }
