@@ -17,6 +17,7 @@ interface UserDetailResponse {
 export default function Order() {
 	const navigate = useNavigate();
 	const [user, setUser] = useState<User>();
+	// const [user, setUser] = useState<User>(); -> 배송 요청사항
 
 	// 유저 정보 불러오기
 	useEffect(() => {
@@ -63,14 +64,18 @@ export default function Order() {
 							onClick={() => {}}
 						></WhiteButton>
 					</div>
-
 					<Input
 						text="우편번호"
-						value={user.address.detail}
+						value={user.address.zipCode?.toString()}
 						onChange={() => {}}
 					/>
 					<Input
 						text="상세 주소"
+						value={user.address.detail}
+						onChange={() => {}}
+					/>
+					<Input
+						text="배송 요청사항"
 						value={user.address.detail}
 						onChange={() => {}}
 					/>
