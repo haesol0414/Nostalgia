@@ -6,6 +6,11 @@ const UserSchema = new Schema(
 			type: String,
 			required: true,
 		},
+		gender: {
+			type: String,
+			enum: ['woman', 'man', 'genderless'],
+			default: 'genderless',
+		},
 		name: {
 			type: String,
 			required: true,
@@ -27,11 +32,21 @@ const UserSchema = new Schema(
 				type: String,
 				default: '',
 			},
+			zipCode: {
+				type: Number,
+			},
 		},
 		role: {
 			type: String,
 			enum: ['admin', 'customer'],
 			default: 'customer',
+		},
+		wishList: {
+			type: [Schema.Types.ObjectId],
+			ref: 'Product',
+		},
+		preference: {
+			type: String,
 		},
 	},
 	{

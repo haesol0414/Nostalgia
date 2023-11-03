@@ -63,12 +63,11 @@ const ProductController = {
 				description,
 				currentAmount,
 				mainImage,
-				detailImage,
 			} = updatedProduct;
 
 			// priceBySize 어떻게 처리
 
-			await AdminService.updateProducts(itemId, {
+			await ProductService.updateProducts(itemId, {
 				title,
 				price,
 				manufacturer,
@@ -77,7 +76,6 @@ const ProductController = {
 				salesAmount,
 				category,
 				imageURL,
-				detailImageURL,
 			});
 
 			res.status(200).json({
@@ -90,15 +88,16 @@ const ProductController = {
 
 	// [관리자] 상품 삭제
 	deleteProducts: async (req, res, next) => {
-		const role = req.currentUserRole;
-		const { _id } = req.body;
+		// const role = req.currentUserRole;
+		const { selectedProductId } = req.body;
 
 		try {
-			if (role !== 'admin') {
-				throw new unauthorizedError('관리자만 접근이 가능합니다.');
-			}
+			console.log(selectedProductId);
+			// if (role !== 'admin') {
+			// 	throw new unauthorizedError('관리자만 접근이 가능합니다.');
+			// }
 
-			await AdminService.deleteProducts(_id);
+			await ProductService.deleteProducts(selectedProductId);
 
 			res.status(200).json({
 				message: '[관리자] 상품 삭제 성공',

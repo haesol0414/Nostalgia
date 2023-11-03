@@ -46,9 +46,19 @@ const ProductSchema = new Schema({
 	mainImage: {
 		type: [String],
 	},
-	detailImage: {
+	hashTag: {
 		type: String,
-		default: '',
+		enum: [
+			'#플로럴',
+			'#우디',
+			'#머스크',
+			'#스파이시',
+			'#프루티',
+			'#시트러스',
+			'#달콤한',
+			'#오리엔탈',
+			'#허브',
+		],
 	},
 });
 

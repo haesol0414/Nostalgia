@@ -2,7 +2,7 @@ const { mongoose, Schema } = require('mongoose');
 
 const OrderSchema = new Schema(
 	{
-		userEmail: {
+		userId: {
 			type: String,
 			required: true,
 		},
@@ -14,44 +14,47 @@ const OrderSchema = new Schema(
 			type: String,
 			required: true,
 		},
-		// address: {
-		// 	type: [Schema.Types.ObjectId],
-		// 	ref: 'Coupon',
-		// },
-		// detailAddress: {
-		// 	type: String,
-		// 	enum: ['admin', 'customer'],
-		// 	default: 'customer',
-		// },
-		shippingRequest: {
-			type: String,
-		},
 		purchase: [
 			{
-				product: {
-					type: [Schema.Types.ObjectId],
-					ref: 'Product',
+				productId: {
+					type: String,
 				},
-				quantity: {
+				title: {
+					type: String,
+				},
+				brand: {
+					type: String,
+				},
+				selectedSize: {
 					type: Number,
-					required: true,
+				},
+				cost: {
+					type: Number,
+				},
+				concentration: {
+					type: String,
+				},
+				mainImage: {
+					type: Number,
+				},
+				orderAmount: {
+					type: Number,
+				},
+				totalPrice: {
+					type: Number,
 				},
 			},
 		],
-		// discountCost: {
-		// 	type: Number,
-		// },
+		shippingRequest: {
+			type: String,
+		},
 		shippingFee: {
 			type: Number,
 			default: 0,
 		},
-		totalPrice: {
+		totalPayment: {
 			type: Number,
 		},
-		// payMethod: {
-		// 	type: String,
-		// 	enum: ['무통장 입금', '신용 카드', '휴대폰 결제'],
-		// },
 		orderStatus: {
 			type: String,
 			enum: ['상품 준비 중', '배송 중', '배송 완료', '주문 취소'],

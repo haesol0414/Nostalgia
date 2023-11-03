@@ -22,8 +22,7 @@ const ProductService = {
 		priceBySize,
 		description,
 		currentAmount,
-		mainImage,
-		detailImage
+		mainImage
 	) => {
 		await Product.updateOne(
 			{ _id: _id },
@@ -35,16 +34,14 @@ const ProductService = {
 				priceBySize: productBySize,
 				description: description,
 				currentAmount,
-				currentAmount,
 				mainImage: mainImage,
-				detailImage: detailImage,
 			}
 		);
 	},
 
 	// [관리자] 상품 삭제
-	deleteProducts: async productId => {
-		await Product.deleteOne({ _id: _id });
+	deleteProducts: async selectedProductId => {
+		await Product.deleteOne({ _id: selectedProductId });
 	},
 
 	// 인기 상품 4개 조회
