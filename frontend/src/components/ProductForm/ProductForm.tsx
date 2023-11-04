@@ -3,38 +3,47 @@ import BorderInput from '../../components/Input/BorderInput';
 import SmallButton from '../../components/Button/SmallButton';
 import SelectBox from '../../components/SelectBox/SelectBox';
 import { NewProduct, Product } from '../../model/product';
+import TextArea from '../TextArea/TextArea';
+import {
+	brand,
+	gender,
+	concentration,
+	hashTags,
+} from '../../assets/datas/enum';
+import styles from './ProductForm.module.scss';
 
 interface ProductFormProps {
 	product: NewProduct | Product;
-	onSizeChange: (index: number, newSize: string, newPrice: string) => void;
-	onMainImageURLChange: (
+	handleFieldChange: (field: string, value: any) => void;
+	handleSizeChange: (
+		index: number,
+		newSize: string,
+		newPrice: string,
+	) => void;
+	handleMainImageURLChange: (
 		index: number,
 		e: React.ChangeEvent<HTMLInputElement>,
 	) => void;
-	onAddMainImageInput: () => void;
-	onSubmit: () => void;
+	addMainImageInput: () => void;
+	addPriceBySizeInput: () => void;
 }
 
 export default function ProductForm({
 	product,
-	onSizeChange,
-	onMainImageURLChange,
-	onAddMainImageInput,
-	onSubmit,
+	handleFieldChange,
+	handleSizeChange,
+	handleMainImageURLChange,
+	addMainImageInput,
+	addPriceBySizeInput,
 }: ProductFormProps) {
 	return (
-		<>
+		<div className={styles.productForm}>
 			<label>
 				Title:
 				<BorderInput
 					type="text"
 					value={product.title}
-					onChange={e =>
-						setProduct({
-							...product,
-							title: e.target.value,
-						})
-					}
+					onChange={e => handleFieldChange('title', e.target.value)}
 				/>
 			</label>
 
@@ -44,12 +53,9 @@ export default function ProductForm({
 					options={gender}
 					selectedValue={product.gender}
 					onSelect={selectedValue =>
-						setProduct({
-							...product,
-							gender: selectedValue,
-						})
+						handleFieldChange('gender', selectedValue)
 					}
-				></SelectBox>
+				/>
 			</label>
 
 			<label>
@@ -58,12 +64,9 @@ export default function ProductForm({
 					options={brand}
 					selectedValue={product.brand}
 					onSelect={selectedValue =>
-						setProduct({
-							...product,
-							brand: selectedValue,
-						})
+						handleFieldChange('brand', selectedValue)
 					}
-				></SelectBox>
+				/>
 			</label>
 
 			{product.priceBySize.map((sizeInfo, index) => (
@@ -97,6 +100,7 @@ export default function ProductForm({
 							}
 						/>
 					</label>
+
 					{index !== 0 && (
 						<button
 							className={styles.closeButton}
@@ -105,10 +109,10 @@ export default function ProductForm({
 									...product.priceBySize,
 								];
 								updatedPriceBySize.splice(index, 1);
-								setProduct({
-									...product,
-									priceBySize: updatedPriceBySize,
-								});
+								handleFieldChange(
+									'priceBySize',
+									updatedPriceBySize,
+								);
 							}}
 						>
 							삭제
@@ -118,18 +122,7 @@ export default function ProductForm({
 			))}
 
 			<div className={styles.addButton}>
-				<SmallButton
-					text="사이즈 추가"
-					onClick={() =>
-						setProduct({
-							...product,
-							priceBySize: [
-								...product.priceBySize,
-								{ size: 0, price: 0 },
-							],
-						})
-					}
-				/>
+				<SmallButton text="사이즈 추가" onClick={addPriceBySizeInput} />
 			</div>
 
 			<label>
@@ -138,12 +131,9 @@ export default function ProductForm({
 					options={concentration}
 					selectedValue={product.concentration}
 					onSelect={selectedValue =>
-						setProduct({
-							...product,
-							concentration: selectedValue,
-						})
+						handleFieldChange('concentration', selectedValue)
 					}
-				></SelectBox>
+				/>
 			</label>
 
 			<label>
@@ -151,10 +141,7 @@ export default function ProductForm({
 				<BorderInput
 					value={product.currentAmount}
 					onChange={e =>
-						setProduct({
-							...product,
-							currentAmount: Number(e.target.value),
-						})
+						handleFieldChange('currentAmount', e.target.value)
 					}
 				/>
 			</label>
@@ -164,10 +151,7 @@ export default function ProductForm({
 				<TextArea
 					value={product.description}
 					onChange={e =>
-						setProduct({
-							...product,
-							description: e.target.value,
-						})
+						handleFieldChange('description', e.target.value)
 					}
 				/>
 			</label>
@@ -182,6 +166,7 @@ export default function ProductForm({
 							onChange={e => handleMainImageURLChange(index, e)}
 						/>
 					</label>
+
 					{index !== 0 && (
 						<button
 							className={styles.closeButton}
@@ -190,10 +175,10 @@ export default function ProductForm({
 									...product.mainImage,
 								];
 								updatedMainImages.splice(index, 1);
-								setProduct({
-									...product,
-									mainImage: updatedMainImages,
-								});
+								handleFieldChange(
+									'mainImage',
+									updatedMainImages,
+								);
 							}}
 						>
 							삭제
@@ -201,23 +186,21 @@ export default function ProductForm({
 					)}
 				</div>
 			))}
+
 			<div className={styles.addButton}>
 				<SmallButton text="이미지 추가" onClick={addMainImageInput} />
 			</div>
+
 			<label>
 				HashTag:
 				<SelectBox
 					options={hashTags}
 					selectedValue={product.hashTag}
 					onSelect={selectedValue =>
-						setProduct({
-							...product,
-							hashTag: selectedValue,
-						})
+						handleFieldChange('hashTag', selectedValue)
 					}
-				></SelectBox>
+				/>
 			</label>
-			<BlackButton text="상품 추가" onClick={handleSubmitButton} />
-		</>
+		</div>
 	);
 }

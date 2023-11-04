@@ -6,6 +6,7 @@ import SizeDropdown from '../../components/SizeDropdown/SizeDropdown';
 import { CartProduct, Product } from '../../model/product';
 import { getProductsDetails } from '../../utils/apiRequests';
 import QuantitySelector from '../../components/QuantitySelector/QuantitySelector';
+import HashTag from '../../components/HashTag/HashTag';
 
 interface ProductDetailResponse {
 	message: string;
@@ -137,11 +138,14 @@ export default function ProductDetails() {
 					<div className={styles.productInfo}>
 						<h5 className={styles.title}>{product.title} </h5>
 						<p className={styles.concentration}>오 드 빠르펭</p>
-						<h6 className={styles.price}>
-							{totalPrice !== null
-								? `${totalPrice.toLocaleString()}원`
-								: `${product.priceBySize[0].price.toLocaleString()}원`}
-						</h6>
+						<div className={styles.tagAndPrice}>
+							<HashTag tagName={product.hashTag} />
+							<h6>
+								{totalPrice !== null
+									? `${totalPrice.toLocaleString()}원`
+									: `${product.priceBySize[0].price.toLocaleString()}원`}
+							</h6>
+						</div>
 
 						<p>
 							선택 가능한 사이즈:

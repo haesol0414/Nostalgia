@@ -13,6 +13,8 @@ import {
 import { User, AddressWithPhone } from '../../model/user';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import SelectBox from '../../components/SelectBox/SelectBox';
+import { gender, hashTags } from '../../assets/datas/enum';
 
 interface UserDetailResponse {
 	message: string;
@@ -112,6 +114,12 @@ export default function UserDetails() {
 		}
 	};
 
+	const handleUserFieldChange = (field: string, value: any) => {
+		if (user) {
+			setUser({ ...user, [field]: value });
+		}
+	};
+
 	return user ? (
 		<>
 			<section className={styles.myPageSection}>
@@ -136,10 +144,7 @@ export default function UserDetails() {
 							placeholder="연락처"
 							value={newUserInformation.phone}
 							onChange={e =>
-								setNewUserInformation({
-									...newUserInformation,
-									phone: e.target.value,
-								})
+								handleUserFieldChange('phone', e.target.value)
 							}
 						/>
 						<Input
@@ -147,10 +152,7 @@ export default function UserDetails() {
 							placeholder="주소"
 							value={newUserInformation.city}
 							onChange={e =>
-								setNewUserInformation({
-									...newUserInformation,
-									city: e.target.value,
-								})
+								handleUserFieldChange('city', e.target.value)
 							}
 						/>
 						<Input
@@ -158,10 +160,7 @@ export default function UserDetails() {
 							placeholder="상세 주소"
 							value={newUserInformation.detail}
 							onChange={e =>
-								setNewUserInformation({
-									...newUserInformation,
-									detail: e.target.value,
-								})
+								handleUserFieldChange('detail', e.target.value)
 							}
 						/>
 						<BlackButton
@@ -202,15 +201,35 @@ export default function UserDetails() {
 							onClick={handlePasswordUpdateBtn}
 						></BlackButton>
 					</div>
-					{/* 
-				<h5>맞춤 정보</h5>
-				<p>성별</p>
-				<p>선호하는 태그</p>
-				<BlackButton
-					text="맞춤 정보 설정"
-					onClick={() => {}}
-				></BlackButton> */}
 
+					<h5>맞춤 정보</h5>
+					<div className={styles.userPreference}>
+						<p>맞춤 성별</p>
+						<SelectBox
+							options={gender}
+							selectedValue={user.gender}
+							onSelect={selectedValue =>
+								handleUserFieldChange('gender', selectedValue)
+							}
+						/>
+					</div>
+					<div className={styles.userPreference}>
+						<p>선호하는 태그</p>
+						<SelectBox
+							options={hashTags}
+							selectedValue={user.preference}
+							onSelect={selectedValue =>
+								handleUserFieldChange(
+									'preference',
+									selectedValue,
+								)
+							}
+						/>
+					</div>
+					<BlackButton
+						text="맞춤 정보 설정"
+						onClick={() => {}}
+					></BlackButton>
 					<h5>회원 탈퇴</h5>
 					<span>
 						회원 탈퇴시 온라인 및 오프라인 회원 정보 및 구매 정보 등

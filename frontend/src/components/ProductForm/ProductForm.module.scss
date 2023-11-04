@@ -1,16 +1,26 @@
-.addButton {
-	border: none;
-	background: none;
-	outline: none;
+.productForm {
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	text-align: center;
 
-	.plusIcon {
-		width: 40px;
-		height: 40px;
-		scale: (0.9);
-		transition: 0.5s;
+	label {
+		gap: 10px;
+		font-size: 1.8rem;
+		display: flex;
 	}
 
-	.plusIcon:hover {
-		color: #a4a4a4;
+	.closeButton {
+		margin: 10px 0;
+	}
+
+	.addButton {
+		display: flex;
+		justify-content: flex-end;
+
+		button {
+			width: 10%;
+		}
 	}
 }

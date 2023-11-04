@@ -9,12 +9,12 @@ export interface NewUser {
 export interface User extends NewUser {
 	_id: string;
 	phone?: string;
-	gender?: string;
+	gender: string;
 	address: Address;
 	role: string;
 	wishList?: Product;
 	registerDate: Date;
-	preference?: string;
+	preference: string;
 }
 
 export interface Address {

@@ -1,39 +1,18 @@
 .adminSection {
 	display: flex;
 	flex-direction: column;
-	border-radius: 10px;
+	width: 70%;
+	margin: 0 auto;
+	text-align: center;
 
-	.addProductFrom {
-		width: 70%;
-		margin: 0 auto;
+	label {
+		gap: 10px;
+		font-size: 1.8rem;
 		display: flex;
-		flex-direction: column;
-		gap: 16px;
-		text-align: center;
+	}
 
-		label {
-			gap: 10px;
-			font-size: 1.8rem;
-			display: flex;
-		}
-
-		.closeButton {
-			margin: 10px 0;
-		}
-
-		.addButton {
-			display: flex;
-			justify-content: flex-end;
-
-			button {
-				width: 10%;
-			}
-		}
+	h5,
+	button {
+		margin: 5px 0 20px 0;
 	}
 }
-
-// .buttonIcon {
-// 	display: flex;
-// 	align-self: flex-end;
-// 	gap: 20px;
-// }
