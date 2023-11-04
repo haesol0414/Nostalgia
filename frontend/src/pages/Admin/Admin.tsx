@@ -53,6 +53,7 @@ export default function Admin() {
 
 	const handleModifyButton = () => {
 		console.log('checked: ', selectedProductId);
+		navigate(`/admin/products/${selectedProductId}`);
 	};
 
 	const handleDeleteButton = async () => {

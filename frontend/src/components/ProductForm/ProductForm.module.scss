@@ -1,0 +1,16 @@
+.addButton {
+	border: none;
+	background: none;
+	outline: none;
+
+	.plusIcon {
+		width: 40px;
+		height: 40px;
+		scale: (0.9);
+		transition: 0.5s;
+	}
+
+	.plusIcon:hover {
+		color: #a4a4a4;
+	}
+}

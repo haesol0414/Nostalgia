@@ -10,12 +10,12 @@ export interface NewProduct {
 	description: string;
 	mainImage: string[];
 	currentAmount: number;
+	hashTag: string;
 }
 
 export interface Product extends NewProduct {
 	_id: string;
 	salesAmount: number;
-	hashTag?: string;
 }
 
 export interface CartProduct {

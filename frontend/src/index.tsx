@@ -20,6 +20,7 @@ import AddProduct from './pages/Admin/AddProduct';
 import Board from './pages/Board/Board';
 import Cart from './pages/Cart/Cart';
 import Order from './pages/Order/Order';
+import UpdateProduct from './pages/Admin/UpdateProduct';
 
 const router = createBrowserRouter([
 	{
@@ -73,6 +74,11 @@ const router = createBrowserRouter([
 				index: true,
 				path: '/orders',
 				element: <Order />,
+			},
+			{
+				index: true,
+				path: '/admin/products/:productId',
+				element: <UpdateProduct />,
 			},
 		],
 	},

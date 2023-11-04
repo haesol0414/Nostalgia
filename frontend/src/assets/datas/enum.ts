@@ -13,7 +13,7 @@ export const concentration = [
 	'오 드 빠르펭',
 	'퍼퓸',
 ];
-export const hashtags = [
+export const hashTags = [
 	'#플로럴',
 	'#우디',
 	'#머스크',

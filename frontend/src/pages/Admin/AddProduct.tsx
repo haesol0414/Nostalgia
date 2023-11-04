@@ -2,12 +2,18 @@ import React, { useState } from 'react';
 import styles from './AddProduct.module.scss';
 import BlackButton from '../../components/Button/BlackButton';
 import BorderInput from '../../components/Input/BorderInput';
-import { brand, gender, concentration } from '../../assets/datas/enum';
+import {
+	brand,
+	gender,
+	concentration,
+	hashTags,
+} from '../../assets/datas/enum';
 import SmallButton from '../../components/Button/SmallButton';
 import TextArea from '../../components/TextArea/TextArea';
 import { NewProduct } from '../../model/product';
 import { MessageResponse, addNewProduct } from '../../utils/apiRequests';
 import { useNavigate } from 'react-router-dom';
+import SelectBox from '../../components/SelectBox/SelectBox';
 
 export default function AddProduct() {
 	const navigate = useNavigate();
@@ -20,6 +26,7 @@ export default function AddProduct() {
 		description: '',
 		currentAmount: 0,
 		mainImage: [''],
+		hashTag: '',
 	});
 
 	const handleSizeChange = (
@@ -84,43 +91,30 @@ export default function AddProduct() {
 
 					<label>
 						Gender:
-						<select
-							value={product.gender}
-							onChange={e =>
+						<SelectBox
+							options={gender}
+							selectedValue={product.gender}
+							onSelect={selectedValue =>
 								setProduct({
 									...product,
-									gender: e.target.value,
+									gender: selectedValue,
 								})
 							}
-							defaultValue={gender[0]}
-						>
-							<option value="">Select Gender</option>
-							{gender.map(genderValue => (
-								<option key={genderValue} value={genderValue}>
-									{genderValue}
-								</option>
-							))}
-						</select>
+						></SelectBox>
 					</label>
 
 					<label>
 						Brand:
-						<select
-							value={product.brand}
-							onChange={e =>
+						<SelectBox
+							options={brand}
+							selectedValue={product.brand}
+							onSelect={selectedValue =>
 								setProduct({
 									...product,
-									brand: e.target.value,
+									brand: selectedValue,
 								})
 							}
-						>
-							<option value="">Select Brand</option>
-							{brand.map(brandValue => (
-								<option key={brandValue} value={brandValue}>
-									{brandValue}
-								</option>
-							))}
-						</select>
+						></SelectBox>
 					</label>
 
 					{product.priceBySize.map((sizeInfo, index) => (
@@ -191,25 +185,16 @@ export default function AddProduct() {
 
 					<label>
 						Concentration:
-						<select
-							value={product.concentration}
-							onChange={e =>
+						<SelectBox
+							options={concentration}
+							selectedValue={product.concentration}
+							onSelect={selectedValue =>
 								setProduct({
 									...product,
-									concentration: e.target.value,
+									concentration: selectedValue,
 								})
 							}
-						>
-							<option value="">Select Concentration</option>
-							{concentration.map(concentrationValue => (
-								<option
-									key={concentrationValue}
-									value={concentrationValue}
-								>
-									{concentrationValue}
-								</option>
-							))}
-						</select>
+						></SelectBox>
 					</label>
 
 					<label>
@@ -275,7 +260,19 @@ export default function AddProduct() {
 							onClick={addMainImageInput}
 						/>
 					</div>
-
+					<label>
+						HashTag:
+						<SelectBox
+							options={hashTags}
+							selectedValue={product.hashTag}
+							onSelect={selectedValue =>
+								setProduct({
+									...product,
+									hashTag: selectedValue,
+								})
+							}
+						></SelectBox>
+					</label>
 					<BlackButton
 						text="상품 추가"
 						onClick={handleSubmitButton}
