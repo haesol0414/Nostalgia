@@ -13,28 +13,23 @@ const ProductService = {
 	},
 
 	// [관리자] 상품 수정
-	updateProducts: async (
-		_id,
-		title,
-		brand,
-		gender,
-		concentration,
-		priceBySize,
-		description,
-		currentAmount,
-		mainImage
-	) => {
+	updateProducts: async ({ updatedProduct }) => {
+		console.log(updatedProduct);
+
 		await Product.updateOne(
-			{ _id: _id },
+			{ _id: updatedProduct._id },
 			{
-				title: title,
-				brand: brand,
-				gender: gender,
-				concentration: concentration,
-				priceBySize: productBySize,
-				description: description,
-				currentAmount,
-				mainImage: mainImage,
+				title: updatedProduct.title,
+				gender: updatedProduct.gender,
+				brand: updatedProduct.brand,
+				concentration: updatedProduct.concentration,
+				description: updatedProduct.description,
+				$set: {
+					priceBySize: updatedProduct.priceBySize,
+					mainImage: updatedProduct.mainImage,
+				},
+				currentAmount: updatedProduct.currentAmount,
+				hashTag: updatedProduct.hashTag,
 			}
 		);
 	},

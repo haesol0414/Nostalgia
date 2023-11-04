@@ -45,37 +45,16 @@ const ProductController = {
 
 	// [관리자] 상품 수정
 	updateProducts: async (req, res, next) => {
-		const role = req.currentUserRole;
+		// const role = req.currentUserRole;
 		const { updatedProduct } = req.body;
 
 		try {
-			if (role !== 'admin') {
-				throw new unauthorizedError('관리자만 접근이 가능합니다.');
-			}
+			// if (role !== 'admin') {
+			// 	throw new unauthorizedError('관리자만 접근이 가능합니다.');
+			// }
 
-			const {
-				_id,
-				title,
-				brand,
-				gender,
-				concentration,
-				priceBySize,
-				description,
-				currentAmount,
-				mainImage,
-			} = updatedProduct;
-
-			// priceBySize 어떻게 처리
-
-			await ProductService.updateProducts(itemId, {
-				title,
-				price,
-				manufacturer,
-				description,
-				currentAmount,
-				salesAmount,
-				category,
-				imageURL,
+			await ProductService.updateProducts({
+				updatedProduct,
 			});
 
 			res.status(200).json({
