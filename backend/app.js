@@ -6,7 +6,7 @@ const cors = require('cors');
 const ProductRouter = require('./src/routers/ProductRouter');
 const UserRouter = require('./src/routers/UserRouter');
 const AuthRouter = require('./src/routers/AuthRouter');
-// const OrderRouter = require('./src/routers/OrderRouter');
+const OrderRouter = require('./src/routers/OrderRouter');
 
 const app = express();
 dotenv.config();
@@ -29,7 +29,7 @@ db.on('reconnectedFailed', () => console.error('reconnect failed'));
 app.use('/api', ProductRouter);
 app.use('/api', UserRouter);
 app.use('/api', AuthRouter);
-// app.use('/api', OrderRouter);
+app.use('/api', OrderRouter);
 
 app.listen(port, () => {
 	console.log(`connecting to ${port}`);

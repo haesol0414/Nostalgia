@@ -62,12 +62,22 @@ const UserController = {
 
 	updateUser: async (req, res, next) => {
 		const email = req.currentUserEmail;
-		const { newUserInformation } = req.body;
+		const { newPhone, newAddress } = req.body;
 
 		try {
-			const { phone, city, detail } = newUserInformation;
+			const { city, detail, zipCode } = newAddress;
 
-			await UserService.updateUser(email, phone, city, detail);
+			if (!city || !detail || !zipCode || !phone) {
+				throw new badRequestError('누락된 값이 있습니다.');
+			}
+
+			await UserService.updateUser(
+				email,
+				newPhone,
+				city,
+				detail,
+				zipCode
+			);
 
 			return res.status(200).json({
 				message: '회원 정보 수정 성공',
@@ -90,6 +100,27 @@ const UserController = {
 
 			return res.status(201).json({
 				message: '비밀번호 변경 성공',
+			});
+		} catch (err) {
+			next(err);
+		}
+	},
+
+	updatePreference: async (req, res, next) => {
+		const email = req.currentUserEmail;
+		const { newPreference } = req.body;
+
+		try {
+			if (!newPreference) {
+				throw new badRequestError('누락된 값이 있습니다.');
+			}
+
+			const { gender, prefrence } = newPreference;
+
+			await UserService.updatePreference(email, gender, prefrence);
+
+			return res.status(201).json({
+				message: '맞춤 정보 변경 성공',
 			});
 		} catch (err) {
 			next(err);

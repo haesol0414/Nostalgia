@@ -1,4 +1,3 @@
-const Category = require('../models/Category');
 const Product = require('../models/Product');
 
 const ProductService = {
@@ -72,6 +71,11 @@ const ProductService = {
 	// 브랜드별 제품 조회
 	getProductsByBrand: async brand => {
 		return await Product.find({ brand: brand });
+	},
+
+	// 태그별 제품 조회
+	getProductsByTags: async hashtag => {
+		return await Product.find({ hashTag: hashtag });
 	},
 
 	// 상품 상세 조회

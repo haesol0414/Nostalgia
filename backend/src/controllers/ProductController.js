@@ -122,6 +122,25 @@ const ProductController = {
 		}
 	},
 
+	// 태그별 상품 조회
+	getProductsByTags: async (req, res, next) => {
+		const { hashtag } = req.query;
+
+		try {
+			console.log(tags);
+			const productsByTags = await ProductService.getProductsByTags(
+				hashtag
+			);
+
+			res.status(200).json({
+				message: '태그별 제품 조회 성공',
+				productsByTags,
+			});
+		} catch (err) {
+			next(err);
+		}
+	},
+
 	// 상품 상세 조회
 	getProductById: async (req, res, next) => {
 		const { productId } = req.params;

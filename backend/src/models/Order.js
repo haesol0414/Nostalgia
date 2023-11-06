@@ -2,7 +2,7 @@ const { mongoose, Schema } = require('mongoose');
 
 const OrderSchema = new Schema(
 	{
-		userId: {
+		email: {
 			type: String,
 			required: true,
 		},
@@ -14,9 +14,20 @@ const OrderSchema = new Schema(
 			type: String,
 			required: true,
 		},
+		shippingAddress: {
+			city: {
+				type: String,
+			},
+			detail: {
+				type: String,
+			},
+			zipCode: {
+				type: String,
+			},
+		},
 		purchase: [
 			{
-				productId: {
+				_id: {
 					type: String,
 				},
 				title: {
@@ -35,7 +46,7 @@ const OrderSchema = new Schema(
 					type: String,
 				},
 				mainImage: {
-					type: Number,
+					type: String,
 				},
 				orderAmount: {
 					type: Number,
@@ -47,10 +58,14 @@ const OrderSchema = new Schema(
 		],
 		shippingRequest: {
 			type: String,
+			default: '',
 		},
 		shippingFee: {
 			type: Number,
 			default: 0,
+		},
+		totalProductPrice: {
+			type: Number,
 		},
 		totalPayment: {
 			type: Number,

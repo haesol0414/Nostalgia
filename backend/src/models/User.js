@@ -9,7 +9,6 @@ const UserSchema = new Schema(
 		gender: {
 			type: String,
 			enum: ['woman', 'man', 'genderless'],
-			default: 'genderless',
 		},
 		name: {
 			type: String,
@@ -33,7 +32,8 @@ const UserSchema = new Schema(
 				default: '',
 			},
 			zipCode: {
-				type: Number,
+				type: String,
+				default: '',
 			},
 		},
 		role: {

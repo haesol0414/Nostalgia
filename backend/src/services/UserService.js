@@ -16,13 +16,26 @@ const UserService = {
 	},
 
 	// 연락처, 주소, 상세 주소 변경
-	updateUser: async (email, phone, city, detail) => {
+	updateUser: async (email, newPhone, city, detail, zipCode) => {
 		await User.updateOne(
 			{ email: email },
 			{
-				phone: phone,
+				phone: newPhone,
 				'address.city': city,
 				'address.detail': detail,
+				'address.zipCode': zipCode,
+			}
+		);
+	},
+
+	// 맞춤 정보 변경 email, gender, prefrence
+	updatePreference: async (email, gender, prefrence) => {
+		await User.updateOne(
+			{ email: email },
+			{
+				phone: newPhone,
+				gender: gender,
+				prefrence: prefrence,
 			}
 		);
 	},

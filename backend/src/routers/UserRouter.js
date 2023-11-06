@@ -16,6 +16,13 @@ UserRouter.post('/users/password', VerifyToken, UserController.updatePassword);
 // 내 정보 변경
 UserRouter.patch('/users', VerifyToken, UserController.updateUser);
 
+// 맞춤 정보 변경
+UserRouter.post(
+	'/users/preference',
+	VerifyToken,
+	UserController.updatePreference
+);
+
 // 회원 탈퇴
 UserRouter.delete('/users', VerifyToken, UserController.withdrawn);
 
