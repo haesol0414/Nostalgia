@@ -68,9 +68,6 @@ export default function Header() {
 						<a href="/account">My</a>
 					</li>
 					<li>
-						<a href="/board">Board</a>
-					</li>
-					<li>
 						<a href="/cart">Cart</a>
 					</li>
 				</div>

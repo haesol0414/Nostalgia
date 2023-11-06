@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './HashTag.module.scss';
+
+import { Product } from '../../model/product';
+import { useNavigate } from 'react-router-dom';
 
 interface HashTagProps {
 	tagName: string;
@@ -17,8 +20,13 @@ function getRandomColor() {
 }
 
 export default function HashTag({ tagName, backgroundColor }: HashTagProps) {
+	const navigate = useNavigate();
 	const dynamicStyles = {
-		backgroundColor: backgroundColor || getRandomColor(),
+		backgroundColor: backgroundColor || '#ececec',
+	};
+
+	const onClickTags = () => {
+		navigate(`/products/hashtag/${tagName}`);
 	};
 
 	return (
@@ -27,6 +35,7 @@ export default function HashTag({ tagName, backgroundColor }: HashTagProps) {
 				type="button"
 				className={styles.hashTag}
 				style={dynamicStyles}
+				onClick={onClickTags}
 			>
 				{tagName}
 			</button>

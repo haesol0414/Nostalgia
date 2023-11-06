@@ -112,6 +112,13 @@ export const changePassword = <T>(
 	return requestPost<T>('/users/password', authInstance, data);
 };
 
+// 맞춤 정보 변경
+export const changeUserPreference = <T>(
+	data: object,
+): Promise<{ status: number; data: T }> => {
+	return requestPost<T>('/users/preference', authInstance, data);
+};
+
 // 회원 탈퇴
 export const withdrawal = <T>(): Promise<{ status: number; data: T }> => {
 	return requestDelete<T>('/users', authInstance);
@@ -158,6 +165,13 @@ export const getAllProductsByCategory = <T>(
 		`/products/gender/?gender=${category}`,
 		defaultInstance,
 	);
+};
+
+// 성별 카테고리별 상품 조회
+export const getAllProductsByTags = <T>(
+	tagName: string,
+): Promise<{ status: number; data: T }> => {
+	return requestGet<T>(`/products/tags/?tags=${tagName}`, defaultInstance);
 };
 
 // 상품 상세 조회

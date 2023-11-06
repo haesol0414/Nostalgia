@@ -8,21 +8,22 @@ export interface NewUser {
 
 export interface User extends NewUser {
 	_id: string;
-	phone?: string;
+	phone: string;
 	gender: string;
 	address: Address;
-	role: string;
-	wishList?: Product;
-	registerDate: Date;
 	preference: string;
+	wishList?: Product;
+	role: string;
+	registerDate: Date;
 }
 
 export interface Address {
 	city: string;
 	detail: string;
-	zipCode?: number;
+	zipCode: string;
 }
 
-export interface AddressWithPhone extends Address {
-	phone: string;
+export interface UserPreference {
+	gender: string;
+	preference: string;
 }

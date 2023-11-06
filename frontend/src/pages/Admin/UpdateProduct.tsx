@@ -104,7 +104,7 @@ export default function UpdateProduct() {
 			if (response.status === 200) {
 				alert('상품 수정 완료');
 			}
-			// navigate('/admin');
+			navigate('/admin');
 		} catch (error) {
 			console.log(error);
 		}

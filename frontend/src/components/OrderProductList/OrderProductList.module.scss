@@ -1,0 +1,39 @@
+.orderProduct {
+	display: flex;
+	align-items: flex-start;
+	border-bottom: 2px solid #ececec;
+	padding: 10px 10px 15px 10px;
+	margin: 10px 0 30px 0;
+
+	img {
+		width: 10rem;
+		height: 10rem;
+		margin-top: 5px;
+		margin-right: 3px;
+	}
+
+	.textInfo {
+		flex: 1;
+
+		.productInfo {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+
+			.concentration {
+				color: #a4a4a4;
+			}
+
+			.size {
+				font-size: 1.4rem;
+				margin-bottom: 10px;
+			}
+		}
+
+		.priceInfo {
+			flex: 1;
+			display: flex;
+			justify-content: space-between;
+		}
+	}
+}

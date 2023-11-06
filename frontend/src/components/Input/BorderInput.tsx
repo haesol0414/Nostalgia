@@ -17,7 +17,7 @@ export default function BorderInput({
 	value,
 	onChange,
 	required,
-	autoComplete
+	autoComplete,
 }: BorderInputProps) {
 	return (
 		<div className={styles.inputBox}>

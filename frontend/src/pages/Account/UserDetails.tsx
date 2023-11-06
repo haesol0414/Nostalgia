@@ -6,15 +6,18 @@ import WhiteButton from '../../components/Button/WhiteButton';
 import {
 	MessageResponse,
 	changePassword,
+	changeUserPreference,
 	getUserDetails,
 	patchUserAddress,
 	withdrawal,
 } from '../../utils/apiRequests';
-import { User, AddressWithPhone } from '../../model/user';
+import { User, Address, UserPreference } from '../../model/user';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import SelectBox from '../../components/SelectBox/SelectBox';
 import { gender, hashTags } from '../../assets/datas/enum';
+import AddressSearch from '../../components/AddressSearch/AddressSearch';
+import { isPasswordValid } from '../../utils/vaildationCheck';
 
 interface UserDetailResponse {
 	message: string;
@@ -34,14 +37,16 @@ export default function UserDetails() {
 		password: '',
 		passwordConfirm: '',
 	});
-
-	// 초기값 기존 정보로 재설정 필요
-	const [newUserInformation, setNewUserInformation] =
-		useState<AddressWithPhone>({
-			phone: '',
-			city: '',
-			detail: '',
-		});
+	const [newPhone, setNewPhone] = useState<string>('');
+	const [newAddress, setNewAddress] = useState<Address>({
+		city: '',
+		detail: '',
+		zipCode: '',
+	});
+	const [newPreference, setNewPreference] = useState<UserPreference>({
+		gender: '',
+		preference: '',
+	});
 
 	// 정보 불러오기
 	useEffect(() => {
@@ -52,11 +57,16 @@ export default function UserDetails() {
 				console.log('회원 정보 : ', response);
 				setUser(response.data.user);
 
-				if (response.data.user.phone || response.data.user.address) {
-					setNewUserInformation({
-						phone: response.data.user.phone || '',
-						city: response.data.user.address.city || '',
-						detail: response.data.user.address.detail || '',
+				if (response.data.user) {
+					setNewPhone(response.data.user.phone);
+					setNewAddress({
+						city: response.data.user.address.city,
+						detail: response.data.user.address.detail,
+						zipCode: response.data.user.address.zipCode,
+					});
+					setNewPreference({
+						gender: response.data.user.gender,
+						preference: response.data.user.preference,
 					});
 				}
 			} catch (error) {
@@ -69,8 +79,14 @@ export default function UserDetails() {
 	// 정보 수정 (연락처, 주소, 상세주소)
 	const handleAddressUpdateBtn = async () => {
 		try {
+			if (!newPhone || !newAddress) {
+				alert('모든 입력란을 확인해주세요.');
+				return;
+			}
+
 			const response = await patchUserAddress<MessageResponse>({
-				newUserInformation,
+				newPhone,
+				newAddress,
 			});
 
 			console.log(response);
@@ -84,12 +100,45 @@ export default function UserDetails() {
 
 	// 비밀번호 변경
 	const handlePasswordUpdateBtn = async () => {
+		if (!isPasswordValid(newPassword.password)) {
+			alert('비밀번호 형식을 확인하세요.');
+			return;
+		}
+
 		try {
-			const response = await changePassword<MessageResponse>({
-				newPassword,
+			if (newPassword.password !== newPassword.passwordConfirm) {
+				alert('비밀번호가 일치하지 않습니다.');
+				return;
+			} else {
+				const response = await changePassword<MessageResponse>({
+					newPassword,
+				});
+
+				if (response.status === 201) {
+					alert('비밀번호 변경 성공');
+				}
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	// 맞춤 정보 변경
+	const handleFieldChange = (field: string, value: any) => {
+		if (newPreference) {
+			setNewPreference({ ...newPreference, [field]: value });
+		}
+	};
+
+	const handlePreferenceChangeBtn = async () => {
+		try {
+			const response = await changeUserPreference<MessageResponse>({
+				newPreference,
 			});
 
-			console.log(response);
+			if (response.status === 201) {
+				alert('맞춤정보 변경 성공');
+			}
 		} catch (error) {
 			console.log(error);
 		}
@@ -114,9 +163,13 @@ export default function UserDetails() {
 		}
 	};
 
-	const handleUserFieldChange = (field: string, value: any) => {
-		if (user) {
-			setUser({ ...user, [field]: value });
+	const handlePostCode = (data: any) => {
+		if (data) {
+			setNewAddress({
+				city: data.address,
+				detail: '',
+				zipCode: data.zonecode,
+			});
 		}
 	};
 
@@ -139,28 +192,18 @@ export default function UserDetails() {
 								onChange={() => {}}
 							/>
 						</div>
-						<Input
-							text="연락처"
-							placeholder="연락처"
-							value={newUserInformation.phone}
-							onChange={e =>
-								handleUserFieldChange('phone', e.target.value)
-							}
-						/>
-						<Input
-							text="주소"
-							placeholder="주소"
-							value={newUserInformation.city}
-							onChange={e =>
-								handleUserFieldChange('city', e.target.value)
-							}
+						<AddressSearch
+							address={newAddress}
+							onComplete={handlePostCode}
 						/>
 						<Input
 							text="상세 주소"
-							placeholder="상세 주소"
-							value={newUserInformation.detail}
+							value={newAddress.detail}
 							onChange={e =>
-								handleUserFieldChange('detail', e.target.value)
+								setNewAddress({
+									...newAddress,
+									detail: e.target.value,
+								})
 							}
 						/>
 						<BlackButton
@@ -172,6 +215,7 @@ export default function UserDetails() {
 					<div className={styles.textInput}>
 						<Input
 							text="새 비밀번호"
+							type="password"
 							placeholder="새 비밀번호"
 							value={newPassword.password}
 							onChange={e =>
@@ -183,6 +227,7 @@ export default function UserDetails() {
 						/>
 						<Input
 							text="새 비밀번호 확인"
+							type="password"
 							placeholder="새 비밀번호 확인"
 							value={newPassword.passwordConfirm}
 							onChange={e =>
@@ -209,7 +254,7 @@ export default function UserDetails() {
 							options={gender}
 							selectedValue={user.gender}
 							onSelect={selectedValue =>
-								handleUserFieldChange('gender', selectedValue)
+								handleFieldChange('gender', selectedValue)
 							}
 						/>
 					</div>
@@ -219,16 +264,13 @@ export default function UserDetails() {
 							options={hashTags}
 							selectedValue={user.preference}
 							onSelect={selectedValue =>
-								handleUserFieldChange(
-									'preference',
-									selectedValue,
-								)
+								handleFieldChange('preference', selectedValue)
 							}
 						/>
 					</div>
 					<BlackButton
 						text="맞춤 정보 설정"
-						onClick={() => {}}
+						onClick={handlePreferenceChangeBtn}
 					></BlackButton>
 					<h5>회원 탈퇴</h5>
 					<span>

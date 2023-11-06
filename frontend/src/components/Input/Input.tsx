@@ -5,7 +5,7 @@ interface InputProps {
 	type?: string;
 	id?: string;
 	placeholder?: string;
-	value?: string;
+	value?: string | number;
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	required?: boolean;
 	autoComplete?: string;

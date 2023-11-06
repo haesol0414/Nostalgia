@@ -17,10 +17,10 @@ import UserDetails from './pages/Account/UserDetails';
 import Account from './pages/Account/Account';
 import OrderHistory from './pages/Account/OrderHistory';
 import AddProduct from './pages/Admin/AddProduct';
-import Board from './pages/Board/Board';
 import Cart from './pages/Cart/Cart';
 import Order from './pages/Order/Order';
 import UpdateProduct from './pages/Admin/UpdateProduct';
+import ByTags from './pages/Products/ByTags';
 
 const router = createBrowserRouter([
 	{
@@ -36,6 +36,11 @@ const router = createBrowserRouter([
 				index: true,
 				path: '/products/gender/:gender',
 				element: <ByGender />,
+			},
+			{
+				index: true,
+				path: '/products/hashtag/:hashtag',
+				element: <ByTags />,
 			},
 
 			{ index: true, path: '/admin', element: <Admin /> },
@@ -59,11 +64,6 @@ const router = createBrowserRouter([
 				index: true,
 				path: '/admin/add-product',
 				element: <AddProduct />,
-			},
-			{
-				index: true,
-				path: '/board',
-				element: <Board />,
 			},
 			{
 				index: true,

@@ -1,0 +1,15 @@
+.userOrderSection {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+
+	.userOrderWrap {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		gap: 30px;
+		width: 50%;
+	}
+}
