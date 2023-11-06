@@ -180,3 +180,12 @@ export const getProductsDetails = <T>(
 ): Promise<{ status: number; data: T }> => {
 	return requestGet<T>(`/products/${productId}`, defaultInstance);
 };
+
+/* [ ORDER 관련 api ] */
+
+// 주문 하기
+export const createNewOrder = <T>(
+	data: object,
+): Promise<{ status: number; data: T }> => {
+	return requestPost<T>('/orders', authInstance, data);
+};

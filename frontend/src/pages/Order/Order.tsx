@@ -3,18 +3,17 @@ import styles from './Order.module.scss';
 import BlackButton from '../../components/Button/BlackButton';
 import { useNavigate } from 'react-router-dom';
 import Input from '../../components/Input/Input';
-import { getUserDetails } from '../../utils/apiRequests';
 import { Address, User } from '../../model/user';
-import { isTokenAvailable } from '../../utils/authUtils';
 import AddressSearch from '../../components/AddressSearch/AddressSearch';
 import { NewOrder } from '../../model/order';
-import { CartProduct } from '../../model/product';
 import OrderProductList from '../../components/OrderProductList/OrderProductList';
+import { CartProduct } from '../../model/product';
+import { createNewOrder } from '../../utils/apiRequests';
 
-// interface OrderResponse {
-// 	message: string;
-// 	orderNumber: string;
-// }
+interface OrderResponse {
+	message: string;
+	orderNumber: string;
+}
 
 export default function Order() {
 	// const navigate = useNavigate();
@@ -24,12 +23,19 @@ export default function Order() {
 		detail: '',
 		zipCode: '',
 	});
+	const shippingFee = 3000;
 
 	// 장바구니 상품 불러오기
 	useEffect(() => {
 		const storedCart = localStorage.getItem('cart');
 		if (storedCart) {
-			const parsedCart = JSON.parse(storedCart);
+			const parsedCart: CartProduct[] = JSON.parse(storedCart);
+
+			const totalProductPrice = parsedCart.reduce((acc, product) => {
+				return acc + product.totalPrice;
+			}, 0);
+
+			const totalPayment = totalProductPrice + shippingFee;
 
 			setNewOrder({
 				recipient: '',
@@ -37,8 +43,9 @@ export default function Order() {
 				shippingAddress: address,
 				purchase: parsedCart,
 				shippingRequest: '',
-				shippingFee: 3000,
-				totalPayment: 0,
+				shippingFee: shippingFee,
+				totalProductPrice,
+				totalPayment,
 			});
 		}
 	}, []);
@@ -50,6 +57,20 @@ export default function Order() {
 				detail: '',
 				zipCode: data.zonecode,
 			});
+		}
+	};
+
+	// 주문하기
+	const handlePayBtn = async () => {
+		try {
+			const response = await createNewOrder<OrderResponse>({ newOrder });
+
+			if (response.status === 201) {
+				alert('주문이 완료되었습니다.');
+				// 주문 상세 내역 페이지로 이동
+			}
+		} catch (error) {
+			console.error('주문 실패 : ', error);
 		}
 	};
 
@@ -92,14 +113,17 @@ export default function Order() {
 						<h6>
 							배송비 : {newOrder.shippingFee.toLocaleString()}원
 						</h6>
-						<h6>총 상품 금액 :{'이 부분 수정 필요'}원</h6>
 						<h6>
-							총 결제 금액 :{'여기도 설정 필요'}
+							총 상품 금액 :
+							{newOrder.totalProductPrice.toLocaleString()}원
+						</h6>
+						<h6>
+							총 결제 금액 :
 							{newOrder.totalPayment.toLocaleString()}원
 						</h6>
 					</div>
 					<div className={styles.buttons}>
-						<BlackButton text="결제하기" onClick={() => {}} />
+						<BlackButton text="결제하기" onClick={handlePayBtn} />
 					</div>
 				</div>
 			) : (

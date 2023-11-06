@@ -8,5 +8,6 @@ export interface NewOrder {
 	purchase: CartProduct[];
 	shippingRequest: string;
 	shippingFee: number;
+	totalProductPrice: number;
 	totalPayment: number;
 }
