@@ -18,6 +18,7 @@ import SelectBox from '../../components/SelectBox/SelectBox';
 import { gender, hashTags } from '../../assets/datas/enum';
 import AddressSearch from '../../components/AddressSearch/AddressSearch';
 import { isPasswordValid } from '../../utils/vaildationCheck';
+import { formatPhoneNumber } from '../../utils/dataFormatter';
 
 interface UserDetailResponse {
 	message: string;
@@ -163,12 +164,12 @@ export default function UserDetails() {
 		}
 	};
 
-	const handlePostCode = (data: any) => {
-		if (data) {
+	const handleAddressChange = (newAddress: Address) => {
+		if (newAddress) {
 			setNewAddress({
-				city: data.address,
+				city: newAddress.city,
 				detail: '',
-				zipCode: data.zonecode,
+				zipCode: newAddress.zipCode,
 			});
 		}
 	};
@@ -192,9 +193,16 @@ export default function UserDetails() {
 								onChange={() => {}}
 							/>
 						</div>
+						<Input
+							text="연락처"
+							value={formatPhoneNumber(newPhone)}
+							onChange={e =>
+								setNewPhone(e.target.value.replace(/\D/g, ''))
+							}
+						/>
 						<AddressSearch
 							address={newAddress}
-							onComplete={handlePostCode}
+							onAddressChange={handleAddressChange}
 						/>
 						<Input
 							text="상세 주소"

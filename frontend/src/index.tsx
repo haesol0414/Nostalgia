@@ -21,6 +21,7 @@ import Cart from './pages/Cart/Cart';
 import Order from './pages/Order/Order';
 import UpdateProduct from './pages/Admin/UpdateProduct';
 import ByTags from './pages/Products/ByTags';
+import OrderDetails from './pages/Account/OrderDetails';
 
 const router = createBrowserRouter([
 	{
@@ -79,6 +80,11 @@ const router = createBrowserRouter([
 				index: true,
 				path: '/admin/products/:productId',
 				element: <UpdateProduct />,
+			},
+			{
+				index: true,
+				path: '/account/orders/:orderNumber',
+				element: <OrderDetails />,
 			},
 		],
 	},

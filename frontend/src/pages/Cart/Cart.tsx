@@ -7,15 +7,21 @@ import { CartProduct } from '../../model/product';
 import QuantitySelector from '../../components/QuantitySelector/QuantitySelector';
 import CheckBox from '../../components/CheckBox/CheckBox';
 
+interface CartPrice {
+	shippingFee: number;
+	totalProductPrice: number;
+}
+
 export default function Cart() {
 	const navigate = useNavigate();
 	const [cart, setCart] = useState<CartProduct[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [selectedProducts, setSelectedProducts] = useState<CartProduct[]>([]);
 
-	const handleShopContinueBtn = () => {
-		navigate('/');
-	};
+	const [cartPrice, setCartPrice] = useState<CartPrice>({
+		shippingFee: 0,
+		totalProductPrice: 0,
+	});
 
 	// 장바구니 불러오기
 	useEffect(() => {
@@ -25,7 +31,20 @@ export default function Cart() {
 
 			setCart(parsedCart);
 			setSelectedProducts(parsedCart);
+			updateTotalProductPrice(parsedCart);
 			setIsLoading(false);
+
+			if (parsedCart.length > 0) {
+				setCartPrice(prevCartPrice => ({
+					...prevCartPrice,
+					shippingFee: 3000,
+				}));
+			} else {
+				setCartPrice({
+					shippingFee: 0,
+					totalProductPrice: 0,
+				});
+			}
 		}
 	}, [isLoading]);
 
@@ -37,6 +56,18 @@ export default function Cart() {
 		localStorage.setItem('cart', JSON.stringify(updatedCart));
 	};
 
+	// totalProductPrice 업데이트
+	const updateTotalProductPrice = (cart: CartProduct[]) => {
+		const totalProductPrice = cart.reduce((acc, product) => {
+			return acc + product.totalPrice;
+		}, 0);
+
+		setCartPrice(prevcartPrice => ({
+			...prevcartPrice,
+			totalProductPrice,
+		}));
+	};
+
 	// 장바구니 상품 수량 조절
 	const handleIncrease = (index: number) => {
 		const updatedCart = [...cart];
@@ -44,32 +75,14 @@ export default function Cart() {
 		updatedCart[index].orderAmount += 1;
 		updatedCart[index].totalPrice =
 			updatedCart[index].orderAmount * updatedCart[index].cost;
+		updateTotalProductPrice(updatedCart); // totalProductPrice 업데이트
 
 		setCart(updatedCart);
 
 		localStorage.setItem('cart', JSON.stringify(updatedCart));
 	};
 
-	// 체크박스
-	const handleToggleCheckbox = (
-		selectedProduct: CartProduct,
-		isChecked: boolean,
-	) => {
-		console.log(selectedProducts);
-		if (isChecked) {
-			setSelectedProducts(prevSelectedProducts => [
-				...prevSelectedProducts,
-				selectedProduct,
-			]);
-		} else {
-			setSelectedProducts(prevSelectedProducts =>
-				prevSelectedProducts.filter(
-					prev => prev._id !== selectedProduct._id,
-				),
-			);
-		}
-	};
-
+	// 장바구니 삭제
 	const handleDecrease = (index: number) => {
 		const updatedCart = [...cart];
 
@@ -82,13 +95,49 @@ export default function Cart() {
 
 			localStorage.setItem('cart', JSON.stringify(updatedCart));
 		}
+
+		updateTotalProductPrice(updatedCart);
+	};
+
+	// 체크박스 => 체크에 따른 가격 업뎃
+	const handleToggleCheckbox = (
+		selectedProduct: CartProduct,
+		isChecked: boolean,
+	) => {
+		console.log(selectedProducts);
+
+		if (isChecked) {
+			setSelectedProducts(prevSelectedProducts => [
+				...prevSelectedProducts,
+				selectedProduct,
+			]);
+		} else {
+			setSelectedProducts(prevSelectedProducts =>
+				prevSelectedProducts.filter(
+					prev => prev._id !== selectedProduct._id,
+				),
+			);
+		}
+
+		updateTotalProductPrice(selectedProducts);
 	};
 
 	// 주문하기 버튼
 	const handleOrderBtn = () => {
-		// navigate('/orders');
-		console.log(selectedProducts);
-		// 가격 총 합 계산
+		const selectedProductsToOrder = cart.filter(cartProduct =>
+			selectedProducts.some(
+				selectedProduct => selectedProduct._id === cartProduct._id,
+			),
+		);
+
+		// 상품 없으면 주문 버튼 막기
+		navigate('/orders', {
+			state: { selectedProducts: selectedProductsToOrder },
+		});
+	};
+
+	const handleShopContinueBtn = () => {
+		navigate('/');
 	};
 
 	return (
@@ -161,9 +210,22 @@ export default function Cart() {
 					) : (
 						<p>장바구니에 상품이 없습니다.</p>
 					)}
-					<div className={styles.totalOrderPrice}>
-						<h5>Total : </h5>
-						<h5>배송비 : </h5>
+					<div className={styles.cartPrice}>
+						<h6>
+							배송비 : {cartPrice.shippingFee.toLocaleString()}원
+						</h6>
+						<h6>
+							총 상품 금액 :{' '}
+							{cartPrice.totalProductPrice.toLocaleString()}원
+						</h6>
+						<h6>
+							총 결제 금액 :{' '}
+							{(
+								cartPrice.shippingFee +
+								cartPrice.totalProductPrice
+							).toLocaleString()}
+							원
+						</h6>
 					</div>
 					<div className={styles.buttons}>
 						<BlackButton text="주문하기" onClick={handleOrderBtn} />

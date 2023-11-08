@@ -189,3 +189,18 @@ export const createNewOrder = <T>(
 ): Promise<{ status: number; data: T }> => {
 	return requestPost<T>('/orders', authInstance, data);
 };
+
+// 회원 주문 내역 조회
+export const getUserOrderHistory = <T>(): Promise<{
+	status: number;
+	data: T;
+}> => {
+	return requestGet<T>(`/orders/history`, authInstance);
+};
+
+// 회원 주문 상세 조회
+export const getUserOrderDetails = <T>(
+	orderNumber: string,
+): Promise<{ status: number; data: T }> => {
+	return requestGet<T>(`/orders/history/${orderNumber}`, authInstance);
+};

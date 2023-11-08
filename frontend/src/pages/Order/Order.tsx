@@ -1,47 +1,55 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Order.module.scss';
 import BlackButton from '../../components/Button/BlackButton';
-import { useNavigate } from 'react-router-dom';
 import Input from '../../components/Input/Input';
 import { Address, User } from '../../model/user';
 import AddressSearch from '../../components/AddressSearch/AddressSearch';
 import { NewOrder } from '../../model/order';
 import OrderProductList from '../../components/OrderProductList/OrderProductList';
 import { CartProduct } from '../../model/product';
-import { createNewOrder } from '../../utils/apiRequests';
+import { createNewOrder, getUserDetails } from '../../utils/apiRequests';
+import { formatPhoneNumber } from '../../utils/dataFormatter';
+import { useLocation } from 'react-router-dom';
+import SmallButton from '../../components/Button/SmallButton';
 
 interface OrderResponse {
 	message: string;
 	orderNumber: string;
 }
 
+interface UserDetailResponse {
+	message: string;
+	user: User;
+}
+
 export default function Order() {
 	// const navigate = useNavigate();
 	const [newOrder, setNewOrder] = useState<NewOrder>();
-	const [address, setAddress] = useState<Address>({
-		city: '',
-		detail: '',
-		zipCode: '',
-	});
 	const shippingFee = 3000;
+	const location = useLocation();
+	const selectedProductsToOrder: CartProduct[] =
+		location.state?.selectedProducts || [];
 
-	// 장바구니 상품 불러오기
 	useEffect(() => {
-		const storedCart = localStorage.getItem('cart');
-		if (storedCart) {
-			const parsedCart: CartProduct[] = JSON.parse(storedCart);
-
-			const totalProductPrice = parsedCart.reduce((acc, product) => {
-				return acc + product.totalPrice;
-			}, 0);
+		if (selectedProductsToOrder) {
+			const totalProductPrice = selectedProductsToOrder.reduce(
+				(acc, product) => {
+					return acc + product.totalPrice;
+				},
+				0,
+			);
 
 			const totalPayment = totalProductPrice + shippingFee;
 
 			setNewOrder({
 				recipient: '',
 				phone: '',
-				shippingAddress: address,
-				purchase: parsedCart,
+				shippingAddress: {
+					city: '',
+					detail: '',
+					zipCode: '',
+				},
+				purchase: selectedProductsToOrder,
 				shippingRequest: '',
 				shippingFee: shippingFee,
 				totalProductPrice,
@@ -50,24 +58,66 @@ export default function Order() {
 		}
 	}, []);
 
-	const handlePostCode = (data: any) => {
-		if (data) {
-			setAddress({
-				city: data.address,
-				detail: '',
-				zipCode: data.zonecode,
-			});
+	const handleAddressChange = (newAddress: Address) => {
+		if (newOrder && newAddress) {
+			const updatedOrder = {
+				...newOrder,
+				shippingAddress: {
+					city: newAddress.city,
+					detail: '',
+					zipCode: newAddress.zipCode,
+				},
+			};
+			setNewOrder(updatedOrder);
 		}
 	};
 
-	// 주문하기
+	// 내 정보 불러오기
+	const onDefaultAddress = async () => {
+		try {
+			const response = await getUserDetails<UserDetailResponse>();
+
+			if (response.data.user && newOrder) {
+				setNewOrder({
+					...newOrder,
+					recipient: response.data.user.name,
+					phone: response.data.user.phone,
+					shippingAddress: {
+						city: response.data.user.address.city,
+						detail: response.data.user.address.detail,
+						zipCode: response.data.user.address.zipCode,
+					},
+				});
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const handleFieldChange = (field: string, value: any) => {
+		if (newOrder) {
+			if (field === 'shippingAddress') {
+				setNewOrder({
+					...newOrder,
+					[field]: {
+						...newOrder[field],
+						detail: value,
+					},
+				});
+			} else {
+				setNewOrder({ ...newOrder, [field]: value });
+			}
+		}
+	};
+
+	// 주문하기 => i am port 등록 후 성공 시 api 호춡
 	const handlePayBtn = async () => {
 		try {
 			const response = await createNewOrder<OrderResponse>({ newOrder });
 
 			if (response.status === 201) {
 				alert('주문이 완료되었습니다.');
-				// 주문 상세 내역 페이지로 이동
+				// response.orderNumber로 주문 상세 내역 페이지로 이동, 로컬스토리지 비우기
 			}
 		} catch (error) {
 			console.error('주문 실패 : ', error);
@@ -83,31 +133,43 @@ export default function Order() {
 					<Input
 						text="수령인"
 						value={newOrder.recipient}
-						onChange={() => {}}
-					/>
-					<Input
-						text="연락처"
-						value={newOrder.phone}
-						onChange={() => {}}
-					/>
-					<AddressSearch
-						address={address}
-						onComplete={handlePostCode}
-					/>
-					<Input
-						text="상세 주소"
-						value={address.detail}
 						onChange={e =>
-							setAddress({
-								...address,
-								detail: e.target.value,
-							})
+							handleFieldChange('recipient', e.target.value)
 						}
 					/>
 					<Input
+						text="연락처"
+						value={formatPhoneNumber(newOrder.phone)}
+						onChange={e =>
+							handleFieldChange(
+								'phone',
+								e.target.value.replace(/\D/g, ''),
+							)
+						}
+					/>
+					<AddressSearch
+						address={newOrder.shippingAddress}
+						onAddressChange={handleAddressChange}
+					/>
+					<Input
+						text="상세 주소"
+						value={newOrder.shippingAddress.detail}
+						onChange={e =>
+							handleFieldChange('shippingAddress', e.target.value)
+						}
+					/>
+
+					<SmallButton
+						text="내 정보 불러오기"
+						onClick={onDefaultAddress}
+					/>
+
+					<Input
 						text="배송 요청사항"
 						value={newOrder.shippingRequest}
-						onChange={() => {}}
+						onChange={e =>
+							handleFieldChange('shippingRequest', e.target.value)
+						}
 					/>
 					<div className={styles.payment}>
 						<h6>
@@ -133,11 +195,13 @@ export default function Order() {
 	);
 }
 
-// {/*
-// 					<BlackButton
-// 						text="내 정보 불러오기"
-// 						onClick={onDefaultAddress}
-// 					/> */}
+{
+	/*
+					<BlackButton
+						text="내 정보 불러오기"
+						onClick={onDefaultAddress}
+					/> */
+}
 
 // const onDefaultAddress = () => {
 // 	if (user?.address) {

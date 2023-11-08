@@ -74,10 +74,12 @@
 			}
 		}
 
-		.totalOrderPrice {
+		.cartPrice {
 			display: flex;
 			flex-direction: column;
-			gap: 10px;
+			margin-left: auto;
+			text-align: right;
+			gap: 6px;
 		}
 
 		.buttons {

@@ -6,16 +6,33 @@ import WhiteButton from '../../components/Button/WhiteButton';
 
 interface AddressSearchProps {
 	address: Address;
-	onComplete: (data: any) => void;
+	onAddressChange: (newAddress: Address) => void;
 }
 
 export default function AddressSearch({
 	address,
-	onComplete,
+	onAddressChange,
 }: AddressSearchProps) {
-	const [modalState, setModalState] = useState<boolean>(false);
+	const [modal, setModal] = useState<boolean>(false);
+
 	const handleAddressSearchBtn = () => {
-		setModalState(!modalState);
+		setModal(!modal);
+	};
+
+	const closeModal = () => {
+		setModal(false);
+	};
+
+	const handlePostCode = (data: any) => {
+		const newAddress: Address = {
+			city: data.address,
+			detail: '',
+			zipCode: data.zonecode,
+		};
+
+		// 콜백 함수
+		onAddressChange(newAddress);
+		closeModal();
 	};
 
 	return (
@@ -32,8 +49,18 @@ export default function AddressSearch({
 				></WhiteButton>
 			</div>
 
-			{modalState ? (
-				<DaumPostcode onComplete={onComplete}></DaumPostcode>
+			{modal ? (
+				<div className={styles.modalContainer}>
+					<div className={styles.modalContent}>
+						<div className={styles.closeButton}>
+							<button onClick={closeModal}>X</button>
+						</div>
+
+						<DaumPostcode
+							onComplete={handlePostCode}
+						></DaumPostcode>
+					</div>
+				</div>
 			) : (
 				<></>
 			)}
