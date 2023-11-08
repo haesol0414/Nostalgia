@@ -3,6 +3,7 @@ import styles from './OrderHistory.module.scss';
 import OrderList from '../../components/OrderList/OrderList';
 import { getUserOrderHistory } from '../../utils/apiRequests';
 import { formatDate, formatPhoneNumber } from '../../utils/dataFormatter';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 
 interface OrderHistory {
 	_id: string;
@@ -59,7 +60,7 @@ export default function OrderHistory() {
 						)}
 					</ul>
 				) : (
-					<>로딩...</>
+					<LoadingSpinner />
 				)}
 			</div>
 		</section>

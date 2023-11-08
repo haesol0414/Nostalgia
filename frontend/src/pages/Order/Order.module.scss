@@ -10,6 +10,15 @@
 		gap: 30px;
 		width: 50%;
 
+		.head {
+			display: flex;
+			justify-content: space-between;
+
+			button {
+				width: 22%;
+			}
+		}
+
 		.orderProducts {
 			display: flex;
 			align-items: center;

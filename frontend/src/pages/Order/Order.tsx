@@ -11,11 +11,13 @@ import { createNewOrder, getUserDetails } from '../../utils/apiRequests';
 import { formatPhoneNumber } from '../../utils/dataFormatter';
 import { useLocation } from 'react-router-dom';
 import SmallButton from '../../components/Button/SmallButton';
+import Payment from '../../components/Payment/Payment';
 
 interface OrderResponse {
 	message: string;
 	orderNumber: string;
 }
+// 기본 배송지로 설정 체크박스
 
 interface UserDetailResponse {
 	message: string;
@@ -130,6 +132,13 @@ export default function Order() {
 				<div className={styles.orderWrap}>
 					<h2>주문하기</h2>
 					<OrderProductList orderProducts={newOrder.purchase} />
+					<div className={styles.head}>
+						<h5>주문 정보</h5>
+						<SmallButton
+							text="내 정보 불러오기"
+							onClick={onDefaultAddress}
+						/>
+					</div>
 					<Input
 						text="수령인"
 						value={newOrder.recipient}
@@ -158,12 +167,6 @@ export default function Order() {
 							handleFieldChange('shippingAddress', e.target.value)
 						}
 					/>
-
-					<SmallButton
-						text="내 정보 불러오기"
-						onClick={onDefaultAddress}
-					/>
-
 					<Input
 						text="배송 요청사항"
 						value={newOrder.shippingRequest}
@@ -185,7 +188,8 @@ export default function Order() {
 						</h6>
 					</div>
 					<div className={styles.buttons}>
-						<BlackButton text="결제하기" onClick={handlePayBtn} />
+						{/* <Payment newOrder={newOrder}></Payment> */}
+						<BlackButton text="주문하기" onClick={handlePayBtn} />
 					</div>
 				</div>
 			) : (
@@ -194,39 +198,3 @@ export default function Order() {
 		</section>
 	);
 }
-
-{
-	/*
-					<BlackButton
-						text="내 정보 불러오기"
-						onClick={onDefaultAddress}
-					/> */
-}
-
-// const onDefaultAddress = () => {
-// 	if (user?.address) {
-// 		setAddress({
-// 			city: user.address.city,
-// 			zipCode: user.address.zipCode,
-// 		});
-// 	}
-// };
-
-// const [user, setUser] = useState<User>();
-// 내 정보 불러오기
-// useEffect(() => {
-// 	const getUserInformation = async () => {
-// 		try {
-// 			const response = await getUserDetails<UserDetailResponse>();
-
-// 			console.log('회원 정보 : ', response);
-// 			if (response.data) {
-// 				setUser(response.data.user);
-// 				setAddress(response.data.user.address);
-// 			}
-// 		} catch (error) {
-// 			console.log(error);
-// 		}
-// 	};
-// 	getUserInformation();
-// }, []);

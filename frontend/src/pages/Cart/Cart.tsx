@@ -12,6 +12,11 @@ interface CartPrice {
 	totalProductPrice: number;
 }
 
+// issue
+// 같은 상품 있을 시 수량 업데이트로 바꿔야함
+// 장바구니 삭제 시 가격 업데이트 바로 안 됌
+// 체크박스로 동일 상품 선택하면 사이즈 달라도 같은 상품으로 인식
+
 export default function Cart() {
 	const navigate = useNavigate();
 	const [cart, setCart] = useState<CartProduct[]>([]);
