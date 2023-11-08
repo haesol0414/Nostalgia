@@ -29,13 +29,12 @@ const UserService = {
 	},
 
 	// 맞춤 정보 변경 email, gender, prefrence
-	updatePreference: async (email, gender, prefrence) => {
+	updatePreference: async (email, gender, preference) => {
 		await User.updateOne(
 			{ email: email },
 			{
-				phone: newPhone,
 				gender: gender,
-				prefrence: prefrence,
+				preference: preference,
 			}
 		);
 	},

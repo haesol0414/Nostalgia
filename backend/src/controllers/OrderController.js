@@ -6,6 +6,7 @@ const OrderController = {
 	createOrder: async (req, res, next) => {
 		const email = req.currentUserEmail;
 		const { newOrder } = req.body;
+		console.log(newOrder);
 
 		try {
 			if (!newOrder) {
@@ -64,7 +65,7 @@ const OrderController = {
 
 			res.status(200).json({
 				message: '회원 주문 내역 전체 조회 성공',
-				userOrderHistory: orderHistory,
+				orderHistory,
 			});
 		} catch (err) {
 			next(err);
@@ -73,42 +74,23 @@ const OrderController = {
 
 	// 주문 상세 조회
 	checkOrderDetail: async (req, res, next) => {
-		const { orderId } = req.params;
-		const { guestPassword } = req.body;
+		const { orderNumber } = req.params;
 
 		try {
-			if (!guestPassword) {
-				const orderDetail = await OrderService.checkOrderDetail(
-					orderId
+			const orderDetails = await OrderService.checkOrderDetail(
+				orderNumber
+			);
+
+			if (!orderDetails) {
+				throw new badRequestError(
+					'주문 상세 내역이 존재하지 않습니다. 다시 한 번 확인해주세요.'
 				);
-
-				if (!orderDetail) {
-					throw new badRequestError(
-						'주문 상세 내역이 존재하지 않습니다. 다시 한 번 확인해주세요.'
-					);
-				}
-
-				res.status(200).json({
-					message: '회원 주문 상세 내역 조회 성공',
-					orderDetail: orderDetail,
-				});
-			} else {
-				const orderDetail = await OrderService.checkGuestOrderDetail(
-					orderId,
-					guestPassword
-				);
-
-				if (!orderDetail) {
-					throw new badRequestError(
-						'주문 상세 내역이 존재하지 않습니다. 주문 번호 또는 비밀번호를 확인해주세요.'
-					);
-				}
-
-				res.status(200).json({
-					message: '비회원 주문 상세 내역 조회 성공',
-					orderDetail: orderDetail,
-				});
 			}
+
+			res.status(200).json({
+				message: '회원 주문 상세 내역 조회 성공',
+				orderDetails,
+			});
 		} catch (err) {
 			next(err);
 		}

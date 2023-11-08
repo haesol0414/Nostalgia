@@ -67,7 +67,7 @@ const UserController = {
 		try {
 			const { city, detail, zipCode } = newAddress;
 
-			if (!city || !detail || !zipCode || !phone) {
+			if (!city || !detail || !zipCode || !newPhone) {
 				throw new badRequestError('누락된 값이 있습니다.');
 			}
 
@@ -115,9 +115,9 @@ const UserController = {
 				throw new badRequestError('누락된 값이 있습니다.');
 			}
 
-			const { gender, prefrence } = newPreference;
+			const { gender, preference } = newPreference;
 
-			await UserService.updatePreference(email, gender, prefrence);
+			await UserService.updatePreference(email, gender, preference);
 
 			return res.status(201).json({
 				message: '맞춤 정보 변경 성공',

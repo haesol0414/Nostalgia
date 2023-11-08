@@ -9,7 +9,7 @@ const OrderService = {
 			email: email,
 			recipient: newOrder.recipient,
 			phone: newOrder.phone,
-			shippingAddress: newOrder.address,
+			shippingAddress: newOrder.shippingAddress,
 			purchase: newOrder.purchase,
 			shippingRequest: newOrder.shippingRequest,
 			shippingFee: newOrder.shippingFee,
@@ -45,17 +45,12 @@ const OrderService = {
 
 	// [회원] 주문 내역 전체 조회
 	checkOrderHistory: async email => {
-		const orderHistory = await Order.find(
-			{ email: email },
-			{ _id: 1, shippingStatus: 1, purchase: 1, createdAt: 1 }
-		);
-
-		return orderHistory;
+		return await Order.find({ email: email }, { _id: 1, orderDate: 1 });
 	},
 
 	// 주문 상세 조회
-	checkOrderDetail: async orderId => {
-		return await Order.findOne({ _id: orderId });
+	checkOrderDetail: async orderNumber => {
+		return await Order.findOne({ _id: orderNumber });
 	},
 
 	// [비회원] 주문 상세 조회
