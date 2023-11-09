@@ -20,6 +20,9 @@ OrderRouter.get(
 	OrderController.checkOrderDetail
 );
 
+// [관리자] 주문 전체 조회
+OrderRouter.get('/admin/orders/hisotry', OrderController.getAllOrder);
+
 // // [회원] 배송지 조회
 // OrderRouter.get(
 // 	'/orders/checkAddress',

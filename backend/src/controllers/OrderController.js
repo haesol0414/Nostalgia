@@ -128,6 +128,26 @@ const OrderController = {
 		}
 	},
 
+	// 관리자 주문 전체 조회
+	getAllOrder: async (req, res, next) => {
+		// const role = req.currentUserRole;
+
+		try {
+			// if (role !== 'admin') {
+			// 	throw new badRequestError('관리자만 접근이 가능합니다.');
+			// }
+
+			const totalOrders = await OrderService.getAllOrder();
+
+			res.status(200).json({
+				message: '[관리자] 전체 주문 조회 성공',
+				totalOrders,
+			});
+		} catch (err) {
+			next(err);
+		}
+	},
+
 	// 배송 상태 변경
 	adminUpdateShippingStatus: async (req, res, next) => {
 		const role = req.currentUserRole;

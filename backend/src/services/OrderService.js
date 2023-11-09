@@ -45,22 +45,20 @@ const OrderService = {
 
 	// [회원] 주문 내역 전체 조회
 	checkOrderHistory: async email => {
-		return await Order.find({ email: email }, { _id: 1, orderDate: 1 });
+		return await Order.find(
+			{ email: email },
+			{ _id: 1, orderDate: 1 }
+		).sort({ _id: -1 });
+	},
+
+	// 전체 주문 조회
+	getAllOrder: async () => {
+		return await Order.find({}).sort({ _id: -1 });
 	},
 
 	// 주문 상세 조회
 	checkOrderDetail: async orderNumber => {
 		return await Order.findOne({ _id: orderNumber });
-	},
-
-	// [비회원] 주문 상세 조회
-	checkGuestOrderDetail: async (orderId, guestPassword) => {
-		const orderDetail = await Order.findOne(
-			{ _id: orderId, guestPassword: guestPassword },
-			{ _id: 1, guestPassword: 0 }
-		);
-
-		return orderDetail;
 	},
 
 	// [회원] 기본 배송지 설정

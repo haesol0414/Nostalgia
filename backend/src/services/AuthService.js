@@ -30,6 +30,48 @@ const AuthService = {
 
 		return token;
 	},
+
+	kakaoLogin: async ({ email, name }) => {
+		const user = await User.findOne({
+			email: email,
+		});
+
+		if (!user) {
+			const newUser = await User.create({
+				email,
+				name,
+				platform: 'kakao',
+			});
+
+			const jwtToken = jwt.sign(
+				{
+					email: newUser.email,
+					name: newUser.name,
+					role: newUser.role,
+				},
+				process.env.JSONSECRETKEY,
+				{
+					expiresIn: '1h',
+				}
+			);
+
+			return jwtToken;
+		} else {
+			const jwtToken = jwt.sign(
+				{
+					email: user.email,
+					name: user.name,
+					role: user.role,
+				},
+				process.env.JSONSECRETKEY,
+				{
+					expiresIn: '1h',
+				}
+			);
+
+			return jwtToken;
+		}
+	},
 };
 
 module.exports = AuthService;

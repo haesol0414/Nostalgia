@@ -2,11 +2,12 @@ const { badRequestError } = require('../middleware/ErrorHandler');
 const User = require('../models/User');
 
 const UserService = {
-	userSignup: async ({ email, name, password }) => {
+	userSignup: async ({ email, name, password, phone }) => {
 		await User.create({
 			email,
 			name,
 			password,
+			phone,
 		});
 	},
 

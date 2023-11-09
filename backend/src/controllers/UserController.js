@@ -10,14 +10,14 @@ const UserController = {
 		const { newUser } = req.body;
 
 		try {
-			const { email, name, password } = newUser;
+			const { email, name, password, phone } = newUser;
 
 			const isUser = await User.findOne({ email: email });
 			if (isUser) {
 				throw new badRequestError('이미 가입된 이메일입니다.');
 			}
 
-			await UserService.userSignup({ email, name, password });
+			await UserService.userSignup({ email, name, password, phone });
 
 			return res.status(201).json({
 				message: '가입 완료',

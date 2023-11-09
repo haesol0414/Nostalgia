@@ -16,7 +16,6 @@ const UserSchema = new Schema(
 		},
 		password: {
 			type: String,
-			required: true,
 		},
 		phone: {
 			type: String,
@@ -47,6 +46,11 @@ const UserSchema = new Schema(
 		},
 		preference: {
 			type: String,
+		},
+		platform: {
+			type: String,
+			enum: ['nostalgia', 'kakao'],
+			default: 'nostalgia',
 		},
 	},
 	{
