@@ -6,6 +6,7 @@ import Footer from './components/Footer/Footer';
 import { RecoilRoot } from 'recoil';
 
 function App() {
+	
 	return (
 		<RecoilRoot>
 			<Header />

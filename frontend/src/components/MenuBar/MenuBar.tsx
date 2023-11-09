@@ -1,17 +1,17 @@
 import React from 'react';
-import styles from './AccountList.module.scss';
+import styles from './MenuBar.module.scss';
 
-interface AccountListProps {
+interface MenuBarProps {
 	title: string;
 	linkTo: string;
 }
 
-export default function AccountList({ title, linkTo }: AccountListProps) {
+export default function MenuBar({ title, linkTo }: MenuBarProps) {
 	return (
 		<>
 			<ul>
 				<li>
-					<div className={styles.accountList}>
+					<div className={styles.menuBar}>
 						<a href={linkTo}>
 							<span>{title}</span>
 						</a>

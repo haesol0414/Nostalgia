@@ -22,6 +22,8 @@ import Order from './pages/Order/Order';
 import UpdateProduct from './pages/Admin/UpdateProduct';
 import ByTags from './pages/Products/ByTags';
 import OrderDetails from './pages/Account/OrderDetails';
+import ManageProduct from './pages/Admin/ManageProduct';
+import KakaoRedirectHandler from './components/KaKaoLogin/KakaoRedirectHandler';
 
 const router = createBrowserRouter([
 	{
@@ -43,8 +45,16 @@ const router = createBrowserRouter([
 				path: '/products/hashtag/:hashtag',
 				element: <ByTags />,
 			},
-
-			{ index: true, path: '/admin', element: <Admin /> },
+			{
+				index: true,
+				path: '/admin',
+				element: <Admin />,
+			},
+			{
+				index: true,
+				path: '/admin/products',
+				element: <ManageProduct />,
+			},
 			{
 				index: true,
 				path: '/products/:productId',
@@ -85,6 +95,12 @@ const router = createBrowserRouter([
 				index: true,
 				path: '/account/orders/:orderNumber',
 				element: <OrderDetails />,
+			},
+
+			{
+				index: true,
+				path: '/auth/kakao',
+				element: <KakaoRedirectHandler />,
 			},
 		],
 	},

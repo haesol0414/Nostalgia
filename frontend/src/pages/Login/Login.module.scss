@@ -19,6 +19,23 @@
 			display: flex;
 			flex-direction: column;
 			gap: 5px;
+
+			.socialLogin {
+				margin-top: 5px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+
+				span {
+					font-size: 1.2rem;
+				}
+
+				a {
+					display: flex;
+					justify-content: flex-end;
+					cursor: pointer;
+				}
+			}
 		}
 	}
 }

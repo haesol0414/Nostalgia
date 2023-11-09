@@ -12,6 +12,7 @@ import {
 } from '../../utils/apiRequests';
 import axios from 'axios';
 import { isEmailValid, isPasswordValid } from '../../utils/vaildationCheck';
+import { formatPhoneNumber } from '../../utils/dataFormatter';
 
 export default function SignUp() {
 	const navigate = useNavigate();
@@ -19,6 +20,7 @@ export default function SignUp() {
 		email: '',
 		name: '',
 		password: '',
+		phone: '',
 	});
 	const [passwordConfirm, setPasswordConfirm] = useState<string>('');
 
@@ -99,6 +101,18 @@ export default function SignUp() {
 					value={newUser.name}
 					onChange={e => {
 						setNewUser({ ...newUser, name: e.target.value });
+					}}
+					required={true}
+				></Input>
+				<Input
+					type="text"
+					placeholder="연락처"
+					value={formatPhoneNumber(newUser.phone)}
+					onChange={e => {
+						setNewUser({
+							...newUser,
+							phone: e.target.value.replace(/\D/g, ''),
+						});
 					}}
 					required={true}
 				></Input>

@@ -1,56 +1,17 @@
-.adminSection {
+.accountSection {
 	display: flex;
 	flex-direction: column;
-	border-radius: 10px;
+	align-items: center;
 
-	.buttonIcon {
+	.head {
+		text-align: center;
+		margin-bottom: 30px;
+	}
+
+	.menu {
 		display: flex;
-		align-self: flex-end;
+		flex-direction: column;
 		gap: 20px;
-		margin-bottom: 20px;
-	}
-
-	table {
-		border: 5px solid #959595;
-		border-collapse: collapse;
-		box-shadow: 5px 5px 4px 0px rgba(0, 0, 0, 0.2);
-	}
-
-	thead {
-		border: 1px solid #959595;
-
-		th {
-			border: 1px solid #959595;
-			padding: 10px 5px;
-			background-color: #959595;
-			color: #fff;
-
-			p {
-				font-size: 2rem;
-				font-weight: bold;
-			}
-		}
-	}
-
-	tbody {
-		td {
-			border: 1px solid #959595;
-			text-align: center;
-			padding: 0 10px;
-			text-transform: capitalize;
-			font-size: 1.8rem;
-
-			input[type='checkbox'] {
-				display: flex;
-			}
-		}
-
-		.link {
-			color: #608bd5;
-
-			&:hover {
-				color: #0d5ce5;
-			}
-		}
+		width: 50%;
 	}
 }

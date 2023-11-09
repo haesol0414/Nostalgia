@@ -1,52 +1,40 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 import styles from './Account.module.scss';
-import AccountList from '../../components/AccountList/AccountList';
-import { isTokenAvailable } from '../../utils/authUtils';
+import MenuBar from '../../components/MenuBar/MenuBar';
+import { useAuth } from '../../hooks/useAuth';
 
 export default function Account() {
-	const navigate = useNavigate();
-	const isLoggedIn = isTokenAvailable();
-
-	useEffect(() => {
-		if (!isLoggedIn) {
-			alert('로그인이 필요한 페이지입니다.');
-			navigate('/login');
-		}
-	}, [isLoggedIn]);
+	useAuth();
 
 	return (
 		<>
-			{isLoggedIn ? (
-				<section className={styles.accountSection}>
-					<div className={styles.mainBanner}>
-						<p>나의 계정</p>
-					</div>
+			<section className={styles.accountSection}>
+				<div className={styles.mainBanner}>
+					<p>나의 계정</p>
+				</div>
+
+				<div className={styles.menu}>
 					<div>
 						<h6>주문</h6>
 						<ul>
-							<AccountList
+							<MenuBar
 								title="주문 내역"
 								linkTo="/account/orders"
-							></AccountList>
+							></MenuBar>
 						</ul>
 					</div>
 
-					<div className={styles.list}>
+					<div>
 						<h6>나의 정보</h6>
 						<ul>
-							<AccountList
+							<MenuBar
 								title="나의 정보"
 								linkTo="/account/personal-details"
-							></AccountList>
-							<AccountList
-								title="위시 리스트"
-								linkTo="#"
-							></AccountList>
+							></MenuBar>
 						</ul>
 					</div>
-				</section>
-			) : null}
+				</div>
+			</section>
 		</>
 	);
 }

@@ -220,40 +220,46 @@ export default function UserDetails() {
 						></BlackButton>
 					</div>
 					<h5>비밀번호 변경</h5>
-					<div className={styles.textInput}>
-						<Input
-							text="새 비밀번호"
-							type="password"
-							placeholder="새 비밀번호"
-							value={newPassword.password}
-							onChange={e =>
-								setNewPassword({
-									...newPassword,
-									password: e.target.value,
-								})
-							}
-						/>
-						<Input
-							text="새 비밀번호 확인"
-							type="password"
-							placeholder="새 비밀번호 확인"
-							value={newPassword.passwordConfirm}
-							onChange={e =>
-								setNewPassword({
-									...newPassword,
-									passwordConfirm: e.target.value,
-								})
-							}
-						/>
-						<span>
-							* 비밀번호는 8자 이상으로 영문 소문자, 숫자, 특수
-							문자를 모두 포함해야 합니다.
-						</span>
-						<BlackButton
-							text="비밀번호 변경"
-							onClick={handlePasswordUpdateBtn}
-						></BlackButton>
-					</div>
+					{user.platform === 'nostalgia' ? (
+						<>
+							<div className={styles.textInput}>
+								<Input
+									text="새 비밀번호"
+									type="password"
+									placeholder="새 비밀번호"
+									value={newPassword.password}
+									onChange={e =>
+										setNewPassword({
+											...newPassword,
+											password: e.target.value,
+										})
+									}
+								/>
+								<Input
+									text="새 비밀번호 확인"
+									type="password"
+									placeholder="새 비밀번호 확인"
+									value={newPassword.passwordConfirm}
+									onChange={e =>
+										setNewPassword({
+											...newPassword,
+											passwordConfirm: e.target.value,
+										})
+									}
+								/>
+								<span>
+									* 비밀번호는 8자 이상으로 영문 소문자, 숫자,
+									특수 문자를 모두 포함해야 합니다.
+								</span>
+								<BlackButton
+									text="비밀번호 변경"
+									onClick={handlePasswordUpdateBtn}
+								></BlackButton>
+							</div>
+						</>
+					) : (
+						<h6>소셜 로그인 사용자입니다.</h6>
+					)}
 
 					<h5>맞춤 정보</h5>
 					<div className={styles.userPreference}>

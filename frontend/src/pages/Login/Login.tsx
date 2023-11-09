@@ -7,6 +7,7 @@ import styles from './Login.module.scss';
 import { userLogin } from '../../utils/apiRequests';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
+import KaKaoLoginButton from '../../components/KaKaoLogin/KaKaoLoginButton';
 
 interface Credentials {
 	email: string;
@@ -90,6 +91,10 @@ export default function Login() {
 						text="회원가입"
 						onClick={handleRigisterBtn}
 					></WhiteButton>
+					<div className={styles.socialLogin}>
+						<span>카카오로 로그인 / 가입하기</span>
+						<KaKaoLoginButton />
+					</div>
 				</div>
 			</form>
 		</section>

@@ -9,23 +9,26 @@ import OrderProductList from '../../components/OrderProductList/OrderProductList
 import { CartProduct } from '../../model/product';
 import { createNewOrder, getUserDetails } from '../../utils/apiRequests';
 import { formatPhoneNumber } from '../../utils/dataFormatter';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import SmallButton from '../../components/Button/SmallButton';
 import Payment from '../../components/Payment/Payment';
+import { useAuth } from '../../hooks/useAuth';
 
 interface OrderResponse {
 	message: string;
 	orderNumber: string;
 }
-// 기본 배송지로 설정 체크박스
 
 interface UserDetailResponse {
 	message: string;
 	user: User;
 }
 
+// 기본 배송지로 설정 체크박스
 export default function Order() {
-	// const navigate = useNavigate();
+	useAuth();
+
+	const navigate = useNavigate();
 	const [newOrder, setNewOrder] = useState<NewOrder>();
 	const shippingFee = 3000;
 	const location = useLocation();
@@ -112,14 +115,16 @@ export default function Order() {
 		}
 	};
 
-	// 주문하기 => i am port 등록 후 성공 시 api 호춡
+	// 주문하기 => i am port 등록 후 성공 시 api 호춡 ~> 나중에 주석처리 (결제 컴포넌트에서)
 	const handlePayBtn = async () => {
 		try {
 			const response = await createNewOrder<OrderResponse>({ newOrder });
 
 			if (response.status === 201) {
 				alert('주문이 완료되었습니다.');
-				// response.orderNumber로 주문 상세 내역 페이지로 이동, 로컬스토리지 비우기
+				// response.orderNumber로 주문 상세 내역 페이지로 이동, 로컬스토리지 비우기  ==>  이 부분 Payment에 적용하기
+				localStorage.removeItem('cart');
+				navigate(`/account/orders/${response.data.orderNumber}`);
 			}
 		} catch (error) {
 			console.error('주문 실패 : ', error);

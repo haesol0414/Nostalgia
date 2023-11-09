@@ -86,6 +86,12 @@ export const userEmailCheck = <T>(
 	return requestGet<T>(`/users/signup/${email}`, defaultInstance);
 };
 
+export const kakaoUserLogin = <T>(
+	data: object,
+): Promise<{ status: number; data: T }> => {
+	return requestPost<T>('/users/login/kakao', defaultInstance, data);
+};
+
 // 로그인
 export const userLogin = <T>(
 	data: object,
