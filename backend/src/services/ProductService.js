@@ -84,6 +84,16 @@ const ProductService = {
 
 		return productInfo;
 	},
+
+	// 유저 맞춤 상품 조회
+	getUserPreference: async (gender, preference) => {
+		const userPreferences = await Product.find({
+			gender: gender,
+			hashTag: preference,
+		}).limit(12);
+
+		return userPreferences;
+	},
 };
 
 module.exports = ProductService;

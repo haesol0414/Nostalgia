@@ -39,4 +39,10 @@ ProductRouter.get('/products/:productId', ProductController.getProductById);
 // 홈 화면 제품 조회
 ProductRouter.get('/main-products', ProductController.getMainProducts);
 
+// 유저 맞춤 상품 조회
+ProductRouter.post(
+	'/products/users/preference',
+	ProductController.getUserPreference
+);
+
 module.exports = ProductRouter;

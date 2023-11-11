@@ -183,6 +183,25 @@ const ProductController = {
 			next(err);
 		}
 	},
+
+	getUserPreference: async (req, res, next) => {
+		const { gender, preference } = req.body;
+
+		try {
+			console.log(gender, preference);
+			const userPreferences = await ProductService.getUserPreference(
+				gender,
+				preference
+			);
+
+			res.status(200).json({
+				message: '유저 맞춤 정보 상품 조회 성공',
+				userPreferences,
+			});
+		} catch (err) {
+			next(err);
+		}
+	},
 };
 
 module.exports = ProductController;
