@@ -20,7 +20,6 @@ import AddProduct from './pages/Admin/AddProduct';
 import Cart from './pages/Cart/Cart';
 import Order from './pages/Order/Order';
 import UpdateProduct from './pages/Admin/UpdateProduct';
-import ByTags from './pages/Products/ByTags';
 import OrderDetails from './pages/Account/OrderDetails';
 import ManageProduct from './pages/Admin/ManageProduct';
 import KakaoRedirectHandler from './components/KaKaoLogin/KakaoRedirectHandler';
@@ -39,11 +38,6 @@ const router = createBrowserRouter([
 				index: true,
 				path: '/products/gender/:gender',
 				element: <ByGender />,
-			},
-			{
-				index: true,
-				path: '/products/hashtag/:hashtag',
-				element: <ByTags />,
 			},
 			{
 				index: true,

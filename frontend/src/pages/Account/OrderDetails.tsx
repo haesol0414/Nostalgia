@@ -14,7 +14,6 @@ interface OrderDetailsResponse {
 export default function OrderDetails() {
 	const params = useParams();
 	const orderNumber = params.orderNumber;
-	// const orderNumber = '6549ea9cb65a1df6368299c7';
 	const [orderDetails, setOrderDetails] = useState<Order>();
 
 	// 정보 불러오기

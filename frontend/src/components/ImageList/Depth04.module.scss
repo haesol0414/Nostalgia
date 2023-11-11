@@ -60,4 +60,30 @@
 			}
 		}
 	}
+
+	.nonePreference {
+		.blurOverlay {
+			filter: blur(14px);
+			background-size: cover;
+		}
+
+		span {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			text-shadow: 0 0 10px rgba(0, 0, 0, 0.6); /* Add a shadow to the text for better visibility */
+			z-index: 3;
+			font-size: 1.9rem;
+		}
+
+		button {
+			position: absolute;
+			top: 58%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 30%;
+			z-index: 3;
+		}
+	}
 }

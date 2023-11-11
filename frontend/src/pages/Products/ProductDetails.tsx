@@ -100,29 +100,45 @@ export default function ProductDetails() {
 	};
 
 	// 장바구니 담기
+	// 장바구니 담기
 	const addToCart = () => {
 		if (product) {
 			const selectedSizeIndex: number = product.priceBySize.findIndex(
 				item => item.size === selectedSize,
 			);
 
-			const newCartProduct: CartProduct = {
-				_id: product._id,
-				title: product.title,
-				brand: product.brand,
-				selectedSize: selectedSize,
-				cost: product.priceBySize[selectedSizeIndex].price,
-				concentration: product.concentration,
-				mainImage: product.mainImage[0],
-				orderAmount: orderAmount,
-				totalPrice: totalPrice,
-			};
+			const existingCartItemIndex: number = cart.findIndex(
+				item =>
+					item._id === product._id &&
+					item.selectedSize === selectedSize,
+			);
 
-			const updatedCart = [...cart, newCartProduct];
-			localStorage.setItem('cart', JSON.stringify(updatedCart));
+			if (existingCartItemIndex !== -1) {
+				// 이미 장바구니에 있는 상품이면 수량 증가
+				const updatedCart = [...cart];
+				updatedCart[existingCartItemIndex].orderAmount += orderAmount;
+				updatedCart[existingCartItemIndex].totalPrice +=
+					totalPrice * orderAmount;
+				localStorage.setItem('cart', JSON.stringify(updatedCart));
+			} else {
+				// 장바구니에 없는 상품이면 추가
+				const newCartProduct: CartProduct = {
+					_id: product._id,
+					title: product.title,
+					brand: product.brand,
+					selectedSize: selectedSize,
+					cost: product.priceBySize[selectedSizeIndex].price,
+					concentration: product.concentration,
+					mainImage: product.mainImage[0],
+					orderAmount: orderAmount,
+					totalPrice: totalPrice,
+				};
+
+				const updatedCart = [...cart, newCartProduct];
+				localStorage.setItem('cart', JSON.stringify(updatedCart));
+			}
 
 			alert(`${product.title} 상품이 장바구니에 추가 되었습니다.`);
-
 			navigate('/cart');
 		}
 	};

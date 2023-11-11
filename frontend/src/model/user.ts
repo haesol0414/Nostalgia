@@ -12,7 +12,6 @@ export interface User extends NewUser {
 	gender: string;
 	address: Address;
 	preference: string;
-	wishList?: Product;
 	role: string;
 	registerDate: Date;
 	platform: string;

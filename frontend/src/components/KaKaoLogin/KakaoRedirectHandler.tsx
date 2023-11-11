@@ -6,6 +6,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { kakaoUserLogin } from '../../utils/apiRequests';
 import { useCookies } from 'react-cookie';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import { useSetRecoilState } from 'recoil';
 
 export const REST_API_KEY = '3f3d56df942bc4ac3232aa5d965fb01e';
 export const REDIRECT_URI = 'http://localhost:3000/auth/kakao';
@@ -28,6 +29,7 @@ export default function KakaoRedirectHandler() {
 	const [kakaoUser, setKakaoUser] = useState<KaKaoUser>();
 	const navigate = useNavigate();
 	const [cookies, setCookie] = useCookies(['token']);
+	const [loading, setLoading] = useState<boolean>(false); // 로딩 상태를 도입
 
 	// 1. 카카오 로그인 : 토큰 발급
 	const fnGetKakaoOauthToken = async () => {
@@ -98,9 +100,15 @@ export default function KakaoRedirectHandler() {
 			});
 
 			if (response.data.jwtToken) {
+				console.log('백에서 받아온 JTOKEN', response.data.jwtToken);
 				setCookie('token', response.data.jwtToken, { path: '/' });
-				alert('소셜 로그인 계정으로 로그인 되셨습니다.');
-				navigate('/');
+				alert('소셜 계정으로 로그인 되셨습니다.');
+
+				// 세션 스토리지에 유저 정보 저장
+				sessionStorage.setItem('user', JSON.stringify(kakaoUser));
+
+				// 쿠키가 설정되기에 충분한 시간을 주기 위해 네비게이션을 지연시킵니다.
+				setLoading(true);
 			}
 		} catch (error) {
 			console.error('로그인 실패 : ', error);
@@ -122,6 +130,14 @@ export default function KakaoRedirectHandler() {
 			fnUserLogin();
 		}
 	}, [kakaoAccessToken, kakaoUser]);
+
+	useEffect(() => {
+		// 로딩 상태가 true일 때만 네비게이션합니다.
+		if (loading) {
+			setLoading(false); // 로딩 상태를 초기화합니다.
+			navigate('/');
+		}
+	}, [loading, cookies]);
 
 	return (
 		<>

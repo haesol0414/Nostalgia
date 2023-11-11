@@ -10,6 +10,7 @@ export interface NewOrder {
 	shippingFee: number;
 	totalProductPrice: number;
 	totalPayment: number;
+	payMethod?: string;
 }
 
 export interface Order extends NewOrder {

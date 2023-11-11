@@ -25,20 +25,11 @@ export default function HashTag({ tagName, backgroundColor }: HashTagProps) {
 		backgroundColor: backgroundColor || '#ececec',
 	};
 
-	const onClickTags = () => {
-		navigate(`/products/hashtag/${tagName}`);
-	};
-
 	return (
 		<>
-			<button
-				type="button"
-				className={styles.hashTag}
-				style={dynamicStyles}
-				onClick={onClickTags}
-			>
-				{tagName}
-			</button>
+			<div className={styles.hashTag} style={dynamicStyles}>
+				<span>{tagName}</span>
+			</div>
 		</>
 	);
 }

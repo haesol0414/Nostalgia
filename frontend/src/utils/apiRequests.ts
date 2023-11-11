@@ -187,6 +187,13 @@ export const getProductsDetails = <T>(
 	return requestGet<T>(`/products/${productId}`, defaultInstance);
 };
 
+// 유저 맞춤 상품 조회
+export const getUserPreferenceProducts = <T>(
+	data: object,
+): Promise<{ status: number; data: T }> => {
+	return requestPost<T>('/products/users/preference', authInstance, data);
+};
+
 /* [ ORDER 관련 api ] */
 
 // 주문 하기

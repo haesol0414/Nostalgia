@@ -23,12 +23,12 @@ export default function Admin() {
 							></MenuBar>
 						</ul>
 					</div>
-					<div className={styles.list}>
+					{/* <div className={styles.list}>
 						<h6>주문</h6>
 						<ul>
 							<MenuBar title="주문 관리" linkTo="#"></MenuBar>
 						</ul>
-					</div>
+					</div> */}
 				</div>
 			</section>
 		</>

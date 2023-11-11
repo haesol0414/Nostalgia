@@ -8,6 +8,7 @@ import Depth04 from '../../components/ImageList/Depth04';
 import { womanPerfumes } from '../../assets/datas/datas';
 import { getMainProducts } from '../../utils/apiRequests';
 import { Product } from '../../model/product';
+import { useRecoilValue } from 'recoil';
 
 interface MainProductsResponse {
 	message: string;
@@ -54,14 +55,15 @@ export default function Home() {
 					alt="Main_Image"
 				/>
 				<div className={styles.visualText}>
-					<h2 className={styles.bigTitle}>silder title</h2>
+					<h2 className={styles.bigTitle}>COCO MADEMOISELLE</h2>
 					<p className={styles.subText}>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Consequatur maiores vitae laudantium assumenda beatae
-						labore inventore repellat recusandae quibusdam.
+						코코 마드모아젤. 신선하면서도 거부할 수 없는 양면성의
+						매력을 지닌 매혹적이고 여성스러운 향수입니다. 매일
+						새로움을 원하는, 장난기 가득하면서 도발적이고, 자유
+						분방하고 사랑스러운 여성에게 잘 어울립니다.
 					</p>
 					<button className={styles.button}>
-						<a href="#">BUTTON ‣</a>
+						<a href="#">바로 가기 ‣</a>
 					</button>
 				</div>
 			</div>
@@ -80,11 +82,11 @@ export default function Home() {
 				subTitle="신규 상품 모음"
 				productList={newProducts}
 			></Depth03>
-			<Depth04
+			{/* <Depth04
 				mainTitle="For You"
 				subTitle="나를 위한 추천"
 				productList={womanPerfumes}
-			></Depth04>
+			></Depth04> */}
 		</section>
 	);
 }

@@ -266,7 +266,7 @@ export default function UserDetails() {
 						<p>맞춤 성별</p>
 						<SelectBox
 							options={gender}
-							selectedValue={user.gender}
+							selectedValue={newPreference.gender}
 							onSelect={selectedValue =>
 								handleFieldChange('gender', selectedValue)
 							}
@@ -276,7 +276,7 @@ export default function UserDetails() {
 						<p>선호하는 태그</p>
 						<SelectBox
 							options={hashTags}
-							selectedValue={user.preference}
+							selectedValue={newPreference.preference}
 							onSelect={selectedValue =>
 								handleFieldChange('preference', selectedValue)
 							}
