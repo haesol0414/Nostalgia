@@ -34,7 +34,6 @@ export default function Account() {
 								></MenuBar>
 							</ul>
 						</div>
-
 						<div>
 							<h6>나의 정보</h6>
 							<ul>

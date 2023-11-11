@@ -9,7 +9,7 @@ export default function Admin() {
 
 	return (
 		<>
-			<section className={styles.accountSection}>
+			<section className={styles.adminSection}>
 				<div className={styles.head}>
 					<h2>관리자 페이지</h2>
 				</div>
@@ -18,8 +18,12 @@ export default function Admin() {
 						<h6>상품</h6>
 						<ul>
 							<MenuBar
-								title="상품 관리"
+								title="전체 상품 관리"
 								linkTo="/admin/products"
+							></MenuBar>
+							<MenuBar
+								title="상품 추가"
+								linkTo="/admin/add-product"
 							></MenuBar>
 						</ul>
 					</div>

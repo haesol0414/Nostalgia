@@ -6,6 +6,7 @@ export const brand = [
 	'hermes',
 	'byredo',
 	'jomalone',
+	'diptyque',
 ];
 export const concentration = [
 	'오 드 코롱',
@@ -22,5 +23,4 @@ export const hashTags = [
 	'#시트러스',
 	'#달콤한',
 	'#오리엔탈',
-	'#허브',
 ];

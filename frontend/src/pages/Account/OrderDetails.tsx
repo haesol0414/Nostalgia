@@ -55,38 +55,86 @@ export default function OrderDetails() {
 							<p>{formattedDate}에 주문이 완료 되었습니다.</p>
 						</div>
 
-						<div className={styles.addressInfo}>
-							<h5>배송 주소</h5>
-							<p>수령인 : {orderDetails?.recipient}</p>
-							<p>
-								우편번호 :{' '}
-								{orderDetails?.shippingAddress.zipCode}
-							</p>
-							<p>주소 : {orderDetails?.shippingAddress.city}</p>
-							<p>
-								상세 주소 :{' '}
-								{orderDetails?.shippingAddress.detail}
-							</p>
-						</div>
-
-						<h5>상품 정보</h5>
+						<h5 className={styles.title}>상품 정보</h5>
 						<OrderProductList
 							orderProducts={orderDetails.purchase}
 						/>
-						<div className={styles.payment}>
-							<h6>
-								배송비 :{' '}
-								{orderDetails.shippingFee.toLocaleString()}원
-							</h6>
-							<h6>
-								총 상품 금액 :{' '}
-								{orderDetails.totalProductPrice.toLocaleString()}
-								원
-							</h6>
-							<h6>
-								총 결제 금액 :{' '}
-								{orderDetails.totalPayment.toLocaleString()}원
-							</h6>
+
+						<h5 className={styles.title}>배송지 정보</h5>
+						<div className={styles.table}>
+							<table>
+								<tbody>
+									<tr>
+										<td>수령인</td>
+										<td>{orderDetails?.recipient}</td>
+									</tr>
+									<tr>
+										<td>우편번호</td>
+										<td>
+											{
+												orderDetails?.shippingAddress
+													.zipCode
+											}
+										</td>
+									</tr>
+									<tr>
+										<td>주소</td>
+										<td>
+											{orderDetails?.shippingAddress.city}
+										</td>
+									</tr>
+									<tr>
+										<td>상세 주소</td>
+										<td>
+											{
+												orderDetails?.shippingAddress
+													.detail
+											}
+										</td>
+									</tr>
+									<tr>
+										<td>배송 요청사항</td>
+										<td>{orderDetails?.shippingRequest}</td>
+									</tr>
+									<tr>
+										<td>배송 상태</td>
+										<td>{orderDetails?.orderStatus}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<h5 className={styles.title}>결제 정보</h5>
+						<div className={styles.table}>
+							<table>
+								<tbody>
+									<tr>
+										<td>배송비</td>
+										<td>
+											{orderDetails.shippingFee.toLocaleString()}
+											원
+										</td>
+									</tr>
+									<tr>
+										<td>총 상품 금액</td>
+										<td>
+											{orderDetails.totalProductPrice.toLocaleString()}
+											원
+										</td>
+									</tr>
+									<tr>
+										<td>총 결제 금액</td>
+										<td>
+											{orderDetails.totalPayment.toLocaleString()}
+											원
+										</td>
+									</tr>
+									<tr>
+										<td>결제 수단</td>
+										<td>{orderDetails.payMethod}</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</>
 				) : (

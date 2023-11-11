@@ -214,10 +214,13 @@ export default function UserDetails() {
 								})
 							}
 						/>
-						<BlackButton
-							text="내 정보 변경"
-							onClick={handleAddressUpdateBtn}
-						></BlackButton>
+
+						<div className={styles.button}>
+							<BlackButton
+								text="내 정보 변경"
+								onClick={handleAddressUpdateBtn}
+							></BlackButton>
+						</div>
 					</div>
 					<h5>비밀번호 변경</h5>
 					{user.platform === 'nostalgia' ? (
@@ -258,7 +261,9 @@ export default function UserDetails() {
 							</div>
 						</>
 					) : (
-						<h6>소셜 로그인 사용자입니다.</h6>
+						<div style={{ marginBottom: '20px' }}>
+							<h6>소셜 로그인 사용자입니다.</h6>
+						</div>
 					)}
 
 					<h5>맞춤 정보</h5>
@@ -273,7 +278,7 @@ export default function UserDetails() {
 						/>
 					</div>
 					<div className={styles.userPreference}>
-						<p>선호하는 태그</p>
+						<p className={styles.preferredTag}>선호하는 태그</p>
 						<SelectBox
 							options={hashTags}
 							selectedValue={newPreference.preference}
@@ -282,19 +287,25 @@ export default function UserDetails() {
 							}
 						/>
 					</div>
-					<BlackButton
-						text="맞춤 정보 설정"
-						onClick={handlePreferenceChangeBtn}
-					></BlackButton>
-					<h5>회원 탈퇴</h5>
-					<span>
-						회원 탈퇴시 온라인 및 오프라인 회원 정보 및 구매 정보 등
-						모든 정보가 삭제 됩니다.
-					</span>
-					<WhiteButton
-						text="회원 탈퇴"
-						onClick={handleWithdrawalBtn}
-					></WhiteButton>
+
+					<div className={styles.button}>
+						<BlackButton
+							text="맞춤 정보 설정"
+							onClick={handlePreferenceChangeBtn}
+						></BlackButton>
+					</div>
+
+					<div className={styles.withdrawal}>
+						<h5>회원 탈퇴</h5>
+						<span>
+							회원 탈퇴시, 온라인 및 오프라인 회원 정보 및 구매
+							정보 등 모든 정보가 삭제 됩니다.
+						</span>
+						<WhiteButton
+							text="회원 탈퇴"
+							onClick={handleWithdrawalBtn}
+						></WhiteButton>
+					</div>
 				</div>
 			</section>
 		</>

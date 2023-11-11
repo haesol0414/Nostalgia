@@ -136,6 +136,7 @@ export default function Order() {
 			{newOrder && newOrder.purchase.length > 0 ? (
 				<div className={styles.orderWrap}>
 					<h2>주문하기</h2>
+					<h5>상품 정보</h5>
 					<OrderProductList orderProducts={newOrder.purchase} />
 					<div className={styles.head}>
 						<h5>주문 정보</h5>

@@ -2,12 +2,18 @@
 	display: flex;
 	flex-direction: column;
 	border-radius: 10px;
+	margin: 5% 1% 7% 1%;
 
-	.buttonIcon {
+	.head {
 		display: flex;
-		align-self: flex-end;
-		gap: 20px;
-		margin-bottom: 20px;
+		justify-content: space-between;
+
+		.buttonIcon {
+			display: flex;
+			align-self: flex-end;
+			gap: 20px;
+			margin-bottom: 20px;
+		}
 	}
 
 	table {

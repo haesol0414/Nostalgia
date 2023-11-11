@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './AddProduct.module.scss';
+import styles from './AddAndUpdateProduct.module.scss';
 import BlackButton from '../../components/Button/BlackButton';
 import { NewProduct } from '../../model/product';
 import { MessageResponse, addNewProduct } from '../../utils/apiRequests';
@@ -15,7 +15,7 @@ export default function AddProduct() {
 		priceBySize: [{ size: 0, price: 0 }],
 		concentration: '',
 		description: '',
-		currentAmount: 0,
+		currentAmount: 100,
 		mainImage: [''],
 		hashTag: '',
 	});
@@ -67,13 +67,14 @@ export default function AddProduct() {
 	};
 
 	const handleSubmitButton = async () => {
+		console.log(newProduct);
 		try {
 			const response = await addNewProduct<MessageResponse>({
 				newProduct,
 			});
 
 			alert('상품 등록 완료');
-			navigate('/admin');
+			navigate('/admin/products');
 		} catch (error) {
 			console.log(error);
 		}
@@ -92,10 +93,12 @@ export default function AddProduct() {
 						addMainImageInput={addMainImageInput}
 						addPriceBySizeInput={addPriceBySizeInput}
 					/>
-					<BlackButton
-						text="상품 추가"
-						onClick={handleSubmitButton}
-					/>
+					<div className={styles.submitButton}>
+						<BlackButton
+							text="상품 추가"
+							onClick={handleSubmitButton}
+						/>
+					</div>
 				</div>
 			</section>
 		</>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles from './UpdateProduct.module.scss';
+import styles from './AddAndUpdateProduct.module.scss';
 import BlackButton from '../../components/Button/BlackButton';
 import { Product } from '../../model/product';
 import {
@@ -104,7 +104,7 @@ export default function UpdateProduct() {
 			if (response.status === 200) {
 				alert('상품 수정 완료');
 			}
-			navigate('/admin');
+			navigate('/admin/products');
 		} catch (error) {
 			console.log(error);
 		}
@@ -124,10 +124,13 @@ export default function UpdateProduct() {
 							addMainImageInput={addMainImageInput}
 							addPriceBySizeInput={addPriceBySizeInput}
 						/>
-						<BlackButton
-							text="상품 수정"
-							onClick={handleUpdateButton}
-						/>
+
+						<div className={styles.submitButton}>
+							<BlackButton
+								text="상품 수정"
+								onClick={handleUpdateButton}
+							/>
+						</div>
 					</div>
 				) : (
 					<p>상품을 조회할 수 없습니다.</p>

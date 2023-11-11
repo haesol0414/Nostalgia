@@ -58,6 +58,8 @@ export default function Cart() {
 		setCart(updatedCart);
 
 		localStorage.setItem('cart', JSON.stringify(updatedCart));
+
+		window.location.reload();
 	};
 
 	// totalProductPrice 업데이트
@@ -86,7 +88,6 @@ export default function Cart() {
 		localStorage.setItem('cart', JSON.stringify(updatedCart));
 	};
 
-	// 장바구니 삭제
 	const handleDecrease = (index: number) => {
 		const updatedCart = [...cart];
 
@@ -101,29 +102,6 @@ export default function Cart() {
 		}
 
 		updateTotalProductPrice(updatedCart);
-	};
-
-	// 체크박스 => 체크에 따른 가격 업뎃
-	const handleToggleCheckbox = (
-		selectedProduct: CartProduct,
-		isChecked: boolean,
-	) => {
-		console.log(selectedProducts);
-
-		if (isChecked) {
-			setSelectedProducts(prevSelectedProducts => [
-				...prevSelectedProducts,
-				selectedProduct,
-			]);
-		} else {
-			setSelectedProducts(prevSelectedProducts =>
-				prevSelectedProducts.filter(
-					prev => prev._id !== selectedProduct._id,
-				),
-			);
-		}
-
-		updateTotalProductPrice(selectedProducts);
 	};
 
 	// 주문하기 버튼
@@ -155,17 +133,6 @@ export default function Cart() {
 						cart.map((cartProduct, index) => (
 							<div className={styles.cartProduct} key={index}>
 								<div className={styles.left}>
-									<CheckBox
-										key={cartProduct._id}
-										product={cartProduct}
-										isChecked={selectedProducts.some(
-											p =>
-												p._id === cartProduct._id &&
-												p.selectedSize ===
-													cartProduct.selectedSize,
-										)}
-										onToggle={handleToggleCheckbox}
-									/>
 									<img src={cartProduct.mainImage} />
 								</div>
 								<div className={styles.textInfo}>

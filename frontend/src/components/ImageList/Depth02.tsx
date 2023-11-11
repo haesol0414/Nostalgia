@@ -27,8 +27,12 @@ export default function Depth02({ productList }: Props) {
 							<p className={styles.brand}>
 								{productList.womanBest.brand}
 							</p>
-							{/* discription 들어가면 좋을 듯 */}
-							<h3>{productList.womanBest.title}</h3>
+							<h3 className={styles.title}>
+								{productList.womanBest.title}
+							</h3>
+							<p className={styles.description}>
+								{productList.womanBest.description}
+							</p>
 						</>
 					) : (
 						<>

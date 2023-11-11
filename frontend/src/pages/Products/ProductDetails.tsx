@@ -7,6 +7,8 @@ import { CartProduct, Product } from '../../model/product';
 import { getProductsDetails } from '../../utils/apiRequests';
 import QuantitySelector from '../../components/QuantitySelector/QuantitySelector';
 import HashTag from '../../components/HashTag/HashTag';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
+import Refund from '../../assets/refund.png';
 
 interface ProductDetailResponse {
 	message: string;
@@ -146,48 +148,61 @@ export default function ProductDetails() {
 	return (
 		<section className={styles.detailSection}>
 			{product ? (
-				<div className={styles.main}>
-					<div className={styles.imageWrap}>
-						<img src={product.mainImage[0]} alt={product.title} />
-					</div>
-
-					<div className={styles.productInfo}>
-						<h5 className={styles.title}>{product.title} </h5>
-						<p className={styles.concentration}>오 드 빠르펭</p>
-						<div className={styles.tagAndPrice}>
-							<HashTag tagName={product.hashTag} />
-							<h6>
-								{totalPrice !== null
-									? `${totalPrice.toLocaleString()}원`
-									: `${product.priceBySize[0].price.toLocaleString()}원`}
-							</h6>
+				<>
+					<div className={styles.main}>
+						<div className={styles.imageWrap}>
+							<img
+								src={product.mainImage[0]}
+								alt={product.title}
+							/>
 						</div>
 
-						<p>
-							선택 가능한 사이즈:
-							{product.priceBySize.length}
-						</p>
-						<SizeDropdown
-							sizes={sizes}
-							prices={prices}
-							onChange={handlePriceChange}
-						/>
+						<div className={styles.productInfo}>
+							<h5 className={styles.title}>{product.title} </h5>
+							<p className={styles.concentration}>
+								{product.concentration}
+							</p>
+							<p>{product.description}</p>
+							<div className={styles.tagAndPrice}>
+								<HashTag tagName={product.hashTag} />
+								<h6>
+									{totalPrice !== null
+										? `${totalPrice.toLocaleString()}원`
+										: `${product.priceBySize[0].price.toLocaleString()}원`}
+								</h6>
+							</div>
 
-						<div className={styles.quantitySelector}>
-							<QuantitySelector
-								quantity={orderAmount}
-								onIncrease={handleAmountIncrease}
-								onDecrease={handleAmountDecrease}
-							></QuantitySelector>
+							<p>
+								선택 가능한 사이즈: {product.priceBySize.length}
+							</p>
+							<SizeDropdown
+								sizes={sizes}
+								prices={prices}
+								onChange={handlePriceChange}
+							/>
+
+							<div className={styles.quantitySelector}>
+								<QuantitySelector
+									quantity={orderAmount}
+									onIncrease={handleAmountIncrease}
+									onDecrease={handleAmountDecrease}
+								></QuantitySelector>
+							</div>
+							{product.currentAmount > 0 ? (
+								<BlackButton
+									text="장바구니에 추가하기"
+									onClick={addToCart}
+								></BlackButton>
+							) : (
+								<div className={styles.soldOut}>
+									<BlackButton text="SOLD OUT"></BlackButton>
+								</div>
+							)}
 						</div>
-						<BlackButton
-							text="장바구니에 추가하기"
-							onClick={addToCart}
-						></BlackButton>
 					</div>
-				</div>
+				</>
 			) : (
-				<p>상품을 조회할 수 없습니다.</p>
+				<LoadingSpinner />
 			)}
 		</section>
 	);

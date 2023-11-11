@@ -47,14 +47,19 @@ export default function ManageProduct() {
 	};
 
 	const handleModifyButton = () => {
-		console.log('checked: ', selectedProductId);
+		if (!selectedProductId) {
+			alert('상품을 선택해주세요.');
+		}
+
 		navigate(`/admin/products/${selectedProductId}`);
 	};
 
 	const handleDeleteButton = async () => {
-		try {
-			console.log('checked: ', selectedProductId);
+		if (!selectedProductId) {
+			alert('상품을 선택해주세요.');
+		}
 
+		try {
 			if (selectedProductId) {
 				const response = await deleteProduct<MessageResponse>({
 					selectedProductId: selectedProductId,
@@ -63,6 +68,7 @@ export default function ManageProduct() {
 				if (response.status === 200) {
 					alert('상품 삭제 완료');
 				}
+				window.location.reload();
 			}
 		} catch (error) {
 			console.log(error);
@@ -72,10 +78,17 @@ export default function ManageProduct() {
 	return (
 		<>
 			<section className={styles.adminSection}>
-				<div className={styles.buttonIcon}>
-					<AddButton onClick={handleAddButton}></AddButton>
-					<ModifyButton onClick={handleModifyButton}></ModifyButton>
-					<DeleteButton onClick={handleDeleteButton}></DeleteButton>
+				<div className={styles.head}>
+					<h2>상품 관리</h2>
+					<div className={styles.buttonIcon}>
+						<AddButton onClick={handleAddButton}></AddButton>
+						<ModifyButton
+							onClick={handleModifyButton}
+						></ModifyButton>
+						<DeleteButton
+							onClick={handleDeleteButton}
+						></DeleteButton>
+					</div>
 				</div>
 				<table className={styles.table}>
 					<thead>

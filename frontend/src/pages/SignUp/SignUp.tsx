@@ -13,6 +13,7 @@ import {
 import axios from 'axios';
 import { isEmailValid, isPasswordValid } from '../../utils/vaildationCheck';
 import { formatPhoneNumber } from '../../utils/dataFormatter';
+import ErrorText from '../../components/ErrorText/ErrorText';
 
 export default function SignUp() {
 	const navigate = useNavigate();
@@ -23,22 +24,18 @@ export default function SignUp() {
 		phone: '',
 	});
 	const [passwordConfirm, setPasswordConfirm] = useState<string>('');
+	const [emailAvailable, setEmailAvailable] = useState<boolean>(false);
+	const [passwordAvailable, setPasswordAvailable] = useState<boolean>(true);
 
-	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault();
-
-		if (!isEmailValid(newUser.email)) {
-			alert('올바른 이메일 형식이 아닙니다.');
-			return;
-		}
-
+	const handleSubmit = async () => {
 		if (!isPasswordValid(newUser.password)) {
 			alert('비밀번호 형식을 확인하세요.');
 			return;
 		}
 
 		try {
-			if (newUser.password === passwordConfirm) {
+			if (emailAvailable && newUser.password === passwordConfirm) {
+				// setPasswordAvailable(true);
 				const response = await userSignUp<MessageResponse>({ newUser });
 
 				if (response.status === 201) {
@@ -47,8 +44,10 @@ export default function SignUp() {
 					navigate('/login');
 				}
 			} else if (newUser.password !== passwordConfirm) {
-				alert('비밀번호가 일치하지 않습니다.');
+				setPasswordAvailable(false);
 				return;
+			} else if (!emailAvailable) {
+				alert('이메일 중복 체크를 확인하세요.');
 			}
 		} catch (error) {
 			if (axios.isAxiosError(error) && error.response?.status === 400) {
@@ -62,14 +61,22 @@ export default function SignUp() {
 	// 이메일 중복체크 버튼
 	const handleEmailCheckBtn = async () => {
 		try {
-			const response = await userEmailCheck(newUser.email);
+			if (!isEmailValid(newUser.email)) {
+				alert('올바른 이메일 형식이 아닙니다.');
+				return;
+			}
 
+			const response = await userEmailCheck(newUser.email);
 			if (response.status === 200) {
+				setEmailAvailable(true);
 				alert('사용 가능한 이메일입니다.');
+				return;
 			}
 		} catch (error) {
 			if (axios.isAxiosError(error) && error.response?.status === 400) {
+				setEmailAvailable(false);
 				alert('이미 존재하는 이메일입니다.');
+				return;
 			} else {
 				console.error(error);
 			}
@@ -78,11 +85,11 @@ export default function SignUp() {
 
 	return (
 		<section className={styles.signUpSection}>
-			<form onSubmit={handleSubmit} className={styles.signUpForm}>
+			<div className={styles.signUpForm}>
 				<div className={styles.email}>
 					<Input
 						type="text"
-						placeholder="이메일"
+						placeholder="* 이메일"
 						value={newUser.email}
 						onChange={e => {
 							setNewUser({ ...newUser, email: e.target.value });
@@ -97,10 +104,11 @@ export default function SignUp() {
 
 				<Input
 					type="text"
-					placeholder="이름"
+					placeholder="* 이름"
 					value={newUser.name}
 					onChange={e => {
 						setNewUser({ ...newUser, name: e.target.value });
+						setEmailAvailable(false);
 					}}
 					required={true}
 				></Input>
@@ -114,11 +122,10 @@ export default function SignUp() {
 							phone: e.target.value.replace(/\D/g, ''),
 						});
 					}}
-					required={true}
 				></Input>
 				<Input
 					type="password"
-					placeholder="비밀번호"
+					placeholder="* 비밀번호"
 					value={newUser.password}
 					onChange={e => {
 						setNewUser({ ...newUser, password: e.target.value });
@@ -128,19 +135,26 @@ export default function SignUp() {
 				></Input>
 				<Input
 					type="password"
-					placeholder="비밀번호 확인"
+					placeholder="* 비밀번호 확인"
 					value={passwordConfirm}
 					onChange={e => setPasswordConfirm(e.target.value)}
 					required={true}
 					autoComplete="new-password"
 				></Input>
+				{!passwordAvailable ? (
+					<ErrorText message="비밀번호가 일치하지 않습니다." />
+				) : (
+					<></>
+				)}
 				<p className={styles.prevention}>
 					* 비밀번호는 8자 이상으로 영문 소문자, 숫자, 특수 문자를
 					모두 포함해야 합니다.
 				</p>
-
-				<BlackButton type="submit" text="가입하기"></BlackButton>
-			</form>
+				<BlackButton
+					onClick={handleSubmit}
+					text="가입하기"
+				></BlackButton>
+			</div>
 		</section>
 	);
 }

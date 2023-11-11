@@ -63,7 +63,9 @@ export default function Home() {
 						분방하고 사랑스러운 여성에게 잘 어울립니다.
 					</p>
 					<button className={styles.button}>
-						<a href="#">바로 가기 ‣</a>
+						<a href="/products/654fd207ad6f1543e3ace47a">
+							바로 가기 ‣
+						</a>
 					</button>
 				</div>
 			</div>

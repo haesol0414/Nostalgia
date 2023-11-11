@@ -8,6 +8,7 @@ import { userLogin } from '../../utils/apiRequests';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import KaKaoLoginButton from '../../components/KaKaoLogin/KaKaoLoginButton';
+import ErrorText from '../../components/ErrorText/ErrorText';
 
 interface Credentials {
 	email: string;
@@ -26,6 +27,7 @@ export default function Login() {
 		email: '',
 		password: '',
 	});
+	const [passwordConfirm, setPasswordConfirm] = useState<boolean>(true);
 
 	const handleLoginBtn = async (event: React.FormEvent) => {
 		event.preventDefault();
@@ -34,13 +36,14 @@ export default function Login() {
 			const response = await userLogin<LoginResponse>({ credentials });
 
 			if (response.data.token) {
+				setPasswordConfirm(true);
 				setCookie('token', response.data.token, { path: '/' });
 				alert('로그인 성공');
 				navigate('/');
 			}
 		} catch (error) {
 			if (axios.isAxiosError(error) && error.response?.status === 409) {
-				alert('비밀번호가 일치하지 않습니다.');
+				setPasswordConfirm(false);
 			} else if (
 				axios.isAxiosError(error) &&
 				error.response?.status === 400
@@ -85,6 +88,11 @@ export default function Login() {
 					required={true}
 					autoComplete="new-password"
 				></Input>
+				{!passwordConfirm ? (
+					<ErrorText message="비밀번호가 일치하지 않습니다." />
+				) : (
+					<></>
+				)}
 				<div className={styles.buttonWrap}>
 					<BlackButton type="submit" text="로그인"></BlackButton>
 					<WhiteButton

@@ -14,26 +14,34 @@ export default function OrderProductList({
 			{orderProducts && orderProducts.length > 0 ? (
 				<ul className={styles.orderProductList}>
 					{orderProducts.map((product, index) => (
-						<li key={index} className={styles.orderProduct}>
-							<img src={product.mainImage} alt={product.title} />
-							<div className={styles.textInfo}>
-								<div className={styles.productInfo}>
-									<h5>{product.title}</h5>
-									<p className={styles.concentration}>
-										{product.concentration}
-									</p>
-									<p className={styles.size}>
-										{product.selectedSize}ml
-									</p>
-								</div>
-								<div className={styles.priceInfo}>
-									<p>수량 {product.orderAmount}</p>
-									<h6>
-										{product.totalPrice.toLocaleString()}원
-									</h6>
-								</div>
-							</div>
-						</li>
+						<>
+							<a href={`/products/${product._id}`}>
+								<li key={index} className={styles.orderProduct}>
+									<img
+										src={product.mainImage}
+										alt={product.title}
+									/>
+									<div className={styles.textInfo}>
+										<div className={styles.productInfo}>
+											<h5>{product.title}</h5>
+											<p className={styles.concentration}>
+												{product.concentration}
+											</p>
+											<p className={styles.size}>
+												{product.selectedSize}ml
+											</p>
+										</div>
+										<div className={styles.priceInfo}>
+											<p>수량 {product.orderAmount}</p>
+											<h6>
+												{product.totalPrice.toLocaleString()}
+												원
+											</h6>
+										</div>
+									</div>
+								</li>
+							</a>
+						</>
 					))}
 				</ul>
 			) : (

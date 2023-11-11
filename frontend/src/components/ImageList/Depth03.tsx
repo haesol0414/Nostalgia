@@ -23,12 +23,17 @@ export default function Depth03({ mainTitle, subTitle, productList }: Props) {
 						productList.map(product => (
 							<li key={product._id}>
 								<Link to={`/products/${product._id}`}>
-									<h5 className={styles.title}>
-										{product.title}
-									</h5>
-									<p className={styles.brand}>
-										{product.brand}
-									</p>
+									<div className={styles.textInfo}>
+										<p className={styles.brand}>
+											{product.brand}
+										</p>
+										<h5 className={styles.productTitle}>
+											{product.title}
+										</h5>
+										<p className={styles.description}>
+											{product.description}
+										</p>
+									</div>
 									<div className={styles.imageWrap}>
 										<img
 											src={product.mainImage[0]}

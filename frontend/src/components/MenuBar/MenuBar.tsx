@@ -14,8 +14,8 @@ export default function MenuBar({ title, linkTo }: MenuBarProps) {
 					<div className={styles.menuBar}>
 						<a href={linkTo}>
 							<span>{title}</span>
+							<p>+</p>
 						</a>
-						<p>+</p>
 					</div>
 				</li>
 			</ul>

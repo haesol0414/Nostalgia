@@ -1,6 +1,7 @@
 .dep03 {
-	padding: 150px 0;
+	padding: 150px 100px;
 	text-align: center;
+
 	.inner {
 		display: flex;
 		justify-content: space-between;
@@ -49,15 +50,24 @@
 					height: 100%;
 					align-items: center;
 
-					.title {
-						margin-top: 50px;
-					}
+					.textInfo {
+						.brand {
+							text-transform: uppercase;
+							font-weight: 500;
+							color: #ccc;
+							margin: 5px 0 20px 0;
+						}
 
-					.brand {
-						text-transform: uppercase;
-						font-weight: 500;
-						margin-bottom: 50px;
-						color: #ccc;
+						.productTitle {
+							margin-bottom: 50px;
+						}
+
+						.description {
+							text-transform: uppercase;
+							font-weight: 500;
+							margin: 0 10px;
+							color: #a4a4a4;
+						}
 					}
 
 					.imageWrap img {
