@@ -28,7 +28,14 @@ const AuthService = {
 			}
 		);
 
-		return token;
+		const currentUser = {
+			token: token,
+			email: searchedUser.email,
+			role: searchedUser.role,
+			name: searchedUser.name,
+		};
+
+		return currentUser;
 	},
 
 	kakaoLogin: async ({ email, name }) => {

@@ -4,6 +4,7 @@ const {
 	unauthorizedError,
 	notFoundError,
 } = require('../middleware/ErrorHandler');
+const User = require('../models/User');
 
 const ProductController = {
 	// [관리자] 상품 추가
@@ -184,19 +185,30 @@ const ProductController = {
 	},
 
 	getUserPreference: async (req, res, next) => {
-		const { gender, preference } = req.body;
+		console.log(req.body);
+		const { email } = req.body;
 
 		try {
-			console.log(gender, preference);
+			console.log(email);
+
+			const user = await User.findOne({ email: email });
+
 			const userPreferences = await ProductService.getUserPreference(
-				gender,
-				preference
+				email,
+				{ user }
 			);
 
-			res.status(200).json({
-				message: '유저 맞춤 정보 상품 조회 성공',
-				userPreferences,
-			});
+			if (user.gender === '' || user.preference === '') {
+				res.status(200).json({
+					message: '맞춤 정보 설정이 필요합니다.',
+					userPreferences,
+				});
+			} else {
+				res.status(200).json({
+					message: '유저 맞춤 정보 상품 조회 성공',
+					userPreferences,
+				});
+			}
 		} catch (err) {
 			next(err);
 		}

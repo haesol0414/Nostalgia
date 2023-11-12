@@ -7,11 +7,11 @@ const AuthController = {
 		try {
 			const { email, password } = credentials;
 
-			const token = await AuthService.userLogin(email, password);
+			const currentUser = await AuthService.userLogin(email, password);
 
 			return res.status(201).json({
 				message: '로그인 성공',
-				token,
+				currentUser,
 			});
 		} catch (err) {
 			next(err);

@@ -1,4 +1,5 @@
 const Product = require('../models/Product');
+const User = require('../models/User');
 
 const ProductService = {
 	// [관리자] 상품 추가
@@ -86,10 +87,10 @@ const ProductService = {
 	},
 
 	// 유저 맞춤 상품 조회
-	getUserPreference: async (gender, preference) => {
+	getUserPreference: async (email, { user }) => {
 		const userPreferences = await Product.find({
-			gender: gender,
-			hashTag: preference,
+			gender: user.gender,
+			hashTag: user.preference,
 		}).limit(12);
 
 		return userPreferences;
