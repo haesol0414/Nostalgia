@@ -2,8 +2,8 @@ const Product = require('../models/Product');
 
 const ProductService = {
 	// [관리자] 상품 추가
-	addProducts: async ({ product }) => {
-		return await Product.create(product);
+	addProducts: async ({ newProduct }) => {
+		return await Product.create(newProduct);
 	},
 
 	// 전체 상품 조회

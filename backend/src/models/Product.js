@@ -7,7 +7,15 @@ const ProductSchema = new Schema({
 	},
 	brand: {
 		type: String,
-		enum: ['chanel', 'cucci', 'dior', 'hermes', 'byredo', 'jomalone'],
+		enum: [
+			'chanel',
+			'cucci',
+			'dior',
+			'hermes',
+			'byredo',
+			'jomalone',
+			'diptyque',
+		],
 		required: true,
 	},
 	gender: {
@@ -31,7 +39,7 @@ const ProductSchema = new Schema({
 		type: String,
 		enum: ['오 드 코롱', '오 드 뚜왈렛', '오 드 빠르펭', '퍼퓸'],
 	},
-	discription: {
+	description: {
 		type: String,
 		default: '',
 	},

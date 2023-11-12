@@ -9,16 +9,15 @@ const ProductController = {
 	// [관리자] 상품 추가
 	addProducts: async (req, res, next) => {
 		// const role = req.currentUserRole;
-		const { product } = req.body;
+		const { newProduct } = req.body;
 
 		try {
 			// if (role !== 'admin') {
 			// 	throw new unauthorizedError('관리자만 접근이 가능합니다.');
 			// }
 
-			console.log('ctr');
 			await ProductService.addProducts({
-				product,
+				newProduct,
 			});
 
 			res.status(201).json({

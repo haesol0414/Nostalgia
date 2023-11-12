@@ -70,15 +70,15 @@ const OrderSchema = new Schema(
 		totalPayment: {
 			type: Number,
 		},
-		payMethod: {
-			type: String,
-			enum: ['카드 결제', '무통장 입금'],
-			defulat: '카드 결제',
-		},
 		orderStatus: {
 			type: String,
 			enum: ['상품 준비 중', '배송 중', '배송 완료', '주문 취소'],
 			default: '상품 준비 중',
+		},
+		payMethod: {
+			type: String,
+			enum: ['카드 결제', '무통장 입금'],
+			default: '카드 결제',
 		},
 	},
 	{
