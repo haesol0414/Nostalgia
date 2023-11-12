@@ -13,6 +13,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import SmallButton from '../../components/Button/SmallButton';
 import Payment from '../../components/Payment/Payment';
 import { useAuth } from '../../hooks/useAuth';
+import CartPrice from '../../components/CartPrice/CartPrice';
 
 interface OrderResponse {
 	message: string;
@@ -180,19 +181,11 @@ export default function Order() {
 							handleFieldChange('shippingRequest', e.target.value)
 						}
 					/>
-					<div className={styles.payment}>
-						<h6>
-							배송비 : {newOrder.shippingFee.toLocaleString()}원
-						</h6>
-						<h6>
-							총 상품 금액 :
-							{newOrder.totalProductPrice.toLocaleString()}원
-						</h6>
-						<h6>
-							총 결제 금액 :
-							{newOrder.totalPayment.toLocaleString()}원
-						</h6>
-					</div>
+					<h5 className={styles.paymentInfo}>결제 정보</h5>
+					<CartPrice
+						totalProductPrice={newOrder.totalProductPrice}
+						shippingFee={newOrder.shippingFee}
+					/>
 					<div className={styles.buttons}>
 						{/* <Payment newOrder={newOrder}></Payment> */}
 						<BlackButton text="주문하기" onClick={handlePayBtn} />

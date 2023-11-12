@@ -5,16 +5,12 @@ import WhiteButton from '../../components/Button/WhiteButton';
 import { useNavigate } from 'react-router-dom';
 import { CartProduct } from '../../model/product';
 import QuantitySelector from '../../components/QuantitySelector/QuantitySelector';
-import CheckBox from '../../components/CheckBox/CheckBox';
+import CartPrice from '../../components/CartPrice/CartPrice';
 
 interface CartPrice {
 	shippingFee: number;
 	totalProductPrice: number;
 }
-
-// issue
-// 장바구니 삭제 시 가격 업데이트 바로 안 됌
-// 체크박스로 동일 상품 선택하면 사이즈 달라도 같은 상품으로 인식
 
 export default function Cart() {
 	const navigate = useNavigate();
@@ -112,7 +108,6 @@ export default function Cart() {
 			),
 		);
 
-		// 상품 없으면 주문 버튼 막기
 		navigate('/orders', {
 			state: { selectedProducts: selectedProductsToOrder },
 		});
@@ -184,25 +179,24 @@ export default function Cart() {
 					) : (
 						<p>장바구니에 상품이 없습니다.</p>
 					)}
-					<div className={styles.cartPrice}>
-						<h6>
-							배송비 : {cartPrice.shippingFee.toLocaleString()}원
-						</h6>
-						<h6>
-							총 상품 금액 :{' '}
-							{cartPrice.totalProductPrice.toLocaleString()}원
-						</h6>
-						<h6>
-							총 결제 금액 :{' '}
-							{(
-								cartPrice.shippingFee +
-								cartPrice.totalProductPrice
-							).toLocaleString()}
-							원
-						</h6>
-					</div>
+					<CartPrice
+						totalProductPrice={cartPrice.totalProductPrice}
+						shippingFee={cartPrice.shippingFee}
+					/>
 					<div className={styles.buttons}>
-						<BlackButton text="주문하기" onClick={handleOrderBtn} />
+						{cart.length === 0 ? (
+							<div className={styles.disable}>
+								<BlackButton
+									text="주문하기"
+									onClick={() => {}}
+								/>
+							</div>
+						) : (
+							<BlackButton
+								text="주문하기"
+								onClick={handleOrderBtn}
+							/>
+						)}
 						<WhiteButton
 							text="계속 쇼핑하기"
 							onClick={handleShopContinueBtn}

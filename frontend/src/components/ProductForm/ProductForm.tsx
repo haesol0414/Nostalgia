@@ -38,17 +38,17 @@ export default function ProductForm({
 }: ProductFormProps) {
 	return (
 		<div className={styles.productForm}>
-			<label>
-				Title:
+			<div className={styles.rowContainer}>
+				<p className={styles.subject}>상품명</p>
 				<BorderInput
 					type="text"
 					value={product.title}
 					onChange={e => handleFieldChange('title', e.target.value)}
 				/>
-			</label>
+			</div>
 
-			<label>
-				Gender:
+			<div className={styles.rowContainer}>
+				<p className={styles.subject}>추천 성별</p>
 				<SelectBox
 					options={gender}
 					selectedValue={product.gender}
@@ -56,10 +56,9 @@ export default function ProductForm({
 						handleFieldChange('gender', selectedValue)
 					}
 				/>
-			</label>
-
-			<label>
-				Brand:
+			</div>
+			<div className={styles.rowContainer}>
+				<p className={styles.subject}>브랜드</p>
 				<SelectBox
 					options={brand}
 					selectedValue={product.brand}
@@ -67,12 +66,12 @@ export default function ProductForm({
 						handleFieldChange('brand', selectedValue)
 					}
 				/>
-			</label>
+			</div>
 
 			{product.priceBySize.map((sizeInfo, index) => (
 				<div key={index}>
-					<label>
-						Size:
+					<div className={styles.rowContainer}>
+						<p className={styles.subject}>사이즈(ml) &</p>
 						<BorderInput
 							type="text"
 							value={sizeInfo.size}
@@ -84,10 +83,10 @@ export default function ProductForm({
 								)
 							}
 						/>
-					</label>
+					</div>
 
-					<label>
-						Price:
+					<div className={styles.rowContainer}>
+						<p className={styles.subject}>가격 [{index}]</p>
 						<BorderInput
 							type="text"
 							value={sizeInfo.price}
@@ -99,7 +98,7 @@ export default function ProductForm({
 								)
 							}
 						/>
-					</label>
+					</div>
 
 					{index !== 0 && (
 						<button
@@ -125,8 +124,8 @@ export default function ProductForm({
 				<SmallButton text="사이즈 추가" onClick={addPriceBySizeInput} />
 			</div>
 
-			<label>
-				Concentration:
+			<div className={styles.rowContainer}>
+				<p className={styles.subject}>농도</p>
 				<SelectBox
 					options={concentration}
 					selectedValue={product.concentration}
@@ -134,38 +133,38 @@ export default function ProductForm({
 						handleFieldChange('concentration', selectedValue)
 					}
 				/>
-			</label>
+			</div>
 
-			<label>
-				CurrentAmount:
+			<div className={styles.rowContainer}>
+				<p className={styles.subject}>재고</p>
 				<BorderInput
 					value={product.currentAmount}
 					onChange={e =>
 						handleFieldChange('currentAmount', e.target.value)
 					}
 				/>
-			</label>
+			</div>
 
-			<label>
-				Description:
+			<div className={styles.rowContainer}>
+				<p className={styles.subject}>상품 설명</p>
 				<TextArea
 					value={product.description}
 					onChange={e =>
 						handleFieldChange('description', e.target.value)
 					}
 				/>
-			</label>
+			</div>
 
 			{product.mainImage.map((mainImageURL, index) => (
 				<div key={index}>
-					<label>
-						MainImage:
+					<div className={styles.rowContainer}>
+						<p className={styles.subject}>메인 이미지 [{index}]</p>
 						<BorderInput
 							type="text"
 							value={mainImageURL}
 							onChange={e => handleMainImageURLChange(index, e)}
 						/>
-					</label>
+					</div>
 
 					{index !== 0 && (
 						<button
@@ -191,8 +190,8 @@ export default function ProductForm({
 				<SmallButton text="이미지 추가" onClick={addMainImageInput} />
 			</div>
 
-			<label>
-				HashTag:
+			<div className={styles.rowContainer}>
+				<p className={styles.subject}>HashTag</p>
 				<SelectBox
 					options={hashTags}
 					selectedValue={product.hashTag}
@@ -200,7 +199,7 @@ export default function ProductForm({
 						handleFieldChange('hashTag', selectedValue)
 					}
 				/>
-			</label>
+			</div>
 		</div>
 	);
 }

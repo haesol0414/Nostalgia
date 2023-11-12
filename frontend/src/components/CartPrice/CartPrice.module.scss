@@ -1,0 +1,29 @@
+.cartPrice {
+	display: flex;
+	flex-direction: column;
+	border-bottom: 1px solid #ececec;
+	margin: 0 0 5px 0;
+
+	.row {
+		display: flex;
+		justify-content: space-between;
+		text-align: center;
+	}
+
+	.cell {
+		flex: 1;
+		font-size: 1.8rem;
+		padding: 9px 20px;
+	}
+
+	.row:first-child .cell {
+		font-size: 2rem;
+		font-weight: bold;
+		border-bottom: 1px solid #ececec;
+		background-color: #f0f0f0;
+	}
+
+	.row:last-child .cell {
+		padding: 20px 0;
+	}
+}

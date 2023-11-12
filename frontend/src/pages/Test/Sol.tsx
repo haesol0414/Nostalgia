@@ -13,7 +13,7 @@ export default function Sol() {
 	return (
 		<>
 			<TestSection>
-				{/* <LoadingSpinner /> */}
+				<LoadingSpinner />
 				{/* <KaKaoLoginButton /> */}
 			</TestSection>
 		</>

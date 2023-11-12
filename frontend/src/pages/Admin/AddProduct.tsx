@@ -5,6 +5,7 @@ import { NewProduct } from '../../model/product';
 import { MessageResponse, addNewProduct } from '../../utils/apiRequests';
 import { useNavigate } from 'react-router-dom';
 import ProductForm from '../../components/ProductForm/ProductForm';
+import { isFieldEmpty } from '../../utils/isFieldEmpty';
 
 export default function AddProduct() {
 	const navigate = useNavigate();
@@ -67,8 +68,20 @@ export default function AddProduct() {
 	};
 
 	const handleSubmitButton = async () => {
-		console.log(newProduct);
 		try {
+			if (
+				isFieldEmpty(newProduct?.title) ||
+				isFieldEmpty(newProduct?.brand) ||
+				isFieldEmpty(newProduct?.concentration) ||
+				isFieldEmpty(newProduct?.gender) ||
+				isFieldEmpty(newProduct?.description) ||
+				isFieldEmpty(newProduct?.hashTag) ||
+				isFieldEmpty(newProduct?.mainImage[0])
+			) {
+				alert('누락된 필드를 확인하세요.');
+				return;
+			}
+
 			const response = await addNewProduct<MessageResponse>({
 				newProduct,
 			});

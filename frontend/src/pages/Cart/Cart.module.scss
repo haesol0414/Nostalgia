@@ -3,6 +3,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin: 6% 0;
 
 	.cartWrap {
 		display: flex;
@@ -12,7 +13,6 @@
 
 		h2 {
 			padding-bottom: 20px;
-			margin-top: 40px;
 			margin-bottom: 20px;
 			text-align: center;
 		}
@@ -74,18 +74,16 @@
 			}
 		}
 
-		.cartPrice {
-			display: flex;
-			flex-direction: column;
-			margin-left: auto;
-			text-align: right;
-			gap: 6px;
-		}
-
 		.buttons {
 			display: flex;
 			flex-direction: column;
 			gap: 10px;
+
+			.disable {
+				button {
+					pointer-events: none;
+				}
+			}
 		}
 	}
 }

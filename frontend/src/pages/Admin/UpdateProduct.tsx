@@ -9,6 +9,7 @@ import {
 } from '../../utils/apiRequests';
 import { useNavigate, useParams } from 'react-router-dom';
 import ProductForm from '../../components/ProductForm/ProductForm';
+import { isFieldEmpty } from '../../utils/isFieldEmpty';
 
 interface ProductDetailResponse {
 	message: string;
@@ -95,7 +96,19 @@ export default function UpdateProduct() {
 	// 상품 수정
 	const handleUpdateButton = async () => {
 		try {
-			console.log(product);
+			if (
+				isFieldEmpty(product?.title) ||
+				isFieldEmpty(product?.brand) ||
+				isFieldEmpty(product?.concentration) ||
+				isFieldEmpty(product?.gender) ||
+				isFieldEmpty(product?.description) ||
+				isFieldEmpty(product?.hashTag) ||
+				isFieldEmpty(product?.mainImage[0])
+			) {
+				alert('누락된 필드를 확인하세요.');
+				return;
+			}
+
 			const response = await patchProductDetail<MessageResponse>({
 				updatedProduct: product,
 			});

@@ -5,13 +5,26 @@
 	gap: 20px;
 	text-align: center;
 
-	label {
-		gap: 10px;
-		font-size: 1.8rem;
-		display: flex;
+	// label {
+	// 	gap: 10px;
+	// 	font-size: 1.8rem;
+	// 	display: flex;
+	// 	input {
+	// 		margin-bottom: 5px;
+	// 		width: 80%;
+	// 	}
+	// }
 
-		input {
-			margin-bottom: 5px;
+	.rowContainer {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+
+		.subject {
+			width: 15%;
+			display: flex;
+			justify-content: flex-start;
+			font-weight: 400;
 		}
 	}
 
