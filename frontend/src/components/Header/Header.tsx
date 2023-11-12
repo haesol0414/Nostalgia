@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 import styles from './Header.module.scss';
 import { isTokenAvailable } from '../../utils/authUtils';
 import { useCookies } from 'react-cookie';
+import { RxPerson } from 'react-icons/rx';
+import { PiShoppingCartLight } from 'react-icons/pi';
+import { useNavigate } from 'react-router-dom';
 
 export default function Header() {
+	const navigate = useNavigate();
 	const [showGenderCategories, setShowGenderCategories] = useState(false);
+	const [showUserMenu, setShowUserMenu] = useState(false);
 	const isLoggedIn = isTokenAvailable();
 	const [, , removeCookie] = useCookies(['token']);
 
@@ -14,7 +19,14 @@ export default function Header() {
 
 	const handleLogout = () => {
 		removeCookie('token');
+		sessionStorage.removeItem('user');
 		alert('로그아웃');
+
+		navigate('/');
+	};
+
+	const toggleUserMenu = () => {
+		setShowUserMenu(!showUserMenu);
 	};
 
 	return (
@@ -43,32 +55,56 @@ export default function Header() {
 							</div>
 						)}
 					</li>
-					{/* <li>
-						<div className={styles.category}>Brand</div>
-					</li> */}
 				</ul>
 
 				<div className={styles.icons}>
 					<li>
-						{isLoggedIn ? (
-							<button
-								className={styles.logout}
-								onClick={handleLogout}
-							>
-								Logout
-							</button>
-						) : (
-							<a href="/login">Login</a>
-						)}
+						<div
+							className={styles.userMenu}
+							onClick={toggleUserMenu}
+						>
+							<RxPerson size={20} style={{ cursor: 'pointer' }} />
+							{showUserMenu && (
+								<div className={styles.userDropdown}>
+									{isLoggedIn ? (
+										<>
+											<a
+												className={styles.dropdownMenu}
+												href="/account"
+											>
+												My
+											</a>
+											<button
+												className={styles.dropdownMenu}
+												onClick={handleLogout}
+											>
+												Logout
+											</button>
+										</>
+									) : (
+										<>
+											<a
+												className={styles.dropdownMenu}
+												href="/login"
+											>
+												Login
+											</a>
+											<a
+												className={styles.dropdownMenu}
+												href="/sign-up"
+											>
+												SignUp
+											</a>
+										</>
+									)}
+								</div>
+							)}
+						</div>
 					</li>
 					<li>
-						<a href="/admin">Admin</a>
-					</li>
-					<li>
-						<a href="/account">My</a>
-					</li>
-					<li>
-						<a href="/cart">Cart</a>
+						<a href="/cart">
+							<PiShoppingCartLight size={20} />
+						</a>
 					</li>
 				</div>
 			</div>

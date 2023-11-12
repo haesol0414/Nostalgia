@@ -177,7 +177,9 @@ export default function Cart() {
 							</div>
 						))
 					) : (
-						<p>장바구니에 상품이 없습니다.</p>
+						<p className={styles.empty}>
+							장바구니에 상품이 없습니다.
+						</p>
 					)}
 					<CartPrice
 						totalProductPrice={cartPrice.totalProductPrice}

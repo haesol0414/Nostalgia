@@ -15,9 +15,16 @@ interface Credentials {
 	password: string;
 }
 
+interface CurrentUser {
+	token: string;
+	email: string;
+	name: string;
+	role: string;
+}
+
 interface LoginResponse {
 	message: string;
-	token: string;
+	currentUser: CurrentUser;
 }
 
 export default function Login() {
@@ -35,9 +42,21 @@ export default function Login() {
 		try {
 			const response = await userLogin<LoginResponse>({ credentials });
 
-			if (response.data.token) {
+			if (response.data.currentUser.token) {
 				setPasswordConfirm(true);
-				setCookie('token', response.data.token, { path: '/' });
+				setCookie('token', response.data.currentUser.token, {
+					path: '/',
+				});
+				// 세션 스토리지에 유저 정보 저장
+				sessionStorage.setItem(
+					'user',
+					JSON.stringify({
+						email: response.data.currentUser.email,
+						name: response.data.currentUser.name,
+						role: response.data.currentUser.role,
+					}),
+				);
+
 				alert('로그인 성공');
 				navigate('/');
 			}

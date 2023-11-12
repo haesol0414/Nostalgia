@@ -82,8 +82,16 @@
 			.disable {
 				button {
 					pointer-events: none;
+					background-color: #a4a4a4;
+					border-color: #a4a4a4;
 				}
 			}
 		}
+	}
+
+	.empty {
+		margin-bottom: 40px;
+		text-align: center;
+		font-size: 2rem;
 	}
 }

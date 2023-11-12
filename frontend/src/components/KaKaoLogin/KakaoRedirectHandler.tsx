@@ -15,6 +15,7 @@ export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id
 interface KaKaoUser {
 	email: string;
 	name: string;
+	role: string;
 }
 
 interface KakaoLoginResponse {
@@ -85,6 +86,7 @@ export default function KakaoRedirectHandler() {
 			setKakaoUser({
 				email: res.data.kakao_account.email,
 				name: res.data.kakao_account.profile.nickname,
+				role: 'customer',
 			});
 		} catch (e) {
 			console.log('e : ', e);
@@ -106,8 +108,6 @@ export default function KakaoRedirectHandler() {
 
 				// 세션 스토리지에 유저 정보 저장
 				sessionStorage.setItem('user', JSON.stringify(kakaoUser));
-
-				// 쿠키가 설정되기에 충분한 시간을 주기 위해 네비게이션을 지연시킵니다.
 				setLoading(true);
 			}
 		} catch (error) {
@@ -132,9 +132,8 @@ export default function KakaoRedirectHandler() {
 	}, [kakaoAccessToken, kakaoUser]);
 
 	useEffect(() => {
-		// 로딩 상태가 true일 때만 네비게이션합니다.
 		if (loading) {
-			setLoading(false); // 로딩 상태를 초기화합니다.
+			setLoading(false);
 			navigate('/');
 		}
 	}, [loading, cookies]);

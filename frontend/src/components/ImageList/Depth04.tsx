@@ -2,12 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './Depth04.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import BlackButton from '../Button/BlackButton';
-import { useAuth } from '../../hooks/useAuth';
-import {
-	getUserDetails,
-	getUserPreferenceProducts,
-} from '../../utils/apiRequests';
-import { User, UserPreference } from '../../model/user';
+import { getUserPreferenceProducts } from '../../utils/apiRequests';
 import { Product } from '../../model/product';
 import { isTokenAvailable } from '../../utils/authUtils';
 
@@ -25,11 +20,6 @@ interface TestProduct {
 	mainImage: string;
 }
 
-interface UserDetailResponse {
-	message: string;
-	user: User;
-}
-
 interface UserPreferenceResponse {
 	message: string;
 	userPreferences: Product[];
@@ -38,12 +28,8 @@ interface UserPreferenceResponse {
 export default function Depth04({ mainTitle, subTitle, productList }: Props) {
 	const navigate = useNavigate();
 	const [hasPreference, setHasPreference] = useState<boolean>(false);
-	const [userPreference, setUserPreference] = useState<UserPreference>({
-		gender: '',
-		preference: '',
-	});
 	const [preferredProducts, setPreferredProducts] = useState<Product[]>();
-
+	const [email, setEmail] = useState<string>('');
 	const isLoggedIn = isTokenAvailable();
 
 	const guestNavigateLogin = () => {
@@ -53,34 +39,21 @@ export default function Depth04({ mainTitle, subTitle, productList }: Props) {
 		navigate('/account/personal-details');
 	};
 
-	// 유저 정보 조회
-	const getUserInformation = async () => {
-		try {
-			console.log('유저정보조회');
-			const response = await getUserDetails<UserDetailResponse>();
-
-			if (response.data.user) {
-				setUserPreference({
-					gender: response.data.user.gender,
-					preference: response.data.user.preference,
-				});
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
-	// 둘 중 하나라도 빈문자열이 아닐 경우 (설정되어 있을 경우) usePreference로 백엔드 api 전송
 	const getUserPreferredProducts = async () => {
 		setHasPreference(true);
 
-		console.log('유저선호에 맞는 상품 조회');
 		try {
 			const response =
-				await getUserPreferenceProducts<UserPreferenceResponse>(
-					userPreference,
-				);
-			if (response.data.userPreferences) {
+				await getUserPreferenceProducts<UserPreferenceResponse>({
+					email,
+				});
+
+			if (
+				response.data.userPreferences.length === 0 &&
+				response.data.message === '맞춤 정보 설정이 필요합니다.'
+			) {
+				setHasPreference(false);
+			} else if (response.data.userPreferences) {
 				setPreferredProducts(response.data.userPreferences);
 			}
 		} catch (error) {
@@ -90,15 +63,21 @@ export default function Depth04({ mainTitle, subTitle, productList }: Props) {
 
 	useEffect(() => {
 		if (isLoggedIn) {
-			getUserInformation();
+			const storedUser = sessionStorage.getItem('user');
+			if (storedUser) {
+				const userObject = JSON.parse(storedUser);
+				setEmail(userObject.email);
+			}
+		} else {
+			return;
 		}
-	}, [isLoggedIn]);
+	}, []);
 
 	useEffect(() => {
-		if (userPreference.gender !== '' && userPreference.preference !== '') {
+		if (email !== '') {
 			getUserPreferredProducts();
 		}
-	}, [userPreference]);
+	}, [email]);
 
 	return (
 		<section className={styles.dep04}>
@@ -110,30 +89,38 @@ export default function Depth04({ mainTitle, subTitle, productList }: Props) {
 
 				{isLoggedIn && hasPreference && preferredProducts ? (
 					<ul>
-						{preferredProducts.map(product => (
-							<li key={product._id}>
-								<Link to={`/products/${product._id}`}>
-									<div className={styles.imageWrap}>
-										<img
-											src={product.mainImage[0]}
-											alt={product.title}
-										/>
-									</div>
-								</Link>
-								<div className={styles.textWrap}>
-									<p className={styles.brand}>
-										{product.brand}
-									</p>
-									<h5 className={styles.title}>
-										{product.title}
-									</h5>
-									<p>
-										{product.priceBySize[0].price.toLocaleString()}
-										원
-									</p>
-								</div>
-							</li>
-						))}
+						{preferredProducts.length === 0 ? (
+							<h5 className={styles.notice}>
+								맞춤 정보에 알맞은 상품이 없습니다.
+							</h5>
+						) : (
+							<>
+								{preferredProducts.map(product => (
+									<li key={product._id}>
+										<Link to={`/products/${product._id}`}>
+											<div className={styles.imageWrap}>
+												<img
+													src={product.mainImage[0]}
+													alt={product.title}
+												/>
+											</div>
+										</Link>
+										<div className={styles.textWrap}>
+											<p className={styles.brand}>
+												{product.brand}
+											</p>
+											<h5 className={styles.title}>
+												{product.title}
+											</h5>
+											<p>
+												{product.priceBySize[0].price.toLocaleString()}
+												원
+											</p>
+										</div>
+									</li>
+								))}
+							</>
+						)}
 					</ul>
 				) : (
 					<div className={styles.nonePreference}>

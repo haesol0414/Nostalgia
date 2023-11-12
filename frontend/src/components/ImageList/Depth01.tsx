@@ -24,9 +24,9 @@ export default function Depth01({ mainTitle, subTitle, productList }: Props) {
 				<h2 className={styles.mainTitle}>{mainTitle}</h2>
 				<p className={styles.subTitle}>{subTitle}</p>
 			</div>
-			{productList?.length && productList?.length === 0 ? (
+			{!productList ? (
 				<div className={styles.empty}>
-					<h3>상품이 없습니다.</h3>
+					<h5>상품이 없습니다.</h5>
 				</div>
 			) : (
 				<>

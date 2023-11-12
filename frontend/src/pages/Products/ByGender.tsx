@@ -54,7 +54,7 @@ export default function ByGender() {
 						? '여성 향수'
 						: category === 'man'
 						? '남성 향수'
-						: '젠더리스 향수'
+						: '공용 향수'
 				}
 				productList={products}
 			></Depth01>

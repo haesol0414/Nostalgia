@@ -84,11 +84,11 @@ export default function Home() {
 				subTitle="신규 상품 모음"
 				productList={newProducts}
 			></Depth03>
-			{/* <Depth04
+			<Depth04
 				mainTitle="For You"
 				subTitle="나를 위한 추천"
 				productList={womanPerfumes}
-			></Depth04> */}
+			></Depth04>
 		</section>
 	);
 }

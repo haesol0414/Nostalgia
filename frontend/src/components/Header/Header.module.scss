@@ -24,14 +24,16 @@
 			}
 
 			.category {
+				position: relative;
 				font-size: 1.8rem;
-				padding-bottom: 5px;
-				border-bottom: 2px solid transparent; /* 초기에는 투명한 선을 가짐 */
+				padding-bottom: 7px;
+				right: 100%;
+				border-bottom: 2px solid transparent;
 				cursor: pointer;
 
 				&:hover {
 					border-bottom: 2px solid #fff;
-					transition: border-bottom 0.3s ease; /* 트랜지션을 적용하여 부드러운 변화 적용 */
+					transition: border-bottom 0.3s ease;
 				}
 			}
 		}
@@ -45,15 +47,6 @@
 				&:last-child {
 					margin-right: 50px;
 				}
-			}
-
-			a {
-				font-size: 14px;
-			}
-
-			.logout {
-				font-size: 14px;
-				color: #fff;
 			}
 		}
 	}
@@ -73,12 +66,50 @@
 
 		.subCategories {
 			display: flex;
-			justify-content: center;
-			align-items: center;
+			position: relative;
+			left: 1%;
 			gap: 40px;
 			font-size: 1.6rem;
 
 			a:hover {
+				color: #a4a4a4;
+				transition: color 0.3s ease;
+			}
+		}
+	}
+
+	.userMenu {
+		position: relative;
+		display: flex;
+		align-items: center;
+	}
+
+	.userDropdown {
+		position: absolute;
+		top: 100%;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 100px;
+		height: 110px;
+		background-color: #f0f0f0;
+		color: #000;
+		z-index: 2;
+		display: flex;
+		margin-top: 10px;
+		flex-direction: column;
+		justify-content: center;
+		border-radius: 8px;
+		border: 1px solid #a4a4a4;
+		box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+
+		.dropdownMenu {
+			font-size: 1.7rem;
+			text-align: center;
+			padding: 10px;
+			font-weight: 500;
+			transition: transform 0.3s ease;
+
+			&:hover {
 				color: #a4a4a4;
 				transition: color 0.3s ease;
 			}

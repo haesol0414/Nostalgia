@@ -1,5 +1,5 @@
 .detailSection {
-	margin: 5% auto;
+	margin: 6% auto;
 
 	.main {
 		display: flex;
@@ -13,7 +13,7 @@
 
 		.productInfo {
 			display: flex;
-			margin: 80px 0;
+			margin: 70px 0;
 			flex-direction: column;
 			width: 30%;
 			gap: 20px;
@@ -46,6 +46,8 @@
 			.soldOut {
 				button {
 					pointer-events: none;
+					background-color: #a4a4a4;
+					border-color: #a4a4a4;
 				}
 			}
 		}

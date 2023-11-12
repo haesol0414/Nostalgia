@@ -21,14 +21,19 @@
 		justify-content: space-between;
 	}
 
+	.notice {
+		margin: 0 auto;
+	}
+
 	li {
 		display: flex;
 		flex-direction: column;
 		gap: 20px;
+		flex-basis: calc(25% - 27px);
 
 		.imageWrap img {
-			width: 224px;
-			height: 224px;
+			width: 254px;
+			height: 254px;
 			background-color: #ccc;
 			border-radius: 50%;
 			box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
