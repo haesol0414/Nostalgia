@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './DeleteButton.module.scss';
-import { FaTrash } from 'react-icons/fa';
+import { FaTrash } from '@react-icons/all-files/fa/FaTrash';
 
 interface DeleteButtonProps {
 	onClick: () => void;

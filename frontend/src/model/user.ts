@@ -27,3 +27,11 @@ export interface UserPreference {
 	gender: string;
 	preference: string;
 }
+
+export interface LoggedInUser {
+	email: string;
+	name: string;
+	gender: string;
+	role: string;
+	preference: string;
+}

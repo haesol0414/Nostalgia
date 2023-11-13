@@ -94,7 +94,11 @@ export default function Depth04({ mainTitle, subTitle, productList }: Props) {
 
 				getUserPreferredProducts(currentUserPreference);
 			}
-		} else {
+		} else if (
+			currentUserPreference &&
+			currentUserPreference.gender !== '' &&
+			currentUserPreference.preference !== ''
+		) {
 			return;
 		}
 	}, [hasPreference]);
@@ -124,9 +128,15 @@ export default function Depth04({ mainTitle, subTitle, productList }: Props) {
 				{isLoggedIn && hasPreference && preferredProducts ? (
 					<ul>
 						{preferredProducts.length === 0 ? (
-							<h5 className={styles.notice}>
-								맞춤 정보에 알맞은 상품이 없습니다.
-							</h5>
+							<div className={styles.none}>
+								<h5 className={styles.notice}>
+									맞춤 정보에 알맞은 상품이 없습니다.
+								</h5>
+								<BlackButton
+									text="맞춤 정보 설정하기"
+									onClick={userNavigateAccount}
+								/>
+							</div>
 						) : (
 							<>
 								{preferredProducts.map(product => (

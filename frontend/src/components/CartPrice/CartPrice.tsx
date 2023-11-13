@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './CartPrice.module.scss';
-import { FaPlus } from 'react-icons/fa';
 
 interface CartPriceProps {
 	totalProductPrice: number;

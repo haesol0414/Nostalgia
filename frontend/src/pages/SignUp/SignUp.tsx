@@ -85,6 +85,7 @@ export default function SignUp() {
 
 	return (
 		<section className={styles.signUpSection}>
+			<h2>회원 가입</h2>
 			<div className={styles.signUpForm}>
 				<div className={styles.email}>
 					<Input

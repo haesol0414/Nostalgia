@@ -19,7 +19,6 @@ interface CurrentUser {
 	token: string;
 	email: string;
 	name: string;
-	role: string;
 	preference: string;
 	gender: string;
 }
@@ -30,8 +29,8 @@ interface LoginResponse {
 }
 
 export default function Login() {
-	const [cookies, setCookie] = useCookies(['token']);
 	const navigate = useNavigate();
+	const [cookies, setCookie] = useCookies(['token']);
 	const [credentials, setCredentials] = useState<Credentials>({
 		email: '',
 		password: '',
@@ -55,7 +54,6 @@ export default function Login() {
 					JSON.stringify({
 						email: response.data.currentUser.email,
 						name: response.data.currentUser.name,
-						role: response.data.currentUser.role,
 					}),
 				);
 				sessionStorage.setItem(

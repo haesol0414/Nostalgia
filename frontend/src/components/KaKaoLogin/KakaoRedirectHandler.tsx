@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { NewUser } from '../../model/user';
-import KaKaoButton from '../../assets/kakao_login.png';
 import axios from 'axios';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { kakaoUserLogin } from '../../utils/apiRequests';
 import { useCookies } from 'react-cookie';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
-import { useSetRecoilState } from 'recoil';
 
 export const REST_API_KEY = '3f3d56df942bc4ac3232aa5d965fb01e';
 export const REDIRECT_URI = 'http://localhost:3000/auth/kakao';
@@ -15,7 +12,6 @@ export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id
 interface KaKaoUser {
 	email: string;
 	name: string;
-	role: string;
 }
 
 interface CurrentUser {
@@ -92,7 +88,6 @@ export default function KakaoRedirectHandler() {
 			setKakaoUser({
 				email: res.data.kakao_account.email,
 				name: res.data.kakao_account.profile.nickname,
-				role: 'customer',
 			});
 		} catch (e) {
 			console.log('e : ', e);

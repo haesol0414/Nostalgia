@@ -8,7 +8,6 @@ import Depth04 from '../../components/ImageList/Depth04';
 import { womanPerfumes } from '../../assets/datas/datas';
 import { getMainProducts } from '../../utils/apiRequests';
 import { Product } from '../../model/product';
-import { useRecoilValue } from 'recoil';
 
 interface MainProductsResponse {
 	message: string;
@@ -23,11 +22,26 @@ export interface BestProductsBygender {
 	genderlessBest: Product;
 }
 
+interface UnsplashParameters {
+	width: number;
+	height: number;
+	quality: number;
+	format: string;
+}
+
 export default function Home() {
 	const [bestProducts, setBestProducts] = useState<Product[]>();
 	const [newProducts, setNewProducts] = useState<Product[]>();
 	const [bestProdutsByGender, setbestProdutsByGender] =
 		useState<BestProductsBygender>();
+	function getParametersForUnsplash({
+		width,
+		height,
+		quality,
+		format,
+	}: UnsplashParameters): string {
+		return `?w=${width}&h=${height}&q=${quality}&fm=${format}&fit=crop`;
+	}
 
 	useEffect(() => {
 		const getHomeProducts = async () => {
@@ -51,7 +65,15 @@ export default function Home() {
 		<section className={styles.homeSection}>
 			<div className={styles.visualBox}>
 				<img
-					src="https://images5.alphacoders.com/414/414410.jpg"
+					src={
+						'https://images5.alphacoders.com/414/414410.jpg' +
+						getParametersForUnsplash({
+							width: 1200,
+							height: 1200,
+							quality: 80,
+							format: 'jpg',
+						})
+					}
 					alt="Main_Image"
 				/>
 				<div className={styles.visualText}>

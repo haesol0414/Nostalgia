@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import styles from './Header.module.scss';
 import { isTokenAvailable } from '../../utils/authUtils';
 import { useCookies } from 'react-cookie';
-import { RxPerson } from 'react-icons/rx';
-import { PiShoppingCartLight } from 'react-icons/pi';
+import { BsPerson } from '@react-icons/all-files/bs/BsPerson';
+import { FiShoppingCart } from '@react-icons/all-files/fi/FiShoppingCart';
+
 import { useNavigate } from 'react-router-dom';
 
 export default function Header() {
@@ -58,13 +59,13 @@ export default function Header() {
 					</li>
 				</ul>
 
-				<div className={styles.icons}>
+				<ul className={styles.icons}>
 					<li>
 						<div
 							className={styles.userMenu}
 							onClick={toggleUserMenu}
 						>
-							<RxPerson size={20} style={{ cursor: 'pointer' }} />
+							<BsPerson size={22} style={{ cursor: 'pointer' }} />
 							{showUserMenu && (
 								<div className={styles.userDropdown}>
 									{isLoggedIn ? (
@@ -103,11 +104,16 @@ export default function Header() {
 						</div>
 					</li>
 					<li>
-						<a href="/cart">
-							<PiShoppingCartLight size={20} />
-						</a>
+						<button
+							onClick={() => {
+								navigate('/cart');
+							}}
+							aria-label="Go to Cart"
+						>
+							<FiShoppingCart size={20} color={'white'} />
+						</button>
 					</li>
-				</div>
+				</ul>
 			</div>
 		</section>
 	);
