@@ -87,11 +87,13 @@ const ProductService = {
 	},
 
 	// 유저 맞춤 상품 조회
-	getUserPreference: async (email, { user }) => {
+	getUserPreference: async (gender, preference) => {
+		console.log(gender);
+		console.log(preference);
 		const userPreferences = await Product.find({
-			gender: user.gender,
-			hashTag: user.preference,
-		}).limit(12);
+			gender: gender,
+			hashTag: preference,
+		}).limit(4);
 
 		return userPreferences;
 	},

@@ -26,21 +26,18 @@ const AuthController = {
 		try {
 			const { email, name } = kakaoUser;
 
-			console.log('e: ', email);
-			console.log('n: ', name);
-
 			if ((!email, !name)) {
 				throw new badRequestError('누락된 값이 있습니다.');
 			}
 
-			const jwtToken = await AuthService.kakaoLogin({
+			const currentUser = await AuthService.kakaoLogin({
 				email,
 				name,
 			});
 
 			return res.status(201).json({
 				message: '카카오 로그인 성공',
-				jwtToken,
+				currentUser,
 			});
 		} catch (err) {
 			next(err);

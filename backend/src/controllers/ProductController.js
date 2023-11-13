@@ -185,30 +185,22 @@ const ProductController = {
 	},
 
 	getUserPreference: async (req, res, next) => {
-		console.log(req.body);
-		const { email } = req.body;
+		const { currentUserPreference } = req.body;
 
 		try {
-			console.log(email);
-
-			const user = await User.findOne({ email: email });
+			const { gender, preference } = currentUserPreference;
 
 			const userPreferences = await ProductService.getUserPreference(
-				email,
-				{ user }
+				gender,
+				preference
 			);
 
-			if (user.gender === '' || user.preference === '') {
-				res.status(200).json({
-					message: '맞춤 정보 설정이 필요합니다.',
-					userPreferences,
-				});
-			} else {
-				res.status(200).json({
-					message: '유저 맞춤 정보 상품 조회 성공',
-					userPreferences,
-				});
-			}
+			console.log(userPreferences);
+
+			res.status(200).json({
+				message: '유저 맞춤 정보 상품 조회 성공',
+				userPreferences,
+			});
 		} catch (err) {
 			next(err);
 		}

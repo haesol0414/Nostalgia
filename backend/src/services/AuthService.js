@@ -33,6 +33,8 @@ const AuthService = {
 			email: searchedUser.email,
 			role: searchedUser.role,
 			name: searchedUser.name,
+			preference: searchedUser.preference,
+			gender: searchedUser.gender,
 		};
 
 		return currentUser;
@@ -62,7 +64,13 @@ const AuthService = {
 				}
 			);
 
-			return jwtToken;
+			const currentUser = {
+				jwtToken: jwtToken,
+				preference: newUser.preference,
+				gender: newUser.gender,
+			};
+
+			return currentUser;
 		} else {
 			const jwtToken = jwt.sign(
 				{
@@ -76,7 +84,13 @@ const AuthService = {
 				}
 			);
 
-			return jwtToken;
+			const currentUser = {
+				jwtToken: jwtToken,
+				preference: user.preference,
+				gender: user.gender,
+			};
+
+			return currentUser;
 		}
 	},
 };
