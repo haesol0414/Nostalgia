@@ -20,6 +20,7 @@ export default function Header() {
 	const handleLogout = () => {
 		removeCookie('token');
 		sessionStorage.removeItem('user');
+		sessionStorage.removeItem('userPreference');
 		alert('로그아웃');
 
 		navigate('/');

@@ -133,6 +133,11 @@ export default function UserDetails() {
 
 	const handlePreferenceChangeBtn = async () => {
 		try {
+			sessionStorage.setItem(
+				'userPreference',
+				JSON.stringify(newPreference),
+			);
+
 			const response = await changeUserPreference<MessageResponse>({
 				newPreference,
 			});

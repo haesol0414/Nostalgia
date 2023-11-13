@@ -5,6 +5,7 @@ import BlackButton from '../Button/BlackButton';
 import { getUserPreferenceProducts } from '../../utils/apiRequests';
 import { Product } from '../../model/product';
 import { isTokenAvailable } from '../../utils/authUtils';
+import HashTag from '../HashTag/HashTag';
 
 interface Props {
 	mainTitle: string;
@@ -20,16 +21,22 @@ interface TestProduct {
 	mainImage: string;
 }
 
-interface UserPreferenceResponse {
+interface UserPreferenceProductsResponse {
 	message: string;
 	userPreferences: Product[];
+}
+
+interface userPreference {
+	gender: string;
+	preference: string;
 }
 
 export default function Depth04({ mainTitle, subTitle, productList }: Props) {
 	const navigate = useNavigate();
 	const [hasPreference, setHasPreference] = useState<boolean>(false);
 	const [preferredProducts, setPreferredProducts] = useState<Product[]>();
-	const [email, setEmail] = useState<string>('');
+	const [currentUserPreference, setCurrentUserPreference] =
+		useState<userPreference>();
 	const isLoggedIn = isTokenAvailable();
 
 	const guestNavigateLogin = () => {
@@ -39,21 +46,21 @@ export default function Depth04({ mainTitle, subTitle, productList }: Props) {
 		navigate('/account/personal-details');
 	};
 
-	const getUserPreferredProducts = async () => {
-		setHasPreference(true);
+	// if se
 
+	const getUserPreferredProducts = async (
+		currentUserPreference: userPreference,
+	) => {
 		try {
 			const response =
-				await getUserPreferenceProducts<UserPreferenceResponse>({
-					email,
-				});
+				await getUserPreferenceProducts<UserPreferenceProductsResponse>(
+					{
+						currentUserPreference,
+					},
+				);
 
-			if (
-				response.data.userPreferences.length === 0 &&
-				response.data.message === '맞춤 정보 설정이 필요합니다.'
-			) {
-				setHasPreference(false);
-			} else if (response.data.userPreferences) {
+			if (response.data.userPreferences) {
+				console.log(response.data.userPreferences);
 				setPreferredProducts(response.data.userPreferences);
 			}
 		} catch (error) {
@@ -63,10 +70,12 @@ export default function Depth04({ mainTitle, subTitle, productList }: Props) {
 
 	useEffect(() => {
 		if (isLoggedIn) {
-			const storedUser = sessionStorage.getItem('user');
-			if (storedUser) {
-				const userObject = JSON.parse(storedUser);
-				setEmail(userObject.email);
+			const userPreference = sessionStorage.getItem('userPreference');
+			console.log('userPreference', userPreference);
+			if (userPreference) {
+				setCurrentUserPreference(JSON.parse(userPreference));
+
+				setHasPreference(true);
 			}
 		} else {
 			return;
@@ -74,10 +83,21 @@ export default function Depth04({ mainTitle, subTitle, productList }: Props) {
 	}, []);
 
 	useEffect(() => {
-		if (email !== '') {
-			getUserPreferredProducts();
+		if (hasPreference) {
+			if (
+				currentUserPreference &&
+				currentUserPreference.gender !== '' &&
+				currentUserPreference.preference !== ''
+			) {
+				console.log(currentUserPreference);
+				setHasPreference(true);
+
+				getUserPreferredProducts(currentUserPreference);
+			}
+		} else {
+			return;
 		}
-	}, [email]);
+	}, [hasPreference]);
 
 	return (
 		<section className={styles.dep04}>
@@ -85,6 +105,20 @@ export default function Depth04({ mainTitle, subTitle, productList }: Props) {
 				<div className={styles.title}>
 					<h2 className={styles.mainTitle}>{mainTitle}</h2>
 					<p className={styles.subTitle}>{subTitle}</p>
+
+					{isLoggedIn &&
+					hasPreference &&
+					preferredProducts &&
+					preferredProducts.length > 0 ? (
+						<div className={styles.userPreferenceTag}>
+							<HashTag
+								tagName={`#${preferredProducts[0].gender}`}
+							/>
+							<HashTag tagName={preferredProducts[0].hashTag} />
+						</div>
+					) : (
+						<></>
+					)}
 				</div>
 
 				{isLoggedIn && hasPreference && preferredProducts ? (

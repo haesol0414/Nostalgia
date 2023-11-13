@@ -18,9 +18,15 @@ interface KaKaoUser {
 	role: string;
 }
 
+interface CurrentUser {
+	jwtToken: string;
+	preference: string;
+	gender: string;
+}
+
 interface KakaoLoginResponse {
 	message: string;
-	jwtToken: string;
+	currentUser: CurrentUser;
 }
 
 export default function KakaoRedirectHandler() {
@@ -71,7 +77,7 @@ export default function KakaoRedirectHandler() {
 		}
 	};
 
-	// 2. 받아온 토큰으로 유저 정보 Decode(email, name) => 로그인 시도
+	// 2. 받아온 토큰으로 유저 정보 (email, name) => 로그인 시도
 	const fnGetKakaoUserInfo = async () => {
 		try {
 			const res = await axios({
@@ -101,13 +107,21 @@ export default function KakaoRedirectHandler() {
 				kakaoUser,
 			});
 
-			if (response.data.jwtToken) {
-				console.log('백에서 받아온 JTOKEN', response.data.jwtToken);
-				setCookie('token', response.data.jwtToken, { path: '/' });
+			if (response.data.currentUser.jwtToken) {
+				setCookie('token', response.data.currentUser.jwtToken, {
+					path: '/',
+				});
 				alert('소셜 계정으로 로그인 되셨습니다.');
 
 				// 세션 스토리지에 유저 정보 저장
 				sessionStorage.setItem('user', JSON.stringify(kakaoUser));
+				sessionStorage.setItem(
+					'userPreference',
+					JSON.stringify({
+						gender: response.data.currentUser.gender,
+						preference: response.data.currentUser.preference,
+					}),
+				);
 				setLoading(true);
 			}
 		} catch (error) {

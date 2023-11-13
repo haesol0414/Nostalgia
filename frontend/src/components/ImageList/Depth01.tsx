@@ -25,9 +25,7 @@ export default function Depth01({ mainTitle, subTitle, productList }: Props) {
 				<p className={styles.subTitle}>{subTitle}</p>
 			</div>
 			{!productList ? (
-				<div className={styles.empty}>
-					<h5>상품이 없습니다.</h5>
-				</div>
+				<LoadingSpinner />
 			) : (
 				<>
 					<ul>
@@ -63,7 +61,9 @@ export default function Depth01({ mainTitle, subTitle, productList }: Props) {
 									</li>
 								))
 						) : (
-							<LoadingSpinner />
+							<div className={styles.empty}>
+								<h5>상품이 없습니다.</h5>
+							</div>
 						)}
 					</ul>
 					{productList?.length &&

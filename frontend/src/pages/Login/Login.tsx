@@ -20,6 +20,8 @@ interface CurrentUser {
 	email: string;
 	name: string;
 	role: string;
+	preference: string;
+	gender: string;
 }
 
 interface LoginResponse {
@@ -54,6 +56,13 @@ export default function Login() {
 						email: response.data.currentUser.email,
 						name: response.data.currentUser.name,
 						role: response.data.currentUser.role,
+					}),
+				);
+				sessionStorage.setItem(
+					'userPreference',
+					JSON.stringify({
+						gender: response.data.currentUser.gender,
+						preference: response.data.currentUser.preference,
 					}),
 				);
 
