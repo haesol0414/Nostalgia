@@ -5,10 +5,6 @@ import { useCookies } from 'react-cookie';
 import { kakaoUserLogin } from '../../utils/apiRequests';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
-export const REST_API_KEY = '3f3d56df942bc4ac3232aa5d965fb01e';
-export const REDIRECT_URI = 'http://localhost:3000/auth/kakao';
-export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-
 interface KaKaoUser {
 	email: string;
 	name: string;
@@ -26,17 +22,22 @@ interface KakaoLoginResponse {
 }
 
 export default function KakaoRedirectHandler() {
-	const [kakaoAccessToken, setKakaoAccessToken] = useState<string>('');
-	const [searchParams, setSearchParams] = useSearchParams();
-	const code = searchParams.get('code') as string;
-	const [kakaoUser, setKakaoUser] = useState<KaKaoUser>();
+	const config = {
+		apiKey: process.env.REACT_APP_REST_API_KEY || '',
+		redirect_uri: process.env.REACT_APP_REDIRECT_URI || '',
+	};
+
 	const navigate = useNavigate();
 	const [cookies, setCookie] = useCookies(['token']);
-	const [loading, setLoading] = useState<boolean>(false); // 로딩 상태를 도입
+	const [searchParams, setSearchParams] = useSearchParams();
+	const code = searchParams.get('code') as string;
+	const [kakaoAccessToken, setKakaoAccessToken] = useState<string>('');
+
+	const [kakaoUser, setKakaoUser] = useState<KaKaoUser>();
+	const [loading, setLoading] = useState<boolean>(false);
 
 	// 1. 카카오 로그인 : 토큰 발급
 	const fnGetKakaoOauthToken = async () => {
-		console.log('진입');
 		const makeFormData = (params: { [key: string]: string }) => {
 			const searchParams = new URLSearchParams();
 			Object.keys(params).forEach(key => {
@@ -47,7 +48,6 @@ export default function KakaoRedirectHandler() {
 		};
 
 		try {
-			console.log('c: ', code);
 			const res = await axios({
 				method: 'POST',
 				headers: {
@@ -57,14 +57,12 @@ export default function KakaoRedirectHandler() {
 				url: 'https://kauth.kakao.com/oauth/token',
 				data: makeFormData({
 					grant_type: 'authorization_code',
-					client_id: REST_API_KEY,
-					redirect_uri: REDIRECT_URI,
+					client_id: config.apiKey,
+					redirect_uri: config.redirect_uri,
 					code, // 인가 코드
 				}),
 			});
 
-			console.log('res', res);
-			console.log(res.data.access_token);
 			if (res.status === 200) {
 				setKakaoAccessToken(res.data.access_token);
 			}
@@ -84,19 +82,17 @@ export default function KakaoRedirectHandler() {
 				url: 'https://kapi.kakao.com/v2/user/me',
 			});
 
-			console.log('get:', res);
 			setKakaoUser({
 				email: res.data.kakao_account.email,
 				name: res.data.kakao_account.profile.nickname,
 			});
-		} catch (e) {
-			console.log('e : ', e);
+		} catch (error) {
+			console.log('error : ', error);
 		}
 	};
 
 	// 카카오 로그인 api 호출 (JWT 토큰 획득)
 	const fnUserLogin = async () => {
-		console.log('Kuser: ', kakaoUser);
 		try {
 			const response = await kakaoUserLogin<KakaoLoginResponse>({
 				kakaoUser,
@@ -108,7 +104,7 @@ export default function KakaoRedirectHandler() {
 				});
 				alert('소셜 계정으로 로그인 되셨습니다.');
 
-				// 세션 스토리지에 유저 정보 저장
+				// 세션 스토리지에 유저 맞춤 정보 저장
 				sessionStorage.setItem('user', JSON.stringify(kakaoUser));
 				sessionStorage.setItem(
 					'userPreference',
@@ -129,8 +125,6 @@ export default function KakaoRedirectHandler() {
 	}, [code]);
 
 	useEffect(() => {
-		console.log('a token : ', kakaoAccessToken);
-
 		if (kakaoAccessToken !== '') fnGetKakaoUserInfo();
 	}, [kakaoAccessToken]);
 

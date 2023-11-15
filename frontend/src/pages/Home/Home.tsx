@@ -48,7 +48,6 @@ export default function Home() {
 			try {
 				const response = await getMainProducts<MainProductsResponse>();
 
-				console.log('홈 상품 : ', response);
 				if (response.data) {
 					setBestProducts(response.data.bestProducts);
 					setNewProducts(response.data.newProducts);

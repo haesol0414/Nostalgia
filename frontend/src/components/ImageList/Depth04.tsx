@@ -60,7 +60,6 @@ export default function Depth04({ mainTitle, subTitle, productList }: Props) {
 				);
 
 			if (response.data.userPreferences) {
-				console.log(response.data.userPreferences);
 				setPreferredProducts(response.data.userPreferences);
 			}
 		} catch (error) {
@@ -71,7 +70,6 @@ export default function Depth04({ mainTitle, subTitle, productList }: Props) {
 	useEffect(() => {
 		if (isLoggedIn) {
 			const userPreference = sessionStorage.getItem('userPreference');
-			console.log('userPreference', userPreference);
 			if (userPreference) {
 				setCurrentUserPreference(JSON.parse(userPreference));
 
@@ -89,7 +87,6 @@ export default function Depth04({ mainTitle, subTitle, productList }: Props) {
 				currentUserPreference.gender !== '' &&
 				currentUserPreference.preference !== ''
 			) {
-				console.log(currentUserPreference);
 				setHasPreference(true);
 
 				getUserPreferredProducts(currentUserPreference);

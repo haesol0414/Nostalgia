@@ -15,7 +15,7 @@
 		"isolatedModules": true,
 		"noEmit": true,
 		"jsx": "react-jsx",
-		"types": ["iamport-typings"]
+		"types": ["node", "dotenv", "iamport-typings"]
 	},
 	"include": ["src", "src/utils/dataFormatter.ts"]
 }
