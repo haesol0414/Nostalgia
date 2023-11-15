@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import styles from './AddressSearch.module.scss';
 import DaumPostcode from 'react-daum-postcode';
+import styles from './AddressSearch.module.scss';
 import { Address } from '../../model/user';
 import WhiteButton from '../../components/Button/WhiteButton';
 

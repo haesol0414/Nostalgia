@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import styles from './Depth01.module.scss';
 import { Link } from 'react-router-dom';
+import styles from './Depth01.module.scss';
 import { Product } from '../../model/product';
 import WhiteButton from '../Button/WhiteButton';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import styles from './OrderDetails.module.scss';
 import { useParams } from 'react-router-dom';
+import styles from './OrderDetails.module.scss';
 import { Order } from '../../model/order';
 import { getUserOrderDetails } from '../../utils/apiRequests';
 import { formatDate } from '../../utils/dataFormatter';

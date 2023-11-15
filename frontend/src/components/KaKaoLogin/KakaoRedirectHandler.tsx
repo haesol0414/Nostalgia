@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { kakaoUserLogin } from '../../utils/apiRequests';
 import { useCookies } from 'react-cookie';
+import { kakaoUserLogin } from '../../utils/apiRequests';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 export const REST_API_KEY = '3f3d56df942bc4ac3232aa5d965fb01e';

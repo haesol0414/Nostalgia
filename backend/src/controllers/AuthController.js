@@ -20,8 +20,6 @@ const AuthController = {
 
 	kakaoLogin: async (req, res, next) => {
 		const { kakaoUser } = req.body;
-		console.log('req: ', req.body);
-		console.log('ku: ', kakaoUser);
 
 		try {
 			const { email, name } = kakaoUser;

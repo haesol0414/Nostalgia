@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './AddAndUpdateProduct.module.scss';
 import BlackButton from '../../components/Button/BlackButton';
 import { NewProduct } from '../../model/product';
 import { MessageResponse, addNewProduct } from '../../utils/apiRequests';
-import { useNavigate } from 'react-router-dom';
 import ProductForm from '../../components/ProductForm/ProductForm';
 import { isFieldEmpty } from '../../utils/isFieldEmpty';
 

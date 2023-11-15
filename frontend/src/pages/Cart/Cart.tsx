@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Cart.module.scss';
 import BlackButton from '../../components/Button/BlackButton';
 import WhiteButton from '../../components/Button/WhiteButton';
-import { useNavigate } from 'react-router-dom';
 import { CartProduct } from '../../model/product';
 import QuantitySelector from '../../components/QuantitySelector/QuantitySelector';
 import CartPrice from '../../components/CartPrice/CartPrice';

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styles from './ByGender.module.scss';
 import Depth01 from '../../components/ImageList/Depth01';
-import { useParams } from 'react-router-dom';
 import { getAllProductsByCategory } from '../../utils/apiRequests';
 import { Product } from '../../model/product';
 

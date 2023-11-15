@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from './Depth03.module.scss';
 import { Link } from 'react-router-dom';
+import styles from './Depth03.module.scss';
 import { Product } from '../../model/product';
 
 interface Props {

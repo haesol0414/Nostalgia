@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import { useCookies } from 'react-cookie';
 import styles from './Header.module.scss';
 import { isTokenAvailable } from '../../utils/authUtils';
-import { useCookies } from 'react-cookie';
 import { BsPerson } from '@react-icons/all-files/bs/BsPerson';
 import { FiShoppingCart } from '@react-icons/all-files/fi/FiShoppingCart';
 

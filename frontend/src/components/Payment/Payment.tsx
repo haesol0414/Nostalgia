@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Payment.module.scss';
 import { RequestPayParams, RequestPayResponse } from 'iamport-typings';
 import { NewOrder } from '../../model/order';
@@ -14,6 +15,8 @@ interface OrderResponse {
 }
 
 export default function Payment({ newOrder }: PaymentProps) {
+	const navigate = useNavigate();
+
 	const onClickPayment = () => {
 		const { IMP } = window;
 
@@ -47,6 +50,11 @@ export default function Payment({ newOrder }: PaymentProps) {
 
 					if (response.status === 201) {
 						alert('주문이 완료되었습니다.');
+
+						localStorage.removeItem('cart');
+						navigate(
+							`/account/orders/${response.data.orderNumber}`,
+						);
 					}
 				} else {
 					alert(`결제 실패: ${error_msg}`);

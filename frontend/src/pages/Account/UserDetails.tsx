@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import Input from '../../components/Input/Input';
 import styles from './UserDetails.module.scss';
 import BlackButton from '../../components/Button/BlackButton';
@@ -12,8 +14,6 @@ import {
 	withdrawal,
 } from '../../utils/apiRequests';
 import { User, Address, UserPreference } from '../../model/user';
-import { useNavigate } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
 import SelectBox from '../../components/SelectBox/SelectBox';
 import { gender, hashTags } from '../../assets/datas/enum';
 import AddressSearch from '../../components/AddressSearch/AddressSearch';

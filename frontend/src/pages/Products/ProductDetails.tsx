@@ -8,7 +8,6 @@ import { getProductsDetails } from '../../utils/apiRequests';
 import QuantitySelector from '../../components/QuantitySelector/QuantitySelector';
 import HashTag from '../../components/HashTag/HashTag';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
-import Refund from '../../assets/refund.png';
 
 interface ProductDetailResponse {
 	message: string;

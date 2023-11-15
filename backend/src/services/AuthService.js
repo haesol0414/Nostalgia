@@ -31,7 +31,6 @@ const AuthService = {
 		const currentUser = {
 			token: token,
 			email: searchedUser.email,
-			role: searchedUser.role,
 			name: searchedUser.name,
 			preference: searchedUser.preference,
 			gender: searchedUser.gender,

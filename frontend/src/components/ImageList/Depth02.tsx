@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from './Depth02.module.scss';
 import { Link } from 'react-router-dom';
+import styles from './Depth02.module.scss';
 import { BestProductsBygender } from '../../pages/Home/Home';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 

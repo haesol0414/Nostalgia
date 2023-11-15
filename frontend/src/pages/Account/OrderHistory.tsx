@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './OrderHistory.module.scss';
 import OrderList from '../../components/OrderList/OrderList';
 import { getUserOrderHistory } from '../../utils/apiRequests';
-import { formatDate, formatPhoneNumber } from '../../utils/dataFormatter';
+import { formatDate } from '../../utils/dataFormatter';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 
 interface OrderHistory {

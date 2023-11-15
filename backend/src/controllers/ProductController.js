@@ -9,13 +9,13 @@ const User = require('../models/User');
 const ProductController = {
 	// [관리자] 상품 추가
 	addProducts: async (req, res, next) => {
-		// const role = req.currentUserRole;
+		const role = req.currentUserRole;
 		const { newProduct } = req.body;
 
 		try {
-			// if (role !== 'admin') {
-			// 	throw new unauthorizedError('관리자만 접근이 가능합니다.');
-			// }
+			if (role !== 'admin') {
+				throw new unauthorizedError('관리자만 접근이 가능합니다.');
+			}
 
 			await ProductService.addProducts({
 				newProduct,
@@ -31,8 +31,13 @@ const ProductController = {
 
 	// [관리자] 전체 상품 조회
 	getAllProducts: async (req, res, next) => {
+		const role = req.currentUserRole;
+
 		try {
 			const totalProducts = await ProductService.getAllProducts();
+			if (role !== 'admin') {
+				throw new unauthorizedError('관리자만 접근이 가능합니다.');
+			}
 
 			return res.status(200).json({
 				message: '전체 상품 조회 성공',
@@ -45,13 +50,13 @@ const ProductController = {
 
 	// [관리자] 상품 수정
 	updateProducts: async (req, res, next) => {
-		// const role = req.currentUserRole;
+		const role = req.currentUserRole;
 		const { updatedProduct } = req.body;
 
 		try {
-			// if (role !== 'admin') {
-			// 	throw new unauthorizedError('관리자만 접근이 가능합니다.');
-			// }
+			if (role !== 'admin') {
+				throw new unauthorizedError('관리자만 접근이 가능합니다.');
+			}
 
 			await ProductService.updateProducts({
 				updatedProduct,
@@ -67,14 +72,13 @@ const ProductController = {
 
 	// [관리자] 상품 삭제
 	deleteProducts: async (req, res, next) => {
-		// const role = req.currentUserRole;
+		const role = req.currentUserRole;
 		const { selectedProductId } = req.body;
 
 		try {
-			console.log(selectedProductId);
-			// if (role !== 'admin') {
-			// 	throw new unauthorizedError('관리자만 접근이 가능합니다.');
-			// }
+			if (role !== 'admin') {
+				throw new unauthorizedError('관리자만 접근이 가능합니다.');
+			}
 
 			await ProductService.deleteProducts(selectedProductId);
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import styles from './AddAndUpdateProduct.module.scss';
 import BlackButton from '../../components/Button/BlackButton';
 import { Product } from '../../model/product';
@@ -7,7 +8,6 @@ import {
 	getProductsDetails,
 	patchProductDetail,
 } from '../../utils/apiRequests';
-import { useNavigate, useParams } from 'react-router-dom';
 import ProductForm from '../../components/ProductForm/ProductForm';
 import { isFieldEmpty } from '../../utils/isFieldEmpty';
 

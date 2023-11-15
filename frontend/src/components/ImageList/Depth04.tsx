@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import styles from './Depth04.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
+import styles from './Depth04.module.scss';
 import BlackButton from '../Button/BlackButton';
 import { getUserPreferenceProducts } from '../../utils/apiRequests';
 import { Product } from '../../model/product';

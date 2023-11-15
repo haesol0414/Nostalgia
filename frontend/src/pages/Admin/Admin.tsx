@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import styles from './Admin.module.scss';
 import { useAuth } from '../../hooks/useAuth';
 import MenuBar from '../../components/MenuBar/MenuBar';

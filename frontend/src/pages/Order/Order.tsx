@@ -1,35 +1,27 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import styles from './Order.module.scss';
-import BlackButton from '../../components/Button/BlackButton';
 import Input from '../../components/Input/Input';
 import { Address, User } from '../../model/user';
 import AddressSearch from '../../components/AddressSearch/AddressSearch';
 import { NewOrder } from '../../model/order';
 import OrderProductList from '../../components/OrderProductList/OrderProductList';
 import { CartProduct } from '../../model/product';
-import { createNewOrder, getUserDetails } from '../../utils/apiRequests';
+import { getUserDetails } from '../../utils/apiRequests';
 import { formatPhoneNumber } from '../../utils/dataFormatter';
-import { useLocation, useNavigate } from 'react-router-dom';
 import SmallButton from '../../components/Button/SmallButton';
 import Payment from '../../components/Payment/Payment';
 import { useAuth } from '../../hooks/useAuth';
 import CartPrice from '../../components/CartPrice/CartPrice';
-
-interface OrderResponse {
-	message: string;
-	orderNumber: string;
-}
 
 interface UserDetailResponse {
 	message: string;
 	user: User;
 }
 
-// 기본 배송지로 설정 체크박스
 export default function Order() {
 	useAuth();
 
-	const navigate = useNavigate();
 	const [newOrder, setNewOrder] = useState<NewOrder>();
 	const shippingFee = 3000;
 	const location = useLocation();
@@ -117,20 +109,20 @@ export default function Order() {
 	};
 
 	// 주문하기 => i am port 등록 후 성공 시 api 호춡 ~> 나중에 주석처리 (결제 컴포넌트에서)
-	const handlePayBtn = async () => {
-		try {
-			const response = await createNewOrder<OrderResponse>({ newOrder });
+	// const handlePayBtn = async () => {
+	// 	try {
+	// 		const response = await createNewOrder<OrderResponse>({ newOrder });
 
-			if (response.status === 201) {
-				alert('주문이 완료되었습니다.');
-				// response.orderNumber로 주문 상세 내역 페이지로 이동, 로컬스토리지 비우기  ==>  이 부분 Payment에 적용하기
-				localStorage.removeItem('cart');
-				navigate(`/account/orders/${response.data.orderNumber}`);
-			}
-		} catch (error) {
-			console.error('주문 실패 : ', error);
-		}
-	};
+	// 		if (response.status === 201) {
+	// 			alert('주문이 완료되었습니다.');
+	// 			// response.orderNumber로 주문 상세 내역 페이지로 이동, 로컬스토리지 비우기  ==>  이 부분 Payment에 적용하기
+	// 			localStorage.removeItem('cart');
+	// 			navigate(`/account/orders/${response.data.orderNumber}`);
+	// 		}
+	// 	} catch (error) {
+	// 		console.error('주문 실패 : ', error);
+	// 	}
+	// };
 
 	return (
 		<section className={styles.orderSection}>
@@ -187,8 +179,8 @@ export default function Order() {
 						shippingFee={newOrder.shippingFee}
 					/>
 					<div className={styles.buttons}>
-						{/* <Payment newOrder={newOrder}></Payment> */}
-						<BlackButton text="주문하기" onClick={handlePayBtn} />
+						<Payment newOrder={newOrder}></Payment>
+						{/* <BlackButton text="주문하기" onClick={handlePayBtn} /> */}
 					</div>
 				</div>
 			) : (
