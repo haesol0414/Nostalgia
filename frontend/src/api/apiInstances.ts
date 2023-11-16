@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import { getToken } from './authUtils';
+import { getToken } from '../utils/authUtils';
 
 interface HeaderOptions {
 	'content-type': string;

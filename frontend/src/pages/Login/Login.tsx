@@ -6,7 +6,7 @@ import Input from '../../components/Input/Input';
 import WhiteButton from '../../components/Button/WhiteButton';
 import BlackButton from '../../components/Button/BlackButton';
 import styles from './Login.module.scss';
-import { userLogin } from '../../utils/apiRequests';
+import { userLogin } from '../../api/apiRequests';
 import KaKaoLoginButton from '../../components/KaKaoLogin/KaKaoLoginButton';
 import ErrorText from '../../components/ErrorText/ErrorText';
 

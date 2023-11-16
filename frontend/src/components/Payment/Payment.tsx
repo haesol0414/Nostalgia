@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Payment.module.scss';
 import { RequestPayParams, RequestPayResponse } from 'iamport-typings';
 import { NewOrder } from '../../model/order';
-import { createNewOrder } from '../../utils/apiRequests';
+import { createNewOrder } from '../../api/apiRequests';
 
 interface PaymentProps {
 	newOrder: NewOrder;

@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './OrderDetails.module.scss';
 import { Order } from '../../model/order';
-import { getUserOrderDetails } from '../../utils/apiRequests';
+import { getUserOrderDetails } from '../../api/apiRequests';
 import { formatDate } from '../../utils/dataFormatter';
 import OrderProductList from '../../components/OrderProductList/OrderProductList';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 
 interface OrderDetailsResponse {
 	message: string;
@@ -138,8 +139,11 @@ export default function OrderDetails() {
 						</div>
 					</>
 				) : (
-					<p>주문 내역을 조회할 수 없습니다.</p>
+					<LoadingSpinner />
 				)}
+				<div className={styles.orderHistoryLink}>
+					<a href="/account/orders">{'< 주문 전체'}</a>
+				</div>
 			</div>
 		</section>
 	);

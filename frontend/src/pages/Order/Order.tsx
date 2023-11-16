@@ -7,7 +7,11 @@ import AddressSearch from '../../components/AddressSearch/AddressSearch';
 import { NewOrder } from '../../model/order';
 import OrderProductList from '../../components/OrderProductList/OrderProductList';
 import { CartProduct } from '../../model/product';
-import { getUserDetails } from '../../utils/apiRequests';
+import {
+	MessageResponse,
+	getUserDetails,
+	patchUserAddress,
+} from '../../api/apiRequests';
 import { formatPhoneNumber } from '../../utils/dataFormatter';
 import SmallButton from '../../components/Button/SmallButton';
 import Payment from '../../components/Payment/Payment';
@@ -107,22 +111,6 @@ export default function Order() {
 			}
 		}
 	};
-
-	// 주문하기 => i am port 등록 후 성공 시 api 호춡 ~> 나중에 주석처리 (결제 컴포넌트에서)
-	// const handlePayBtn = async () => {
-	// 	try {
-	// 		const response = await createNewOrder<OrderResponse>({ newOrder });
-
-	// 		if (response.status === 201) {
-	// 			alert('주문이 완료되었습니다.');
-	// 			// response.orderNumber로 주문 상세 내역 페이지로 이동, 로컬스토리지 비우기  ==>  이 부분 Payment에 적용하기
-	// 			localStorage.removeItem('cart');
-	// 			navigate(`/account/orders/${response.data.orderNumber}`);
-	// 		}
-	// 	} catch (error) {
-	// 		console.error('주문 실패 : ', error);
-	// 	}
-	// };
 
 	return (
 		<section className={styles.orderSection}>

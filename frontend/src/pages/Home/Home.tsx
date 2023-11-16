@@ -6,7 +6,7 @@ import Depth02 from '../../components/ImageList/Depth02';
 import Depth03 from '../../components/ImageList/Depth03';
 import Depth04 from '../../components/ImageList/Depth04';
 import { womanPerfumes } from '../../assets/datas/datas';
-import { getMainProducts } from '../../utils/apiRequests';
+import { getMainProducts } from '../../api/apiRequests';
 import { Product } from '../../model/product';
 
 interface MainProductsResponse {
@@ -47,7 +47,7 @@ export default function Home() {
 		const getHomeProducts = async () => {
 			try {
 				const response = await getMainProducts<MainProductsResponse>();
-
+				console.log(response.data);
 				if (response.data) {
 					setBestProducts(response.data.bestProducts);
 					setNewProducts(response.data.newProducts);

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './Depth04.module.scss';
 import BlackButton from '../Button/BlackButton';
-import { getUserPreferenceProducts } from '../../utils/apiRequests';
+import { getUserPreferenceProducts } from '../../api/apiRequests';
 import { Product } from '../../model/product';
 import { isTokenAvailable } from '../../utils/authUtils';
 import HashTag from '../HashTag/HashTag';
@@ -46,8 +46,6 @@ export default function Depth04({ mainTitle, subTitle, productList }: Props) {
 		navigate('/account/personal-details');
 	};
 
-	// if se
-
 	const getUserPreferredProducts = async (
 		currentUserPreference: userPreference,
 	) => {
@@ -70,10 +68,18 @@ export default function Depth04({ mainTitle, subTitle, productList }: Props) {
 	useEffect(() => {
 		if (isLoggedIn) {
 			const userPreference = sessionStorage.getItem('userPreference');
+
 			if (userPreference) {
 				setCurrentUserPreference(JSON.parse(userPreference));
 
-				setHasPreference(true);
+				if (
+					userPreference &&
+					Object.keys(JSON.parse(userPreference)).length === 0
+				) {
+					setHasPreference(false);
+				} else if (userPreference) {
+					setCurrentUserPreference(JSON.parse(userPreference));
+				}
 			}
 		} else {
 			return;
@@ -81,24 +87,24 @@ export default function Depth04({ mainTitle, subTitle, productList }: Props) {
 	}, []);
 
 	useEffect(() => {
-		if (hasPreference) {
-			if (
-				currentUserPreference &&
-				currentUserPreference.gender !== '' &&
-				currentUserPreference.preference !== ''
-			) {
-				setHasPreference(true);
+		if (
+			currentUserPreference &&
+			Object.keys(currentUserPreference).length === 0
+		) {
+			setHasPreference(false);
+			return;
+		}
 
-				getUserPreferredProducts(currentUserPreference);
-			}
-		} else if (
+		if (
 			currentUserPreference &&
 			currentUserPreference.gender !== '' &&
 			currentUserPreference.preference !== ''
 		) {
-			return;
+			setHasPreference(true);
+
+			getUserPreferredProducts(currentUserPreference);
 		}
-	}, [hasPreference]);
+	}, [currentUserPreference]);
 
 	return (
 		<section className={styles.dep04}>
@@ -124,13 +130,16 @@ export default function Depth04({ mainTitle, subTitle, productList }: Props) {
 
 				{isLoggedIn && hasPreference && preferredProducts ? (
 					<ul>
-						{preferredProducts.length === 0 ? (
+						{currentUserPreference &&
+						currentUserPreference.gender !== '' &&
+						currentUserPreference.preference !== '' &&
+						preferredProducts.length === 0 ? (
 							<div className={styles.none}>
 								<h5 className={styles.notice}>
 									맞춤 정보에 알맞은 상품이 없습니다.
 								</h5>
 								<BlackButton
-									text="맞춤 정보 설정하기"
+									text="맞춤 정보 재설정하기"
 									onClick={userNavigateAccount}
 								/>
 							</div>

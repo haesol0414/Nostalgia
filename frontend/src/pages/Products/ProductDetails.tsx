@@ -4,7 +4,7 @@ import styles from './ProductDetails.module.scss';
 import BlackButton from '../../components/Button/BlackButton';
 import SizeDropdown from '../../components/SizeDropdown/SizeDropdown';
 import { CartProduct, Product } from '../../model/product';
-import { getProductsDetails } from '../../utils/apiRequests';
+import { getProductsDetails } from '../../api/apiRequests';
 import QuantitySelector from '../../components/QuantitySelector/QuantitySelector';
 import HashTag from '../../components/HashTag/HashTag';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';

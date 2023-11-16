@@ -7,7 +7,7 @@ import {
 	MessageResponse,
 	getProductsDetails,
 	patchProductDetail,
-} from '../../utils/apiRequests';
+} from '../../api/apiRequests';
 import ProductForm from '../../components/ProductForm/ProductForm';
 import { isFieldEmpty } from '../../utils/isFieldEmpty';
 

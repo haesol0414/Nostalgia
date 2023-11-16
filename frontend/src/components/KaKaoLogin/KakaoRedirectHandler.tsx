@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-import { kakaoUserLogin } from '../../utils/apiRequests';
+import { kakaoUserLogin } from '../../api/apiRequests';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 interface KaKaoUser {

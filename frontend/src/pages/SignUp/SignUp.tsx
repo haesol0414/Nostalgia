@@ -9,7 +9,7 @@ import {
 	MessageResponse,
 	userEmailCheck,
 	userSignUp,
-} from '../../utils/apiRequests';
+} from '../../api/apiRequests';
 import axios from 'axios';
 import { isEmailValid, isPasswordValid } from '../../utils/vaildationCheck';
 import { formatPhoneNumber } from '../../utils/dataFormatter';
@@ -68,8 +68,8 @@ export default function SignUp() {
 
 			const response = await userEmailCheck(newUser.email);
 			if (response.status === 200) {
-				setEmailAvailable(true);
 				alert('사용 가능한 이메일입니다.');
+				setEmailAvailable(true);
 				return;
 			}
 		} catch (error) {
@@ -94,6 +94,7 @@ export default function SignUp() {
 						value={newUser.email}
 						onChange={e => {
 							setNewUser({ ...newUser, email: e.target.value });
+							setEmailAvailable(false);
 						}}
 						required={true}
 					></Input>
@@ -109,7 +110,6 @@ export default function SignUp() {
 					value={newUser.name}
 					onChange={e => {
 						setNewUser({ ...newUser, name: e.target.value });
-						setEmailAvailable(false);
 					}}
 					required={true}
 				></Input>

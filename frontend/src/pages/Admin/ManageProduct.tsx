@@ -6,7 +6,7 @@ import {
 	MessageResponse,
 	deleteProduct,
 	getAllProducts,
-} from '../../utils/apiRequests';
+} from '../../api/apiRequests';
 import ModifyButton from '../../components/ModifyButton/ModifyButton';
 import AddButton from '../../components/AddButton/AddButton';
 import DeleteButton from '../../components/DeleteButton/DeleteButton';

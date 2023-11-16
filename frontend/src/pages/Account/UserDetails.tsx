@@ -12,7 +12,7 @@ import {
 	getUserDetails,
 	patchUserAddress,
 	withdrawal,
-} from '../../utils/apiRequests';
+} from '../../api/apiRequests';
 import { User, Address, UserPreference } from '../../model/user';
 import SelectBox from '../../components/SelectBox/SelectBox';
 import { gender, hashTags } from '../../assets/datas/enum';

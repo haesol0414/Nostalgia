@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './OrderHistory.module.scss';
 import OrderList from '../../components/OrderList/OrderList';
-import { getUserOrderHistory } from '../../utils/apiRequests';
+import { getUserOrderHistory } from '../../api/apiRequests';
 import { formatDate } from '../../utils/dataFormatter';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 
