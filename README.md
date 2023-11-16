@@ -1,4 +1,4 @@
-# Nostalgia
+# Nostalgia
 ❖ 명품 향수 판매 쇼핑몰
 ▶︎ 로그인, 상품 등록, 장바구니 추가, 주문하기 등 쇼핑몰 핵심 서비스 구현
 사용자가 설정한 맞춤 정보를 통한 맞춤 상품 추천 기능 및 카카오 소셜 로그인,
@@ -7,9 +7,15 @@ I am port 결제 라이브러리를 통한 결제 기능을 구현
 
 
 
+
+
+
 ## 사용 기술 스택
 Frontend : React + TypeScript
 Backend : Node.js + express + javaScript + JWT + MongoDB
+
+
+
 
 
 
