@@ -113,6 +113,7 @@ export default function Cart() {
 		});
 	};
 
+	// 계속 쇼핑하기
 	const handleShopContinueBtn = () => {
 		navigate('/');
 	};

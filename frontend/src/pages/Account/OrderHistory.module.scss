@@ -2,9 +2,10 @@
 	width: 100%;
 	display: flex;
 	justify-content: center;
+	flex-direction: column;
+	margin: 5% auto;
 	align-items: center;
 	text-align: center;
-	margin: 5% auto;
 
 	h2 {
 		margin-bottom: 30px;
@@ -16,5 +17,13 @@
 		flex-direction: column;
 		gap: 30px;
 		width: 50%;
+	}
+
+	.loading {
+		div {
+			position: relative;
+			top: 60%;
+			left: -50%;
+		}
 	}
 }

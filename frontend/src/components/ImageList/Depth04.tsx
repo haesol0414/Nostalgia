@@ -13,14 +13,6 @@ interface Props {
 	productList: TestProduct[];
 }
 
-interface TestProduct {
-	_id: string;
-	title: string;
-	brand: string;
-	price: number;
-	mainImage: string;
-}
-
 interface UserPreferenceProductsResponse {
 	message: string;
 	userPreferences: Product[];
@@ -29,6 +21,14 @@ interface UserPreferenceProductsResponse {
 interface userPreference {
 	gender: string;
 	preference: string;
+}
+
+interface TestProduct {
+	_id: string;
+	title: string;
+	brand: string;
+	price: number;
+	mainImage: string;
 }
 
 export default function Depth04({ mainTitle, subTitle, productList }: Props) {
@@ -190,14 +190,12 @@ export default function Depth04({ mainTitle, subTitle, productList }: Props) {
 							<ul>
 								{productList.map(product => (
 									<li key={product._id}>
-										<Link to={`/products/${product._id}`}>
-											<div className={styles.imageWrap}>
-												<img
-													src={product.mainImage}
-													alt={product.title}
-												/>
-											</div>
-										</Link>
+										<div className={styles.blurimageWrap}>
+											<img
+												src={product.mainImage}
+												alt={product.title}
+											/>
+										</div>
 										<div className={styles.textWrap}>
 											<p className={styles.brand}>
 												{product.brand}

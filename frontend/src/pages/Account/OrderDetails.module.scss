@@ -63,4 +63,12 @@
 			border-bottom: 1px solid #000;
 		}
 	}
+
+	.loading {
+		div {
+			position: relative;
+			top: 60%;
+			left: -50%;
+		}
+	}
 }

@@ -139,7 +139,9 @@ export default function OrderDetails() {
 						</div>
 					</>
 				) : (
-					<LoadingSpinner />
+					<div className={styles.loading}>
+						<LoadingSpinner />
+					</div>
 				)}
 				<div className={styles.orderHistoryLink}>
 					<a href="/account/orders">{'< 주문 전체'}</a>

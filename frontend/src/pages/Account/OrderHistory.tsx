@@ -44,7 +44,6 @@ export default function OrderHistory() {
 					<ul>
 						{orderHistory.length > 0 ? (
 							<>
-								{' '}
 								{orderHistory.map(history => (
 									<OrderList
 										key={history._id}
@@ -56,11 +55,13 @@ export default function OrderHistory() {
 								))}
 							</>
 						) : (
-							<p>주문 내역이 없습니다.</p>
+							<h6>주문 내역이 없습니다.</h6>
 						)}
 					</ul>
 				) : (
-					<LoadingSpinner />
+					<div className={styles.loading}>
+						<LoadingSpinner />
+					</div>
 				)}
 			</div>
 		</section>

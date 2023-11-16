@@ -4,6 +4,7 @@ import styles from './Depth01.module.scss';
 import { Product } from '../../model/product';
 import WhiteButton from '../Button/WhiteButton';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import HashTag from '../HashTag/HashTag';
 
 interface Props {
 	mainTitle: string;
@@ -56,6 +57,11 @@ export default function Depth01({ mainTitle, subTitle, productList }: Props) {
 												) : (
 													<p>SOLD OUT</p>
 												)}
+											</div>
+											<div className={styles.productTag}>
+												<HashTag
+													tagName={product.hashTag}
+												/>
 											</div>
 										</Link>
 									</li>
