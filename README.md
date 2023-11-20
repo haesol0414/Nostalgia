@@ -12,7 +12,7 @@ I am port 결제 라이브러리를 통한 결제 기능을 구현
 
 ## 사용 기술 및 언어  
 Frontend : React + TypeScript  
-Backend : Node.js + express + javaScript + MongoDB  
+Backend : Node.js + express.js + JWT + MongoDB  
 
 
 
