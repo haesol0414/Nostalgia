@@ -62,6 +62,7 @@ Backend : <img src="https://img.shields.io/badge/node.js-339933?style=for-the-ba
 
 
 - 주문 정보 > 전체 주문 내역 및 주문 상세 내역 조회  
+![ezgif com-video-to-gif](https://github.com/haesol0414/Nostalgia/assets/86980317/ca712873-5abb-49e9-936b-1ae956555941)
 
 <br />
 
