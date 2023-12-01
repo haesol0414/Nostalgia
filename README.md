@@ -1,6 +1,6 @@
 # ❖ Nostalgia  
-▶︎ 향수 판매 쇼핑몰  
-▶︎ 로그인, 상품 등록, 장바구니 추가, 주문하기 등 쇼핑몰 핵심 서비스 구현  
+- 향수 판매 쇼핑몰  
+- 로그인, 상품 등록, 장바구니 추가, 주문하기 등 쇼핑몰 핵심 서비스 구현  
 사용자가 설정한 맞춤 정보를 통한 맞춤 상품 추천 기능 및 카카오 소셜 로그인,  
 I am port 결제 라이브러리를 통한 결제 기능을 구현  
 
@@ -11,7 +11,7 @@ I am port 결제 라이브러리를 통한 결제 기능을 구현
 
 
 ## 사용 기술 및 언어  
-Frontend : <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> TypeScript  
+Frontend : <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=TypeScript&logoColor=white"> 
 Backend : <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/express-000000?style=for-the-badge&logo=express&logoColor=white"> <img src="https://img.shields.io/badge/mongoDB-47A248?style=for-the-badge&logo=MongoDB&logoColor=white">
 협업 툴 : <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
 
