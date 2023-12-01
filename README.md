@@ -42,9 +42,7 @@ Backend : Node.js + express.js + JWT + MongoDB
 
 
 #### 3. 회원 가입 및 로그인
-- JWT를 활용한 로그인 토큰 발행  
-- 이메일 / 비밀번호 유효성 검사  
-- 일반 회원가입 / 로그인  
+- 일반 회원가입 / 로그인 (이메일 / 비밀번호 유효성 검사, JWT를 활용한 로그인 토큰 발행)
 ![일반회원가입로그인](https://github.com/haesol0414/Nostalgia/assets/86980317/ef88db98-1e7d-4254-83d0-515b95fe7610)  
 
 
