@@ -11,10 +11,9 @@ I am port 결제 라이브러리를 통한 결제 기능을 구현
 
 
 ## 사용 기술 및 언어  
-Frontend : React + TypeScript  
-Backend : Node.js + express.js + JWT + MongoDB  
-
-
+Frontend : <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> TypeScript  
+Backend : <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/express-000000?style=for-the-badge&logo=express&logoColor=white"> <img src="https://img.shields.io/badge/mongoDB-47A248?style=for-the-badge&logo=MongoDB&logoColor=white">
+협업 툴 : <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
 
 
 
@@ -23,6 +22,7 @@ Backend : Node.js + express.js + JWT + MongoDB
 ## 상세 기능  
 #### 3. 홈 화면 및 상품 상세 페이지  
 - 베스트 / 신규 상품 조회    
+![home](https://github.com/haesol0414/Nostalgia/assets/86980317/6962c1ec-2f67-4b91-aca4-c23050017963)
 
 
 - 카테고리별 상품 조회  
