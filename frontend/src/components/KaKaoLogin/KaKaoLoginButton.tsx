@@ -9,6 +9,7 @@ declare global {
 }
 
 export default function KaKaoLoginButton() {
+	console.log('dtd');
 	const { Kakao } = window;
 
 	const config = {
@@ -16,6 +17,7 @@ export default function KaKaoLoginButton() {
 	};
 
 	const loginWithKakao = () => {
+		console.log(config.redirect_uri);
 		if (Kakao) {
 			console.log(config.redirect_uri);
 			Kakao.Auth.authorize({

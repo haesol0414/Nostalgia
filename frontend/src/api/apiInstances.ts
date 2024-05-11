@@ -58,8 +58,9 @@ const axiosAuthApi = (
 //   });
 //   return instance;
 // };
-
+console.log(process.env.REACT_APP_BASE_URL);
 export const defaultInstance = axiosApi(process.env.REACT_APP_BASE_URL || '');
+
 export const authInstance = axiosAuthApi(
 	process.env.REACT_APP_BASE_URL || '',
 	getToken(),

@@ -125,10 +125,10 @@ export default function Login() {
 						text="회원가입"
 						onClick={handleRigisterBtn}
 					></WhiteButton>
-					<div className={styles.socialLogin}>
+					{/* <div className={styles.socialLogin}>
 						<span>카카오로 로그인 / 가입하기</span>
 						<KaKaoLoginButton />
-					</div>
+					</div> */}
 				</div>
 			</form>
 		</section>

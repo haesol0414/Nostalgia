@@ -32,12 +32,12 @@ export default function KakaoRedirectHandler() {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const code = searchParams.get('code') as string;
 	const [kakaoAccessToken, setKakaoAccessToken] = useState<string>('');
-
 	const [kakaoUser, setKakaoUser] = useState<KaKaoUser>();
 	const [loading, setLoading] = useState<boolean>(false);
 
 	// 1. 카카오 로그인 : 토큰 발급
 	const fnGetKakaoOauthToken = async () => {
+		console.log('ddd');
 		const makeFormData = (params: { [key: string]: string }) => {
 			const searchParams = new URLSearchParams();
 			Object.keys(params).forEach(key => {
@@ -121,6 +121,7 @@ export default function KakaoRedirectHandler() {
 	};
 
 	useEffect(() => {
+		console.log('1');
 		if (code !== null) fnGetKakaoOauthToken();
 	}, [code]);
 
