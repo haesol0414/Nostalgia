@@ -1,6 +1,5 @@
 # ❖ Nostalgia  
-![localhost_4026_ (1)](https://github.com/user-attachments/assets/99c7c0c8-246b-48ba-ae02-e9ea80ac3d01)
-
+<img width="1118" alt="nostalgia" src="https://github.com/user-attachments/assets/9ea8eab5-20dd-43af-b96a-6d87112196cc">
 
 - 향수 판매 쇼핑몰  
 - 로그인, 상품 등록, 장바구니 추가, 주문하기 등 쇼핑몰 핵심 서비스 구현  
