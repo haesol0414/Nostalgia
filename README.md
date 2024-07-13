@@ -1,5 +1,5 @@
 # ❖ Nostalgia  
-<img width="1090" alt="nostalgia" src="https://github.com/user-attachments/assets/04301047-ee88-47bf-a7c2-19ac81622d63">
+<img width="1118" alt="nostalgia" src="https://github.com/user-attachments/assets/2e13d130-d2cc-48d3-a279-fe663353c09a">
 
 - 향수 판매 쇼핑몰  
 - 로그인, 상품 등록, 장바구니 추가, 주문하기 등 쇼핑몰 핵심 서비스 구현  
