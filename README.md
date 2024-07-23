@@ -11,6 +11,12 @@ I am port 결제 라이브러리를 통한 결제 기능을 구현
 <br />
 <br />
 
+## 프로젝트 개요
+쇼핑몰 프로젝트를 더욱 발전시키기 위해 개인적으로 React와 TypeScript를 활용하여 3차 프로젝트를 진행했습니다. 개인 프로젝트로 진행 하였으며, 이전에 구현해두었던 백엔드 코드를 가져와 프론트엔드는 React와 TypeScript로 전환하여 새로운 경험을 쌓고자 했습니다. 또한 이 전 프로젝트에서 fetch API를 사용해 HTTP 요청을 보냈던 것과 다르게 이번 프로젝트에서는 axios API를 이용해 HTTP 요청을 진행했습니다.
+
+<br />
+<br />
+
 ## 사용 기술 및 언어  
 Frontend : <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"> 
 
